@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title th:text="${accion == 'crear' ? 'Nuevo Curso' : 'Editar Curso'} + ' - Cajica Stream'">Formulario de Curso</title>
+</head>
+<body>
+    <section>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 th:text="${accion == 'crear' ? 'Nuevo Curso' : 'Editar Curso'}">Formulario de Curso</h1>
+            <a th:href="@{/cursos}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <form th:action="${accion == 'crear' ? '/cursos/nuevo' : '/cursos/editar/' + curso.id}"
+                      method="post" enctype="multipart/form-data" th:object="${curso}">
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                               th:value="${curso.nombre}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion"
+                                  rows="4" th:text="${curso.descripcion}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label">Categoría</label>
+                        <input type="text" class="form-control" id="categoria" name="categoria"
+                               th:value="${curso.categoria}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Imagen</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+
+                        <div th:if="${curso.imagenPath}" class="mt-2">
+                            <p>Imagen actual:</p>
+                            <img th:src="@{'/api/cursos/images/' + ${curso.imagenPath}}"
+                                 alt="Imagen actual" class="img-thumbnail" style="max-height: 200px;">
+                            <p class="text-muted small">Sube una nueva imagen para reemplazar la actual</p>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi" th:classappend="${accion == 'crear' ? 'bi-plus-circle' : 'bi-check-circle'}"></i>
+                            <span th:text="${accion == 'crear' ? 'Crear Curso' : 'Actualizar Curso'}">Guardar</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

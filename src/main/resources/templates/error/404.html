@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Página No Encontrada - Cajica Stream</title>
+</head>
+<body>
+    <section>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-5">
+                            <div class="mb-4">
+                                <i class="bi bi-search text-warning" style="font-size: 5rem;"></i>
+                            </div>
+                            <h1 class="display-4 mb-3">Página No Encontrada</h1>
+                            <p class="lead mb-4">Lo sentimos, la página que estás buscando no existe.</p>
+                            <p class="mb-4">Es posible que la dirección haya cambiado o que el recurso ya no esté disponible.</p>
+
+                            <div class="d-flex justify-content-center gap-3">
+                                <a th:href="@{/}" class="btn btn-primary">
+                                    <i class="bi bi-house"></i> Ir al Inicio
+                                </a>
+                                <a th:href="@{/cursos}" class="btn btn-outline-primary">
+                                    <i class="bi bi-collection"></i> Ver Cursos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

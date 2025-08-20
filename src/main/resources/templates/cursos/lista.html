@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Lista de Cursos - Cajica Stream</title>
+</head>
+<body>
+    <section>
+        <h1 class="mb-4">Lista de Cursos</h1>
+
+        <div class="d-flex justify-content-between mb-3">
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/cursos/admin/deshabilitados}" class="btn btn-secondary me-2">
+                    <i class="bi bi-eye-slash"></i> Ver Cursos Deshabilitados
+                </a>
+            </div>
+            <a th:href="@{/cursos/nuevo}" class="btn btn-primary" sec:authorize="hasRole('ADMIN')">
+                <i class="bi bi-plus-circle"></i> Nuevo Curso
+            </a>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div th:each="curso : ${cursos}" class="col">
+                <div class="card h-100 curso-card" th:classappend="${!curso.activo} ? 'border-danger bg-light' : ''">
+                    <div th:if="${!curso.activo}" class="position-absolute top-0 end-0 p-2">
+                        <span class="badge bg-danger">Deshabilitado</span>
+                    </div>
+                    <img th:if="${curso.imagenPath}" th:src="@{'/api/cursos/images/' + ${curso.imagenPath}}"
+                         class="card-img-top curso-imagen" alt="Imagen del curso">
+                    <img th:unless="${curso.imagenPath}" src="https://via.placeholder.com/300x200?text=Sin+Imagen"
+                         class="card-img-top curso-imagen" alt="Sin imagen">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${curso.nombre}">Nombre del Curso</h5>
+                        <p class="card-text" th:text="${#strings.abbreviate(curso.descripcion, 100)}">Descripción</p>
+                        <span class="badge bg-info text-dark" th:text="${curso.categoria}">Categoría</span>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/cursos/{id}(id=${curso.id})}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i> Ver
+                            </a>
+                            <a th:if="${curso.activo}" th:href="@{/cursos/editar/{id}(id=${curso.id})}" class="btn btn-sm btn-outline-secondary" sec:authorize="hasRole('ADMIN')">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <a th:if="${curso.activo}" th:href="@{/cursos/eliminar/{id}(id=${curso.id})}" class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('¿Estás seguro de deshabilitar este curso?')" sec:authorize="hasRole('ADMIN')">
+                                <i class="bi bi-trash"></i> Deshabilitar
+                            </a>
+                            <a th:unless="${curso.activo}" th:href="@{/cursos/habilitar/{id}(id=${curso.id})}" class="btn btn-sm btn-outline-success"
+                               onclick="return confirm('¿Estás seguro de habilitar este curso?')" sec:authorize="hasRole('ADMIN')">
+                                <i class="bi bi-check-circle"></i> Habilitar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(cursos)}" class="alert alert-info mt-3">
+            No hay cursos disponibles. <a th:href="@{/cursos/nuevo}" class="alert-link" sec:authorize="hasRole('ADMIN')">Crear un nuevo curso</a>.
+        </div>
+    </section>
+</body>
+</html>

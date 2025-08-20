@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title th:text="${accion == 'crear' ? 'Nuevo Video' : 'Editar Video'} + ' - Cajica Stream'">Formulario de Video</title>
+</head>
+<body>
+    <section>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 th:text="${accion == 'crear' ? 'Nuevo Video' : 'Editar Video'}">Formulario de Video</h1>
+                <h5 class="text-muted" th:text="${curso.nombre}">Nombre del Curso</h5>
+            </div>
+            <div>
+                <a th:href="@{/cursos/{id}/videos(id=${curso.id})}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <form th:action="${accion == 'crear' ? '/cursos/' + curso.id + '/videos/nuevo' : '/cursos/' + curso.id + '/videos/' + video.id + '/editar'}"
+                      method="post" enctype="multipart/form-data" th:object="${video}">
+
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo"
+                               th:value="${video.titulo}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion"
+                                  rows="4" th:text="${video.descripcion}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="videoUrl" class="form-label">URL del Video (recomendado)</label>
+                        <input type="text" class="form-control" id="videoUrl" name="videoUrl"
+                               th:value="${video.videoUrl}">
+                        <div class="form-text">
+                            Puedes usar URLs de YouTube, Vimeo o enlaces directos a archivos de video. <strong>Recomendado para videos de mayor tamaño.</strong>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="videoFile" class="form-label">Archivo de Video (experimental)</label>
+                        <input type="file" class="form-control" id="videoFile" name="videoFile" accept="video/*">
+                        <div class="form-text">
+                            <strong>Nota:</strong> La carga de archivos está limitada a videos pequeños (menos de 1MB).
+                            Para videos más grandes, por favor utiliza la opción de URL.
+                        </div>
+                        <div th:if="${video.videoFilePath}" class="mt-2">
+                            <p>Video actual: <span th:text="${video.videoFilePath}"></span></p>
+                            <p class="text-muted small">Sube un nuevo archivo para reemplazar el actual</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="duracion" class="form-label">Duración (segundos)</label>
+                        <input type="number" class="form-control" id="duracion" name="duracion"
+                               th:value="${video.duracion}" min="1">
+                        <div class="form-text">
+                            Duración del video en segundos (opcional).
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="orden" class="form-label">Orden</label>
+                        <input type="number" class="form-control" id="orden" name="orden"
+                               th:value="${video.orden}" min="1">
+                        <div class="form-text">
+                            Posición del video en la lista (opcional). Si no se especifica, se asignará automáticamente.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="thumbnail" class="form-label">Miniatura</label>
+                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
+
+                        <div th:if="${video.thumbnailPath}" class="mt-2">
+                            <p>Miniatura actual:</p>
+                            <img th:src="@{'/api/cursos/images/' + ${video.thumbnailPath}}"
+                                 alt="Miniatura actual" class="img-thumbnail" style="max-height: 150px;">
+                            <p class="text-muted small">Sube una nueva imagen para reemplazar la actual</p>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi" th:classappend="${accion == 'crear' ? 'bi-plus-circle' : 'bi-check-circle'}"></i>
+                            <span th:text="${accion == 'crear' ? 'Crear Video' : 'Actualizar Video'}">Guardar</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

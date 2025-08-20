@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Acceso Denegado - Cajica Stream</title>
+</head>
+<body>
+    <section>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-5">
+                            <div class="mb-4">
+                                <i class="bi bi-shield-lock text-danger" style="font-size: 5rem;"></i>
+                            </div>
+                            <h1 class="display-4 mb-3">Acceso Denegado</h1>
+                            <p class="lead mb-4">No tienes permisos para acceder a este recurso.</p>
+                            <p class="mb-4">Para ver los videos de un curso, debes estar inscrito en él.</p>
+
+                            <div class="d-flex justify-content-center gap-3">
+                                <a th:href="@{/cursos}" class="btn btn-primary">
+                                    <i class="bi bi-collection"></i> Ver Cursos Disponibles
+                                </a>
+                                <a th:href="@{/mis-cursos}" class="btn btn-outline-primary">
+                                    <i class="bi bi-person-video3"></i> Mis Cursos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

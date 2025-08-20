@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title th:text="${curso.nombre} + ' - Cajica Stream'">Detalle del Curso</title>
+</head>
+<body>
+    <section>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 th:text="${curso.nombre}">Nombre del Curso</h1>
+            <div>
+                <a th:href="@{/cursos}" class="btn btn-outline-secondary me-2">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+                <a th:href="@{/cursos/editar/{id}(id=${curso.id})}" class="btn btn-primary" sec:authorize="hasRole('ADMIN')">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+            </div>
+        </div>
+
+        <!-- Mensajes de alerta -->
+        <div th:if="${mensaje}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img th:if="${curso.imagenPath}" th:src="@{'/api/cursos/images/' + ${curso.imagenPath}}"
+                         class="card-img-top" alt="Imagen del curso" style="max-height: 300px; object-fit: cover;">
+                    <img th:unless="${curso.imagenPath}" src="https://via.placeholder.com/400x300?text=Sin+Imagen"
+                         class="card-img-top" alt="Sin imagen">
+
+                    <!-- Botones de inscripción para usuarios autenticados -->
+                    <div class="card-body" sec:authorize="isAuthenticated()">
+                        <!-- Botón para cancelar inscripción (si está inscrito) -->
+                        <div th:if="${inscrito == true}">
+                            <form th:action="@{/cursos/{id}/cancelar(id=${curso.id})}" method="post">
+                                <button type="submit" class="btn btn-danger btn-block w-100">
+                                    <i class="bi bi-x-circle"></i> Cancelar Inscripción
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Botón para inscribirse (si no está inscrito) -->
+                        <div th:if="${inscrito == false}">
+                            <form th:action="@{/cursos/{id}/inscribir(id=${curso.id})}" method="post">
+                                <button type="submit" class="btn btn-success btn-block w-100">
+                                    <i class="bi bi-check-circle"></i> Inscribirse en este Curso
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Mensaje para usuarios no autenticados -->
+                    <div class="card-body" sec:authorize="!isAuthenticated()">
+                        <div class="alert alert-info mb-0">
+                            <p class="mb-2">Para inscribirte en este curso, necesitas iniciar sesión.</p>
+                            <a th:href="@{/login}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                            </a>
+                            <a th:href="@{/registro}" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-person-plus"></i> Registrarse
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Detalles del Curso</h5>
+                        <div class="mb-3">
+                            <span class="badge bg-info text-dark" th:text="${curso.categoria}">Categoría</span>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted">Descripción</h6>
+                        <p class="card-text" th:text="${curso.descripcion}">Descripción del curso</p>
+
+                        <div class="mt-4" sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}" class="btn btn-danger"
+                               onclick="return confirm('¿Estás seguro de eliminar este curso?')">
+                                <i class="bi bi-trash"></i> Eliminar Curso
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Videos -->
+        <div class="mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Videos del Curso</h2>
+                <a th:href="@{/cursos/{id}/videos/nuevo(id=${curso.id})}" class="btn btn-success" sec:authorize="hasRole('ADMIN')">
+                    <i class="bi bi-plus-circle"></i> Añadir Video
+                </a>
+            </div>
+
+            <!-- Mensaje para usuarios no inscritos -->
+            <div class="alert alert-warning" id="not-enrolled-warning" style="display: none;" sec:authorize="isAuthenticated()">
+                <i class="bi bi-exclamation-triangle"></i> Necesitas inscribirte en este curso para poder ver sus videos.
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${!#lists.isEmpty(curso.videos)}">
+                <div th:each="video : ${curso.videos}" class="col">
+                    <div class="card h-100">
+                        <img th:if="${video.thumbnailPath}" th:src="@{'/api/cursos/images/' + ${video.thumbnailPath}}"
+                             class="card-img-top" alt="Miniatura del video" style="height: 180px; object-fit: cover;">
+                        <img th:unless="${video.thumbnailPath}" src="https://via.placeholder.com/300x180?text=Video"
+                             class="card-img-top" alt="Sin miniatura" style="height: 180px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${video.titulo}">Título del Video</h5>
+                            <p class="card-text" th:text="${#strings.abbreviate(video.descripcion, 100)}">Descripción</p>
+                            <p class="card-text" th:if="${video.duracion}">
+                                <small class="text-muted">
+                                    <i class="bi bi-clock"></i>
+                                    <span th:text="${video.duracion / 60 + ' min ' + video.duracion % 60 + ' seg'}">Duración</span>
+                                </small>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <div class="d-flex justify-content-between">
+                                <a th:href="@{/cursos/{cursoId}/videos/{id}(cursoId=${curso.id},id=${video.id})}"
+                                   class="btn btn-sm btn-primary video-play-button">
+                                    <i class="bi bi-play-circle"></i> Reproducir
+                                </a>
+                                <a th:href="@{/cursos/{cursoId}/videos/{id}/editar(cursoId=${curso.id},id=${video.id})}"
+                                   class="btn btn-sm btn-outline-secondary"
+                                   sec:authorize="hasRole('ADMIN')">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <a th:href="@{/cursos/{cursoId}/videos/{id}/eliminar(cursoId=${curso.id},id=${video.id})}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('¿Estás seguro de eliminar este video?')"
+                                   sec:authorize="hasRole('ADMIN')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info" th:if="${#lists.isEmpty(curso.videos)}">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <i class="bi bi-info-circle me-2"></i>
+                        Este curso aún no tiene videos.
+                    </div>
+                    <a th:href="@{/cursos/{id}/videos/nuevo(id=${curso.id})}" class="btn btn-primary ms-3" sec:authorize="hasRole('ADMIN')">
+                        <i class="bi bi-plus-circle"></i> Añadir el primer video
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
