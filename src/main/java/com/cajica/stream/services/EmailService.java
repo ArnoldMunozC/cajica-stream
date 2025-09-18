@@ -1,5 +1,6 @@
 package com.cajica.stream.services;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
@@ -23,13 +24,17 @@ public class EmailService {
   @Value("${spring.mail.username}")
   private String fromEmail;
 
-  @Value("${app.base-url:http://localhost:8082}")
+  @Value("${app.base-url}")
   private String baseUrl;
 
   @Autowired
   public EmailService(JavaMailSender mailSender, TemplateEngine templateEngine) {
     this.mailSender = mailSender;
     this.templateEngine = templateEngine;
+  }
+
+  @PostConstruct
+  public void init() {
     logger.info("EmailService inicializado con baseUrl: {}", baseUrl);
   }
 
@@ -56,6 +61,7 @@ public class EmailService {
       String resetUrl = baseUrl + "/password/reset?token=" + token;
       context.setVariable("resetUrl", resetUrl);
       context.setVariable("expiryHours", 24);
+      context.setVariable("baseUrl", baseUrl);
 
       logger.info("Generando enlace de recuperación: {}", resetUrl);
 

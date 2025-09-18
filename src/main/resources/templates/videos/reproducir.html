@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
 <head>
     <title th:text="${video.titulo} + ' - Cajica Stream'">Reproducir Video</title>
@@ -50,7 +51,7 @@
                         <hr>
                         <p th:text="${video.descripcion}">Descripción del video</p>
 
-                        <div class="mt-3">
+                        <div class="mt-3" sec:authorize="hasRole('ADMIN')">
                             <a th:href="@{/cursos/{cursoId}/videos/{id}/editar(cursoId=${curso.id},id=${video.id})}"
                                class="btn btn-outline-primary me-2">
                                 <i class="bi bi-pencil"></i> Editar Video
