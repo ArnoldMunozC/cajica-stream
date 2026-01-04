@@ -1,6 +1,7 @@
 package com.cajica.stream.repositories;
 
 import com.cajica.stream.entities.Usuario;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,6 +21,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
   boolean existsByEmail(String email);
 
   Optional<Usuario> findByResetPasswordToken(String token);
+
+  List<Usuario> findByNombreCompletoContainingIgnoreCase(String nombreCompleto);
+
+  boolean existsByEmailAndIdNot(String email, Long id);
 
   /**
    * Verifica si existe un usuario con el nombre de usuario dado que esté inscrito en el curso con

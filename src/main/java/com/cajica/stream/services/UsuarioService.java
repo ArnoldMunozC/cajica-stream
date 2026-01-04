@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
 public class UsuarioService {
@@ -48,6 +49,14 @@ public class UsuarioService {
 
   public List<Usuario> findAll() {
     return usuarioRepository.findAll();
+  }
+
+  @Transactional(readOnly = true)
+  public List<Usuario> buscarPorNombreCompleto(String q) {
+    if (!StringUtils.hasText(q)) {
+      return usuarioRepository.findAll();
+    }
+    return usuarioRepository.findByNombreCompletoContainingIgnoreCase(q.trim());
   }
 
   public Optional<Usuario> findById(Long id) {
@@ -342,6 +351,27 @@ public class UsuarioService {
 
   @Transactional
   public void actualizarUsuario(Usuario usuario) {
+    usuarioRepository.save(usuario);
+  }
+
+  @Transactional
+  public void actualizarEmailYActivo(Long usuarioId, String email, boolean activo) {
+    if (!StringUtils.hasText(email)) {
+      throw new IllegalArgumentException("El email no puede estar vacío");
+    }
+
+    String normalizedEmail = email.trim();
+    if (usuarioRepository.existsByEmailAndIdNot(normalizedEmail, usuarioId)) {
+      throw new IllegalArgumentException("Ya existe un usuario con ese email");
+    }
+
+    Usuario usuario =
+        usuarioRepository
+            .findById(usuarioId)
+            .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+    usuario.setEmail(normalizedEmail);
+    usuario.setActivo(activo);
     usuarioRepository.save(usuario);
   }
 

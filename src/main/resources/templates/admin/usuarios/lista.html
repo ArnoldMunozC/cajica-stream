@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Usuarios - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <h1 class="mb-4">Usuarios</h1>
+
+    <form class="row g-2 align-items-center mb-3" th:action="@{/admin/usuarios}" method="get">
+        <div class="col-sm-8 col-md-6">
+            <input type="text" class="form-control" name="q" placeholder="Buscar por nombre completo" th:value="${q}">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> Buscar
+            </button>
+        </div>
+        <div class="col-auto" th:if="${q != null and !#strings.isEmpty(q)}">
+            <a class="btn btn-outline-secondary" th:href="@{/admin/usuarios}">Limpiar</a>
+        </div>
+    </form>
+
+    <div class="text-muted mb-2">
+        Mostrando <span th:text="${#lists.size(usuarios)}">0</span> usuarios
+        <span th:if="${q != null and !#strings.isEmpty(q)}">
+            para "<span th:text="${q}">q</span>"
+        </span>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th>Nombre completo</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Activo</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.nombreCompleto}">Nombre Apellido</td>
+                <td th:text="${usuario.username}">username</td>
+                <td colspan="3">
+                    <form class="row g-2 align-items-center" th:action="@{/admin/usuarios/{id}(id=${usuario.id})}" method="post">
+                        <input type="hidden" name="q" th:value="${q}">
+                        <div class="col-12 col-md-6">
+                            <input type="email" class="form-control" name="email" th:value="${usuario.email}" required>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="activo" th:checked="${usuario.activo}" th:id="'activo-' + ${usuario.id}">
+                                <label class="form-check-label" th:for="'activo-' + ${usuario.id}">Activo</label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-sm btn-success">
+                                <i class="bi bi-save"></i> Guardar
+                            </button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${#lists.isEmpty(usuarios)}" class="alert alert-info mt-3">
+        No hay usuarios para mostrar.
+    </div>
+</section>
+</body>
+</html>
