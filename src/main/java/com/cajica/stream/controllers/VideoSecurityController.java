@@ -34,6 +34,7 @@ public class VideoSecurityController {
       @PathVariable Long cursoId,
       @PathVariable Long id,
       @RequestParam(value = "pdfId", required = false) Long pdfId,
+      @RequestParam(value = "quizId", required = false) Long quizId,
       Model model,
       RedirectAttributes redirectAttributes) {
     Optional<Curso> cursoOpt = cursoService.findById(cursoId);
@@ -45,10 +46,14 @@ public class VideoSecurityController {
       if (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser")) {
         String username = auth.getName();
 
+        boolean isAdmin =
+            auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
         try {
           // Usar el método seguro para verificar inscripción que evita
           // ConcurrentModificationException
-          boolean inscrito = usuarioService.verificarInscripcionSegura(username, cursoId);
+          boolean inscrito =
+              isAdmin || usuarioService.verificarInscripcionSegura(username, cursoId);
 
           if (!inscrito) {
             redirectAttributes.addFlashAttribute(
@@ -59,10 +64,15 @@ public class VideoSecurityController {
           }
 
           // Si el usuario está inscrito, redirigir al controlador principal de videos
+          String redirect = "redirect:/cursos/" + cursoId + "/videos/" + id + "/view";
+          String params = "";
           if (pdfId != null) {
-            return "redirect:/cursos/" + cursoId + "/videos/" + id + "/view?pdfId=" + pdfId;
+            params = params + (params.isEmpty() ? "?" : "&") + "pdfId=" + pdfId;
           }
-          return "redirect:/cursos/" + cursoId + "/videos/" + id + "/view";
+          if (quizId != null) {
+            params = params + (params.isEmpty() ? "?" : "&") + "quizId=" + quizId;
+          }
+          return redirect + params;
         } catch (Exception e) {
           // En caso de error, redirigir al usuario a la página del curso con un mensaje
           redirectAttributes.addFlashAttribute(

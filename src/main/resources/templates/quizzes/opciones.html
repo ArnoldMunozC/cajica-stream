@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Opciones - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>Opciones</h1>
+            <h5 class="text-muted" th:text="${curso.nombre} + ' / ' + ${quiz.seccion}">Curso / Sección</h5>
+            <div class="mt-2">
+                <span class="badge bg-light text-dark" th:text="${pregunta.tipo}">UNICA</span>
+                <span class="ms-2" th:text="${pregunta.enunciado}">Enunciado</span>
+            </div>
+        </div>
+        <div>
+            <a th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas(cursoId=${curso.id},quizId=${quiz.id})}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form th:action="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/{preguntaId}/opciones/nueva(cursoId=${curso.id},quizId=${quiz.id},preguntaId=${pregunta.id})}" method="post">
+                <div class="mb-3">
+                    <label for="texto" class="form-label">Texto de la opción</label>
+                    <input type="text" class="form-control" id="texto" name="texto" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="orden" class="form-label">Orden</label>
+                            <input type="number" class="form-control" id="orden" name="orden" min="1">
+                        </div>
+                    </div>
+                    <div class="col-md-8 d-flex align-items-center">
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="correcta" name="correcta" value="true">
+                            <label class="form-check-label" for="correcta">Correcta</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Agregar opción
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="list-group list-group-flush" th:if="${!#lists.isEmpty(opciones)}">
+                <div class="list-group-item" th:each="o, stat : ${opciones}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-light text-dark me-2" th:text="${o.orden != null ? o.orden : stat.count}">1</span>
+                            <span th:text="${o.texto}">Texto</span>
+                            <span class="badge bg-success ms-2" th:if="${o.correcta}">Correcta</span>
+                        </div>
+                        <div>
+                            <a class="btn btn-sm btn-outline-danger"
+                               th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/{preguntaId}/opciones/{opcionId}/eliminar(cursoId=${curso.id},quizId=${quiz.id},preguntaId=${pregunta.id},opcionId=${o.id})}"
+                               onclick="return confirm('¿Eliminar esta opción?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4" th:if="${#lists.isEmpty(opciones)}">
+                <p class="mb-0 text-muted">Aún no hay opciones. Agrega al menos 2 y marca la(s) correcta(s).</p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

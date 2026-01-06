@@ -16,3 +16,7 @@ CREATE TABLE IF NOT EXISTS usuarios_roles (
 -- Insertar roles por defecto
 INSERT INTO roles (nombre) VALUES ('ROLE_ADMIN');
 INSERT INTO roles (nombre) VALUES ('ROLE_USER');
+
+
+-- USE tic_cajica;
+-- DROP TABLE IF EXISTS flyway_schema_history;
