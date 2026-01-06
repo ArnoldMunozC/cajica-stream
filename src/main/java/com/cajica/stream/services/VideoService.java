@@ -149,6 +149,7 @@ public class VideoService {
       Video video = optionalVideo.get();
       video.setTitulo(videoDetails.getTitulo());
       video.setDescripcion(videoDetails.getDescripcion());
+      video.setSeccion(videoDetails.getSeccion());
       video.setVideoUrl(videoDetails.getVideoUrl());
       video.setDuracion(videoDetails.getDuracion());
       video.setOrden(videoDetails.getOrden());
@@ -169,6 +170,7 @@ public class VideoService {
       Video video = optionalVideo.get();
       video.setTitulo(videoDetails.getTitulo());
       video.setDescripcion(videoDetails.getDescripcion());
+      video.setSeccion(videoDetails.getSeccion());
       video.setVideoUrl(videoDetails.getVideoUrl());
       video.setDuracion(videoDetails.getDuracion());
       video.setOrden(videoDetails.getOrden());
@@ -191,6 +193,7 @@ public class VideoService {
       Video video = optionalVideo.get();
       video.setTitulo(videoDetails.getTitulo());
       video.setDescripcion(videoDetails.getDescripcion());
+      video.setSeccion(videoDetails.getSeccion());
       video.setVideoUrl(videoDetails.getVideoUrl());
       video.setDuracion(videoDetails.getDuracion());
       video.setOrden(videoDetails.getOrden());

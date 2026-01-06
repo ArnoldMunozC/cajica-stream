@@ -36,6 +36,15 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="seccion" class="form-label">Sección</label>
+                        <input type="text" class="form-control" id="seccion" name="seccion"
+                               th:value="${video.seccion}">
+                        <div class="form-text">
+                            Opcional. Sirve para agrupar los videos en listas desplegables por módulo/tema.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="videoUrl" class="form-label">URL del Video (recomendado)</label>
                         <input type="text" class="form-control" id="videoUrl" name="videoUrl"
                                th:value="${video.videoUrl}">

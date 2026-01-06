@@ -16,6 +16,9 @@ public class Video {
   @Column(length = 1000)
   private String descripcion;
 
+  @Column(name = "seccion", length = 100)
+  private String seccion;
+
   @Column(name = "video_url")
   private String videoUrl;
 

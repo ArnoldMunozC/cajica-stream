@@ -29,8 +29,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div style="width: 100%; max-width: 780px; margin: 0 auto;">
-                            <!-- Video local -->
-                            <div class="ratio ratio-16x9">
+                            <div th:if="${pdfSeleccionado != null}" class="ratio ratio-16x9">
+                                <iframe th:src="@{'/api/cursos/pdfs/' + ${pdfSeleccionado.pdfFilePath}}"
+                                        style="width:100%; height:100%; border:0;"
+                                        title="PDF"></iframe>
+                            </div>
+
+                            <div th:unless="${pdfSeleccionado != null}" class="ratio ratio-16x9">
                                 <video id="videoPlayer"
                                        controls
                                        controlsList="nodownload"
@@ -77,29 +82,67 @@
                         <h5 class="mb-0">Videos del Curso</h5>
                     </div>
                     <div class="card-body p-0">
-                        <div class="list-group list-group-flush" style="max-height: 500px; overflow-y: auto;">
-                            <a th:each="videoItem : ${videosRelacionados}"
-                               th:href="@{/cursos/{cursoId}/videos/{id}(cursoId=${curso.id},id=${videoItem.id})}"
-                               class="list-group-item list-group-item-action"
-                               th:classappend="${videoItem.id == video.id ? 'active' : ''}">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <img th:if="${videoItem.thumbnailPath}"
-                                             th:src="@{'/api/cursos/images/' + ${videoItem.thumbnailPath}}"
-                                             style="width: 120px; height: 68px; object-fit: cover;" alt="Miniatura">
-                                        <img th:unless="${videoItem.thumbnailPath}"
-                                             src="https://via.placeholder.com/120x68?text=Video"
-                                             style="width: 120px; height: 68px; object-fit: cover;" alt="Sin miniatura">
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6 class="mb-1" th:text="${videoItem.titulo}">Título del Video</h6>
-                                        <p th:if="${videoItem.duracion}" class="small text-muted mb-0">
-                                            <i class="bi bi-clock"></i>
-                                            <span th:text="${videoItem.duracion / 60 + ' min ' + videoItem.duracion % 60 + ' seg'}">Duración</span>
-                                        </p>
+                        <div class="accordion" id="videosAccordion" style="max-height: 500px; overflow-y: auto;">
+                            <div class="accordion-item" th:each="entry, secStat : ${contenidoPorSeccion}">
+                                <h2 class="accordion-header" th:id="'heading-' + ${secStat.index}">
+                                    <button class="accordion-button" type="button"
+                                            data-bs-toggle="collapse"
+                                            th:attr="data-bs-target='#collapse-' + ${secStat.index}"
+                                            th:aria-controls="'collapse-' + ${secStat.index}"
+                                            th:classappend="${entry.key == seccionActual} ? '' : 'collapsed'">
+                                        <span th:text="${entry.key}">Sección</span>
+                                        <span class="badge bg-light text-dark ms-2" th:text="${#lists.size(entry.value)}">0</span>
+                                    </button>
+                                </h2>
+                                <div class="accordion-collapse collapse"
+                                     th:id="'collapse-' + ${secStat.index}"
+                                     th:classappend="${entry.key == seccionActual} ? ' show' : ''"
+                                     th:attr="aria-labelledby='heading-' + ${secStat.index}"
+                                     data-bs-parent="#videosAccordion">
+                                    <div class="list-group list-group-flush">
+                                        <div th:each="item : ${entry.value}">
+                                            <a th:if="${item.tipo == 'VIDEO'}"
+                                               th:href="@{/cursos/{cursoId}/videos/{id}(cursoId=${curso.id},id=${item.video.id})}"
+                                               class="list-group-item list-group-item-action"
+                                               th:classappend="${item.video.id == video.id ? 'active' : ''}">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img th:if="${item.video.thumbnailPath}"
+                                                             th:src="@{'/api/cursos/images/' + ${item.video.thumbnailPath}}"
+                                                             style="width: 120px; height: 68px; object-fit: cover;" alt="Miniatura">
+                                                        <img th:unless="${item.video.thumbnailPath}"
+                                                             src="https://via.placeholder.com/120x68?text=Video"
+                                                             style="width: 120px; height: 68px; object-fit: cover;" alt="Sin miniatura">
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1" th:text="${item.video.titulo}">Título del Video</h6>
+                                                        <p th:if="${item.video.duracion}" class="small text-muted mb-0">
+                                                            <i class="bi bi-clock"></i>
+                                                            <span th:text="${item.video.duracion / 60 + ' min ' + item.video.duracion % 60 + ' seg'}">Duración</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                            <a th:if="${item.tipo == 'PDF'}"
+                                               th:href="@{/cursos/{cursoId}/videos/{id}/secure(cursoId=${curso.id},id=${video.id},pdfId=${item.pdf.id})}"
+                                               class="list-group-item list-group-item-action"
+                                               th:classappend="${pdfSeleccionado != null and item.pdf.id == pdfSeleccionado.id ? 'active' : ''}">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <div style="width: 120px; height: 68px; display:flex; align-items:center; justify-content:center; background:#f8f9fa; border:1px solid #dee2e6;">
+                                                            <span class="text-muted">PDF</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1" th:text="${item.pdf.titulo}">PDF</h6>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>

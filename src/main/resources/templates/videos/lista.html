@@ -79,6 +79,10 @@
                    sec:authorize="hasRole('ADMIN')">
                     <i class="bi bi-plus-circle"></i> Añadir Video
                 </a>
+                <a th:href="@{/cursos/{id}/pdfs/nuevo(id=${curso.id})}" class="btn btn-secondary ms-2"
+                   sec:authorize="hasRole('ADMIN')">
+                    <i class="bi bi-filetype-pdf"></i> Añadir PDF
+                </a>
             </div>
         </div>
 
