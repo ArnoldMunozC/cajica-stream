@@ -163,4 +163,25 @@ public class CursoController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  @GetMapping("/pdfs/{fileName:.+}")
+  public ResponseEntity<Resource> getPdf(@PathVariable String fileName) {
+    try {
+      Path filePath = fileStorageService.getFilePath(fileName);
+      Resource resource = new UrlResource(filePath.toUri());
+
+      if (resource.exists()) {
+        return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_PDF)
+            .header(
+                HttpHeaders.CONTENT_DISPOSITION,
+                "inline; filename=\"" + resource.getFilename() + "\"")
+            .body(resource);
+      } else {
+        return ResponseEntity.notFound().build();
+      }
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }

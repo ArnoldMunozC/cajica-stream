@@ -33,6 +33,7 @@ public class VideoSecurityController {
   public String verificarAccesoVideo(
       @PathVariable Long cursoId,
       @PathVariable Long id,
+      @RequestParam(value = "pdfId", required = false) Long pdfId,
       Model model,
       RedirectAttributes redirectAttributes) {
     Optional<Curso> cursoOpt = cursoService.findById(cursoId);
@@ -58,6 +59,9 @@ public class VideoSecurityController {
           }
 
           // Si el usuario está inscrito, redirigir al controlador principal de videos
+          if (pdfId != null) {
+            return "redirect:/cursos/" + cursoId + "/videos/" + id + "/view?pdfId=" + pdfId;
+          }
           return "redirect:/cursos/" + cursoId + "/videos/" + id + "/view";
         } catch (Exception e) {
           // En caso de error, redirigir al usuario a la página del curso con un mensaje

@@ -31,6 +31,7 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(
             AbstractHttpConfigurer::disable) // Desactivar CSRF temporalmente para facilitar pruebas
+        .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
         .authorizeHttpRequests(
             authz ->
                 authz
