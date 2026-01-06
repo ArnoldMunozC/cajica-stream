@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Preguntas - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>Preguntas del Quiz</h1>
+            <h5 class="text-muted" th:text="${curso.nombre} + ' / ' + ${quiz.seccion}">Curso / Sección</h5>
+        </div>
+        <div>
+            <a th:href="@{/cursos/{id}/videos(id=${curso.id})}" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+            <a th:href="@{/cursos/{cursoId}/quizzes/{quizId}/editar(cursoId=${curso.id},quizId=${quiz.id})}" class="btn btn-outline-primary me-2">
+                <i class="bi bi-pencil"></i> Editar Quiz
+            </a>
+            <a th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/nueva(cursoId=${curso.id},quizId=${quiz.id})}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Añadir Pregunta
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="list-group list-group-flush" th:if="${!#lists.isEmpty(preguntas)}">
+                <div class="list-group-item" th:each="p, stat : ${preguntas}">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="fw-bold" th:text="${p.enunciado}">Enunciado</div>
+                            <div class="text-muted small">
+                                <span th:text="${p.tipo}">TIPO</span>
+                                <span class="ms-2">Orden:</span>
+                                <span th:text="${p.orden != null ? p.orden : stat.count}">1</span>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="btn btn-sm btn-outline-secondary me-1"
+                               th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/{preguntaId}/editar(cursoId=${curso.id},quizId=${quiz.id},preguntaId=${p.id})}">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-primary me-1"
+                               th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/{preguntaId}/opciones(cursoId=${curso.id},quizId=${quiz.id},preguntaId=${p.id})}">
+                                <i class="bi bi-list-check"></i> Opciones
+                            </a>
+                            <a class="btn btn-sm btn-outline-danger"
+                               th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/{preguntaId}/eliminar(cursoId=${curso.id},quizId=${quiz.id},preguntaId=${p.id})}"
+                               onclick="return confirm('¿Eliminar esta pregunta?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4" th:if="${#lists.isEmpty(preguntas)}">
+                <p class="mb-0 text-muted">Aún no hay preguntas. Crea la primera.</p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

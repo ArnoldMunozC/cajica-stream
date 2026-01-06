@@ -29,13 +29,85 @@
                 <div class="card">
                     <div class="card-body">
                         <div style="width: 100%; max-width: 780px; margin: 0 auto;">
-                            <div th:if="${pdfSeleccionado != null}" class="ratio ratio-16x9">
+                            <div th:if="${quizSeleccionado != null}">
+                                <div class="mb-3">
+                                    <h5 th:text="${quizSeleccionado.titulo}">Quiz</h5>
+                                    <div class="text-muted small">
+                                        Aprobación: 80% | Intentos máximos: <span th:text="${quizSeleccionado.maxIntentos}">1</span>
+                                    </div>
+                                    <div class="mt-2" sec:authorize="hasRole('ADMIN')">
+                                        <a class="btn btn-sm btn-outline-primary me-2"
+                                           th:href="@{/cursos/{cursoId}/quizzes/{quizId}/editar(cursoId=${curso.id},quizId=${quizSeleccionado.id})}">
+                                            <i class="bi bi-pencil"></i> Editar Quiz
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-secondary"
+                                           th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas(cursoId=${curso.id},quizId=${quizSeleccionado.id})}">
+                                            <i class="bi bi-list-check"></i> Preguntas
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="alert" th:if="${quizIntento != null}"
+                                     th:classappend="${quizIntento.aprobado} ? ' alert-success' : ' alert-danger'">
+                                    <div class="fw-bold">
+                                        <span th:text="${quizIntento.aprobado} ? 'Aprobado' : 'No aprobado'">Resultado</span>
+                                    </div>
+                                    <div>
+                                        Puntaje: <span th:text="${quizIntento.puntaje}">0</span>/<span th:text="${quizIntento.totalPreguntas}">0</span>
+                                    </div>
+                                    <div>
+                                        Porcentaje:
+                                        <span th:text="${quizIntento.totalPreguntas == 0 ? 0 : T(java.lang.Math).round((quizIntento.puntaje * 100.0) / quizIntento.totalPreguntas)}">0</span>%
+                                    </div>
+                                </div>
+
+                                <form th:action="@{/cursos/{cursoId}/videos/{id}/quiz/{quizId}/submit(cursoId=${curso.id},id=${video.id},quizId=${quizSeleccionado.id})}" method="post">
+                                    <div class="mb-4" th:each="p, pStat : ${quizSeleccionado.preguntas}">
+                                        <div class="fw-bold mb-2" th:text="${pStat.count} + '. ' + ${p.enunciado}">Pregunta</div>
+
+                                        <div th:if="${quizIntento != null}" class="mb-2">
+                                            <span class="badge" th:classappend="${quizPreguntaCorrecta[p.id]} ? ' bg-success' : ' bg-danger'"
+                                                  th:text="${quizPreguntaCorrecta[p.id]} ? 'Correcta' : 'Incorrecta'">Correcta</span>
+                                        </div>
+
+                                        <div th:if="${p.tipo.name() == 'UNICA'}">
+                                            <div class="form-check" th:each="o, oStat : ${p.opciones}">
+                                                <input class="form-check-input" type="radio"
+                                                       th:id="'q_' + ${p.id} + '_' + ${o.id}"
+                                                       th:name="'q_' + ${p.id}"
+                                                       th:value="${o.id}">
+                                                <label class="form-check-label" th:for="'q_' + ${p.id} + '_' + ${o.id}" th:text="${o.texto}">Opción</label>
+                                                <span class="badge bg-success ms-2" th:if="${quizIntento != null and o.correcta}">Correcta</span>
+                                            </div>
+                                        </div>
+
+                                        <div th:if="${p.tipo.name() == 'MULTIPLE'}">
+                                            <div class="form-check" th:each="o, oStat : ${p.opciones}">
+                                                <input class="form-check-input" type="checkbox"
+                                                       th:id="'q_' + ${p.id} + '_' + ${o.id}"
+                                                       th:name="'q_' + ${p.id}"
+                                                       th:value="${o.id}">
+                                                <label class="form-check-label" th:for="'q_' + ${p.id} + '_' + ${o.id}" th:text="${o.texto}">Opción</label>
+                                                <span class="badge bg-success ms-2" th:if="${quizIntento != null and o.correcta}">Correcta</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-send"></i> Enviar Quiz
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div th:if="${quizSeleccionado == null and pdfSeleccionado != null}" class="ratio ratio-16x9">
                                 <iframe th:src="@{'/api/cursos/pdfs/' + ${pdfSeleccionado.pdfFilePath}}"
                                         style="width:100%; height:100%; border:0;"
                                         title="PDF"></iframe>
                             </div>
 
-                            <div th:unless="${pdfSeleccionado != null}" class="ratio ratio-16x9">
+                            <div th:if="${quizSeleccionado == null and pdfSeleccionado == null}" class="ratio ratio-16x9">
                                 <video id="videoPlayer"
                                        controls
                                        controlsList="nodownload"
@@ -136,6 +208,23 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h6 class="mb-1" th:text="${item.pdf.titulo}">PDF</h6>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                            <a th:if="${item.tipo == 'QUIZ'}"
+                                               th:href="@{/cursos/{cursoId}/videos/{id}/secure(cursoId=${curso.id},id=${video.id},quizId=${item.quiz.id})}"
+                                               class="list-group-item list-group-item-action"
+                                               th:classappend="${quizSeleccionado != null and item.quiz.id == quizSeleccionado.id ? 'active' : ''}">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <div style="width: 120px; height: 68px; display:flex; align-items:center; justify-content:center; background:#fff3cd; border:1px solid #ffeeba;">
+                                                            <span class="text-muted">QUIZ</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1" th:text="${item.quiz.titulo}">Quiz</h6>
+                                                        <div class="small text-muted" th:text="'Aprobación: 80% | Intentos: ' + ${item.quiz.maxIntentos}">Info</div>
                                                     </div>
                                                 </div>
                                             </a>

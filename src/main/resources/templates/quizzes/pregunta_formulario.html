@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Pregunta - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 th:text="${pregunta.id != null ? 'Editar Pregunta' : 'Crear Pregunta'}">Crear Pregunta</h1>
+            <h5 class="text-muted" th:text="${curso.nombre} + ' / ' + ${quiz.seccion}">Curso / Sección</h5>
+        </div>
+        <div>
+            <a th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas(cursoId=${curso.id},quizId=${quiz.id})}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:if="${pregunta.id == null}" th:action="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/nueva(cursoId=${curso.id},quizId=${quiz.id})}" method="post">
+                <div class="mb-3">
+                    <label for="enunciado" class="form-label">Enunciado</label>
+                    <textarea class="form-control" id="enunciado" name="enunciado" rows="3" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <select class="form-select" id="tipo" name="tipo" required>
+                        <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}">UNICA</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="orden" class="form-label">Orden</label>
+                    <input type="number" class="form-control" id="orden" name="orden" min="1">
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+
+            <form th:if="${pregunta.id != null}" th:action="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas/{preguntaId}/editar(cursoId=${curso.id},quizId=${quiz.id},preguntaId=${pregunta.id})}" method="post">
+                <div class="mb-3">
+                    <label for="enunciadoEdit" class="form-label">Enunciado</label>
+                    <textarea class="form-control" id="enunciadoEdit" name="enunciado" rows="3" th:text="${pregunta.enunciado}" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipoEdit" class="form-label">Tipo</label>
+                    <select class="form-select" id="tipoEdit" name="tipo" required>
+                        <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}" th:selected="${t} == ${pregunta.tipo}">UNICA</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ordenEdit" class="form-label">Orden</label>
+                    <input type="number" class="form-control" id="ordenEdit" name="orden" min="1" th:value="${pregunta.orden}">
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Guardar cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
