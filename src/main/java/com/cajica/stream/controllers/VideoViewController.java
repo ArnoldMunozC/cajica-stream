@@ -11,6 +11,8 @@ import com.cajica.stream.services.CursoService;
 import com.cajica.stream.services.MaterialPdfService;
 import com.cajica.stream.services.QuizService;
 import com.cajica.stream.services.UsuarioService;
+import com.cajica.stream.services.VideoProgresoService;
+import com.cajica.stream.services.VideoQAService;
 import com.cajica.stream.services.VideoService;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -91,6 +93,8 @@ public class VideoViewController {
   private final MaterialPdfService materialPdfService;
   private final QuizService quizService;
   private final UsuarioService usuarioService;
+  private final VideoProgresoService videoProgresoService;
+  private final VideoQAService videoQAService;
 
   @Autowired
   public VideoViewController(
@@ -98,12 +102,129 @@ public class VideoViewController {
       CursoService cursoService,
       MaterialPdfService materialPdfService,
       QuizService quizService,
-      UsuarioService usuarioService) {
+      UsuarioService usuarioService,
+      VideoProgresoService videoProgresoService,
+      VideoQAService videoQAService) {
     this.videoService = videoService;
     this.cursoService = cursoService;
     this.materialPdfService = materialPdfService;
     this.quizService = quizService;
     this.usuarioService = usuarioService;
+    this.videoProgresoService = videoProgresoService;
+    this.videoQAService = videoQAService;
+  }
+
+  @GetMapping("/{id}/preguntas")
+  public String verPreguntasVideo(
+      @PathVariable Long cursoId,
+      @PathVariable Long id,
+      Model model,
+      RedirectAttributes redirectAttributes) {
+    Optional<Curso> curso = cursoService.findById(cursoId);
+    Optional<Video> video = videoService.findById(id);
+
+    if (curso.isEmpty() || video.isEmpty()) {
+      return "redirect:/cursos/" + cursoId;
+    }
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated() || auth.getName().equals("anonymousUser")) {
+      return "redirect:/login";
+    }
+
+    boolean isAdmin =
+        auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+    if (!isAdmin) {
+      boolean inscrito = usuarioService.verificarInscripcionSegura(auth.getName(), cursoId);
+      if (!inscrito) {
+        redirectAttributes.addFlashAttribute(
+            "error", "Necesitas estar inscrito en este curso para ver las preguntas");
+        return "redirect:/cursos/" + cursoId;
+      }
+    }
+
+    model.addAttribute("curso", curso.get());
+    model.addAttribute("video", video.get());
+    model.addAttribute("preguntasVideo", videoQAService.findPreguntasByVideoId(id));
+    return "videos/preguntas";
+  }
+
+  @PostMapping("/{id}/preguntas")
+  public String crearPregunta(
+      @PathVariable Long cursoId,
+      @PathVariable Long id,
+      @RequestParam("titulo") String titulo,
+      @RequestParam("contenido") String contenido,
+      RedirectAttributes redirectAttributes) {
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated() || auth.getName().equals("anonymousUser")) {
+      return "redirect:/login";
+    }
+
+    boolean isAdmin =
+        auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+    try {
+      videoQAService.crearPregunta(auth.getName(), isAdmin, cursoId, id, titulo, contenido);
+      redirectAttributes.addFlashAttribute("mensaje", "Pregunta publicada");
+    } catch (IllegalArgumentException | IllegalStateException e) {
+      redirectAttributes.addFlashAttribute("error", e.getMessage());
+    } catch (Exception e) {
+      redirectAttributes.addFlashAttribute("error", "No se pudo publicar la pregunta");
+    }
+
+    return "redirect:/cursos/" + cursoId + "/videos/" + id + "/preguntas";
+  }
+
+  @PostMapping("/{id}/preguntas/{preguntaId}/respuestas")
+  public String crearRespuesta(
+      @PathVariable Long cursoId,
+      @PathVariable Long id,
+      @PathVariable Long preguntaId,
+      @RequestParam("contenido") String contenido,
+      RedirectAttributes redirectAttributes) {
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated() || auth.getName().equals("anonymousUser")) {
+      return "redirect:/login";
+    }
+
+    boolean isAdmin =
+        auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+    try {
+      videoQAService.crearRespuesta(auth.getName(), isAdmin, cursoId, id, preguntaId, contenido);
+      redirectAttributes.addFlashAttribute("mensaje", "Respuesta publicada");
+    } catch (IllegalArgumentException | IllegalStateException e) {
+      redirectAttributes.addFlashAttribute("error", e.getMessage());
+    } catch (Exception e) {
+      redirectAttributes.addFlashAttribute("error", "No se pudo publicar la respuesta");
+    }
+
+    return "redirect:/cursos/" + cursoId + "/videos/" + id + "/preguntas";
+  }
+
+  @PostMapping("/{id}/progreso")
+  @ResponseBody
+  public void guardarProgreso(
+      @PathVariable Long cursoId, @PathVariable Long id, @RequestParam("segundo") Double segundo) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated() || auth.getName().equals("anonymousUser")) {
+      return;
+    }
+    videoProgresoService.upsertProgreso(auth.getName(), cursoId, id, segundo);
+  }
+
+  @PostMapping("/{id}/completado")
+  @ResponseBody
+  public void marcarVideoCompletado(@PathVariable Long cursoId, @PathVariable Long id) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated() || auth.getName().equals("anonymousUser")) {
+      return;
+    }
+    videoProgresoService.marcarCompletado(auth.getName(), cursoId, id);
   }
 
   @PostMapping("/{id}/quiz/{quizId}/submit")
@@ -194,6 +315,16 @@ public class VideoViewController {
   public String listarVideos(@PathVariable Long cursoId, Model model) {
     Optional<Curso> curso = cursoService.findById(cursoId);
     if (curso.isPresent()) {
+      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+      if (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser")) {
+        Optional<com.cajica.stream.entities.VideoProgreso> progresoOpt =
+            videoProgresoService.findUltimoByUsernameAndCursoId(auth.getName(), cursoId);
+        if (progresoOpt.isPresent()
+            && progresoOpt.get().getVideo() != null
+            && progresoOpt.get().getVideo().getId() != null) {
+          return "redirect:/cursos/" + cursoId + "/videos/" + progresoOpt.get().getVideo().getId();
+        }
+      }
       List<Video> videos = videoService.findByCursoId(cursoId);
       model.addAttribute("curso", curso.get());
       model.addAttribute("videos", videos);
@@ -340,6 +471,30 @@ public class VideoViewController {
           isLogged
               && auth.getAuthorities().stream()
                   .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+      if (isLogged) {
+        java.util.Set<Long> videosCompletadosIds =
+            videoProgresoService
+                .findCompletadosByUsernameAndCursoId(auth.getName(), cursoId)
+                .stream()
+                .filter(p -> p.getVideo() != null && p.getVideo().getId() != null)
+                .map(p -> p.getVideo().getId())
+                .collect(java.util.stream.Collectors.toSet());
+        model.addAttribute("videosCompletadosIds", videosCompletadosIds);
+      }
+
+      if (isLogged && quizSeleccionado == null && pdfSeleccionado == null) {
+        Optional<com.cajica.stream.entities.VideoProgreso> progresoOpt =
+            videoProgresoService.findByUsernameCursoIdAndVideoId(auth.getName(), cursoId, id);
+        if (progresoOpt.isPresent()
+            && progresoOpt.get().getVideo() != null
+            && progresoOpt.get().getVideo().getId() != null
+            && progresoOpt.get().getVideo().getId().equals(id)
+            && progresoOpt.get().getSegundo() != null
+            && progresoOpt.get().getSegundo() > 0) {
+          model.addAttribute("progresoSegundos", progresoOpt.get().getSegundo());
+        }
+      }
 
       if (quizSeleccionado != null && isLogged) {
         final Quiz quizSel = quizSeleccionado;

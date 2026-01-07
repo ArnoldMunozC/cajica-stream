@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title th:text="'Preguntas - ' + ${video.titulo} + ' - Cajica Stream'">Preguntas</title>
+</head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h3 class="mb-0">Preguntas y respuestas</h3>
+            <div class="text-muted">
+                <span th:text="${curso.nombre}">Curso</span>
+                <span class="mx-1">/</span>
+                <span th:text="${video.titulo}">Video</span>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-outline-secondary"
+               th:href="@{/cursos/{cursoId}/videos/{id}/view(cursoId=${curso.id},id=${video.id})}">
+                <i class="bi bi-play-btn"></i> Volver al video
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Hilo del video</h5>
+                <span class="badge bg-light text-dark" th:if="${preguntasVideo != null}" th:text="${#lists.size(preguntasVideo)}">0</span>
+            </div>
+
+            <div sec:authorize="isAuthenticated()" class="mb-4">
+                <form th:action="@{/cursos/{cursoId}/videos/{id}/preguntas(cursoId=${curso.id},id=${video.id})}" method="post">
+                    <div class="mb-2">
+                        <input type="text" name="titulo" class="form-control" placeholder="Escribe el título de tu pregunta" maxlength="255" required>
+                    </div>
+                    <div class="mb-2">
+                        <textarea name="contenido" class="form-control" rows="3" placeholder="Describe tu pregunta" required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary btn-sm">Publicar pregunta</button>
+                    </div>
+                </form>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()" class="alert alert-info">
+                Inicia sesión para publicar preguntas o respuestas.
+            </div>
+
+            <div th:if="${preguntasVideo == null or #lists.isEmpty(preguntasVideo)}" class="text-muted">
+                Aún no hay preguntas para este video.
+            </div>
+
+            <div class="accordion" id="qaAccordion" th:if="${preguntasVideo != null and !#lists.isEmpty(preguntasVideo)}">
+                <div class="accordion-item" th:each="p, pStat : ${preguntasVideo}">
+                    <h2 class="accordion-header" th:id="'qaHeading-' + ${p.id}">
+                        <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                th:attr="data-bs-target='#qaCollapse-' + ${p.id}"
+                                th:aria-controls="'qaCollapse-' + ${p.id}">
+                            <div class="w-100">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-semibold" th:text="${p.titulo}">Pregunta</span>
+                                    <span class="small text-muted" th:if="${p.fechaCreacion != null}" th:text="${p.fechaCreacion}">Fecha</span>
+                                </div>
+                                <div class="small text-muted">
+                                    <span th:text="${p.usuario != null ? (p.usuario.nombreCompleto != null ? p.usuario.nombreCompleto : p.usuario.username) : 'Usuario'}">Usuario</span>
+                                    <span class="ms-2 badge bg-secondary" th:if="${p.cerrada}">Cerrada</span>
+                                    <span class="ms-2 badge bg-light text-dark" th:if="${p.respuestas != null}" th:text="${#lists.size(p.respuestas)} + ' respuestas'">0 respuestas</span>
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+
+                    <div class="accordion-collapse collapse" th:id="'qaCollapse-' + ${p.id}"
+                         th:attr="aria-labelledby='qaHeading-' + ${p.id}"
+                         data-bs-parent="#qaAccordion">
+                        <div class="accordion-body">
+                            <div class="mb-3" th:text="${p.contenido}">Contenido</div>
+
+                            <div th:if="${p.respuestas == null or #lists.isEmpty(p.respuestas)}" class="text-muted mb-3">
+                                Sin respuestas todavía.
+                            </div>
+
+                            <div th:if="${p.respuestas != null and !#lists.isEmpty(p.respuestas)}">
+                                <div class="border rounded p-2 mb-2" th:each="r : ${p.respuestas}" th:if="${r.visible}">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="small">
+                                            <span class="fw-semibold" th:text="${r.usuario != null ? (r.usuario.nombreCompleto != null ? r.usuario.nombreCompleto : r.usuario.username) : 'Usuario'}">Usuario</span>
+                                            <span class="badge bg-warning text-dark ms-2" th:if="${r.esInstructor}">Instructor</span>
+                                            <span class="badge bg-success ms-2" th:if="${r.esAceptada}">Aceptada</span>
+                                        </div>
+                                        <div class="small text-muted" th:if="${r.fechaCreacion != null}" th:text="${r.fechaCreacion}">Fecha</div>
+                                    </div>
+                                    <div class="mt-1" th:text="${r.contenido}">Respuesta</div>
+                                </div>
+                            </div>
+
+                            <div sec:authorize="isAuthenticated()" th:if="${!p.cerrada}" class="mt-3">
+                                <form th:action="@{/cursos/{cursoId}/videos/{id}/preguntas/{preguntaId}/respuestas(cursoId=${curso.id},id=${video.id},preguntaId=${p.id})}" method="post">
+                                    <div class="mb-2">
+                                        <textarea name="contenido" class="form-control" rows="2" placeholder="Escribe una respuesta" required></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm">Responder</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

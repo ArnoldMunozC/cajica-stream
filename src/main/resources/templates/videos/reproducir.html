@@ -109,8 +109,10 @@
 
                             <div th:if="${quizSeleccionado == null and pdfSeleccionado == null}" class="ratio ratio-16x9">
                                 <video id="videoPlayer"
+                                       th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
                                        controls
                                        controlsList="nodownload"
+                                       preload="metadata"
                                        oncontextmenu="return false;">
                                     <source th:src="@{'/api/cursos/videos/' + ${video.videoFilePath}}" type="video/mp4">
                                     Tu navegador no soporta la reproducción de videos.
@@ -130,6 +132,13 @@
                         </p>
                         <hr>
                         <p th:text="${video.descripcion}">Descripción del video</p>
+
+                        <div class="mt-3" th:if="${quizSeleccionado == null and pdfSeleccionado == null}">
+                            <a class="btn btn-outline-secondary"
+                               th:href="@{/cursos/{cursoId}/videos/{id}/preguntas(cursoId=${curso.id},id=${video.id})}">
+                                <i class="bi bi-chat-dots"></i> Preguntas y respuestas
+                            </a>
+                        </div>
 
                         <div class="mt-3" sec:authorize="hasRole('ADMIN')">
                             <a th:href="@{/cursos/{cursoId}/videos/{id}/editar(cursoId=${curso.id},id=${video.id})}"
@@ -187,7 +196,11 @@
                                                              style="width: 120px; height: 68px; object-fit: cover;" alt="Sin miniatura">
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
-                                                        <h6 class="mb-1" th:text="${item.video.titulo}">Título del Video</h6>
+                                                        <h6 class="mb-1">
+                                                            <span th:text="${item.video.titulo}">Título del Video</span>
+                                                            <i class="bi bi-check-circle-fill text-success ms-1"
+                                                               th:if="${videosCompletadosIds != null and videosCompletadosIds.contains(item.video.id)}"></i>
+                                                        </h6>
                                                         <p th:if="${item.video.duracion}" class="small text-muted mb-0">
                                                             <i class="bi bi-clock"></i>
                                                             <span th:text="${item.video.duracion / 60 + ' min ' + item.video.duracion % 60 + ' seg'}">Duración</span>
@@ -237,8 +250,7 @@
                 </div>
             </div>
         </div>
-    </section>
-    <script>
+    <script th:inline="javascript">
         // Script para eliminar cualquier reproductor de video duplicado
         document.addEventListener('DOMContentLoaded', function() {
             // Obtener todos los reproductores de video
@@ -254,6 +266,20 @@
             // Reforzar la protección contra descargas
             const videoPlayer = document.getElementById('videoPlayer');
             if (videoPlayer) {
+                const cursoIdFromTpl = /*[[${curso.id}]]*/ 0;
+                const videoIdFromTpl = /*[[${video.id}]]*/ 0;
+                const cursoId = Number(videoPlayer.dataset.cursoId) || cursoIdFromTpl;
+                const videoId = Number(videoPlayer.dataset.videoId) || videoIdFromTpl;
+                const progresoSegundos = /*[[${progresoSegundos}]]*/ 0;
+
+                if (!cursoId || !videoId) {
+                    console.warn('progreso init: cursoId/videoId inválidos', { cursoIdFromTpl, videoIdFromTpl, dataset: videoPlayer.dataset });
+                } else {
+                    console.log('progreso init', { cursoId, videoId, progresoSegundos });
+                }
+
+                const sessionKey = `videoTime:${cursoId}:${videoId}`;
+
                 // Asegurarse de que controlsList tenga nodownload
                 if ('controlsList' in videoPlayer) {
                     videoPlayer.controlsList.add('nodownload');
@@ -264,8 +290,207 @@
                     e.preventDefault();
                     return false;
                 });
+
+                let maxAllowed = 0;
+                let initialized = false;
+                let isSeeking = false;
+                let timeBeforeSeek = 0;
+                const EPS = 0.75;
+
+                function guardarTiempoAntesDeSalir() {
+                    try {
+                        if (!cursoId || !videoId) return;
+                        const t = videoPlayer.currentTime;
+                        if (t == null || !Number.isFinite(t) || t < 0) return;
+                        sessionStorage.setItem(sessionKey, String(t));
+                        fetch(`/cursos/${cursoId}/videos/${videoId}/progreso?segundo=${encodeURIComponent(t)}` , {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            credentials: 'same-origin',
+                            keepalive: true
+                        }).then(function(r) {
+                            if (!r.ok) {
+                                console.warn('guardarProgreso failed', r.status, r.url);
+                            }
+                        }).catch(function(e) {
+                            console.warn('guardarProgreso error', e);
+                        });
+                    } catch (e) {
+                    }
+                }
+
+                document.querySelectorAll('form[data-save-video-time="true"]').forEach(function(f) {
+                    f.addEventListener('submit', function() {
+                        guardarTiempoAntesDeSalir();
+                    });
+                });
+
+                const sessionTimeRaw = sessionStorage.getItem(sessionKey);
+                const sessionTime = sessionTimeRaw != null ? Number(sessionTimeRaw) : null;
+
+                if (progresoSegundos && progresoSegundos > 0) {
+                    videoPlayer.addEventListener('loadedmetadata', function() {
+                        try {
+                            const preferred =
+                                (sessionTime != null && Number.isFinite(sessionTime) && sessionTime > 0)
+                                    ? sessionTime
+                                    : progresoSegundos;
+                            if (Number.isFinite(preferred) && preferred < videoPlayer.duration) {
+                                videoPlayer.currentTime = preferred;
+                                maxAllowed = preferred;
+                                initialized = true;
+                                if (preferred === sessionTime) {
+                                    sessionStorage.removeItem(sessionKey);
+                                }
+                            }
+                        } catch (e) {
+                        }
+                    }, { once: true });
+                } else if (sessionTime != null && Number.isFinite(sessionTime) && sessionTime > 0) {
+                    videoPlayer.addEventListener('loadedmetadata', function() {
+                        try {
+                            if (sessionTime < videoPlayer.duration) {
+                                videoPlayer.currentTime = sessionTime;
+                                maxAllowed = sessionTime;
+                                initialized = true;
+                            }
+                        } catch (e) {
+                        } finally {
+                            sessionStorage.removeItem(sessionKey);
+                        }
+                    }, { once: true });
+                }
+
+                videoPlayer.addEventListener('loadedmetadata', function() {
+                    if (initialized) return;
+                    maxAllowed = videoPlayer.currentTime || 0;
+                    initialized = true;
+                }, { once: true });
+
+                videoPlayer.addEventListener('timeupdate', function() {
+                    if (!initialized) {
+                        maxAllowed = videoPlayer.currentTime || 0;
+                        initialized = true;
+                    }
+
+                    if (isSeeking) return;
+
+                    if (videoPlayer.currentTime > maxAllowed + EPS) {
+                        videoPlayer.currentTime = maxAllowed;
+                        return;
+                    }
+
+                    if (videoPlayer.currentTime > maxAllowed) {
+                        maxAllowed = videoPlayer.currentTime;
+                    }
+
+                    try {
+                        if (!completadoEnviado && Number.isFinite(videoPlayer.duration) && videoPlayer.duration > 0) {
+                            if (videoPlayer.currentTime / videoPlayer.duration >= 0.95) {
+                                marcarCompletado();
+                            }
+                        }
+                    } catch (e) {
+                    }
+                });
+
+                videoPlayer.addEventListener('seeking', function() {
+                    if (!initialized) return;
+                    isSeeking = true;
+                    timeBeforeSeek = maxAllowed;
+                    if (videoPlayer.currentTime > maxAllowed + EPS) {
+                        const target = maxAllowed;
+                        videoPlayer.currentTime = target;
+                        setTimeout(function() {
+                            if (videoPlayer.currentTime > target + EPS) {
+                                videoPlayer.currentTime = target;
+                            }
+                        }, 0);
+                    }
+                });
+
+                videoPlayer.addEventListener('seeked', function() {
+                    if (!initialized) return;
+                    isSeeking = false;
+                    if (videoPlayer.currentTime > maxAllowed + EPS) {
+                        const target = timeBeforeSeek;
+                        videoPlayer.currentTime = target;
+                        setTimeout(function() {
+                            if (videoPlayer.currentTime > target + EPS) {
+                                videoPlayer.currentTime = target;
+                            }
+                        }, 0);
+                    }
+                });
+
+                let lastSent = 0;
+                let lastSentAt = 0;
+                let completadoEnviado = false;
+
+                async function marcarCompletado() {
+                    if (completadoEnviado) return;
+                    if (!cursoId || !videoId) return;
+                    completadoEnviado = true;
+                    try {
+                        const r = await fetch(`/cursos/${cursoId}/videos/${videoId}/completado`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            credentials: 'same-origin'
+                        });
+                        if (!r.ok) {
+                            console.warn('marcarCompletado failed', r.status, r.url);
+                        }
+                    } catch (e) {
+                        console.warn('marcarCompletado error', e);
+                    }
+                }
+
+                async function enviarProgreso(segundo) {
+                    if (!cursoId || !videoId) return;
+                    if (segundo == null || !Number.isFinite(segundo) || segundo < 0) return;
+
+                    // debug: confirmar que se está invocando
+                    // (no logueamos siempre para no llenar consola)
+
+                    const now = Date.now();
+                    if (now - lastSentAt < 4000 && Math.abs(segundo - lastSent) < 2) {
+                        return;
+                    }
+
+                    lastSentAt = now;
+                    lastSent = segundo;
+
+                    try {
+                        const r = await fetch(`/cursos/${cursoId}/videos/${videoId}/progreso?segundo=${encodeURIComponent(segundo)}` , {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            credentials: 'same-origin'
+                        });
+                        if (!r.ok) {
+                            console.warn('enviarProgreso failed', r.status, r.url);
+                        }
+                    } catch (e) {
+                        console.warn('enviarProgreso error', e);
+                    }
+                }
+
+                videoPlayer.addEventListener('pause', function() {
+                    enviarProgreso(videoPlayer.currentTime);
+                });
+
+                videoPlayer.addEventListener('ended', function() {
+                    enviarProgreso(videoPlayer.currentTime);
+                    marcarCompletado();
+                });
+
+                setInterval(function() {
+                    if (!videoPlayer.paused && !videoPlayer.ended) {
+                        enviarProgreso(videoPlayer.currentTime);
+                    }
+                }, 5000);
             }
         });
     </script>
+    </section>
 </body>
 </html>

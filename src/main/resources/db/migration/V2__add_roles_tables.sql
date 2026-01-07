@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS usuarios_roles (
 );
 
 -- Insertar roles por defecto
-INSERT INTO roles (nombre) VALUES ('ROLE_ADMIN');
-INSERT INTO roles (nombre) VALUES ('ROLE_USER');
+INSERT IGNORE INTO roles (nombre) VALUES ('ROLE_ADMIN');
+INSERT IGNORE INTO roles (nombre) VALUES ('ROLE_USER');
 
 
 -- USE tic_cajica;
