@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Preguntas pendientes - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Preguntas pendientes</h1>
+        <span class="badge bg-warning text-dark" th:text="${pendientesCount}">0</span>
+    </div>
+
+    <div class="text-muted mb-3">
+        Pendientes = preguntas sin respuesta del instructor.
+    </div>
+
+    <div th:if="${#lists.isEmpty(pendientes)}" class="alert alert-success">
+        No hay preguntas pendientes.
+    </div>
+
+    <div class="list-group" th:if="${!#lists.isEmpty(pendientes)}">
+        <div class="list-group-item" th:each="p : ${pendientes}">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="fw-semibold" th:text="${p.titulo}">Título</div>
+                    <div class="small text-muted">
+                        <span th:text="${p.curso != null ? p.curso.nombre : 'Curso'}">Curso</span>
+                        <span class="mx-1">/</span>
+                        <span th:text="${p.video != null ? p.video.titulo : 'Video'}">Video</span>
+                        <span class="mx-1">•</span>
+                        <span th:text="${p.usuario != null ? (p.usuario.nombreCompleto != null ? p.usuario.nombreCompleto : p.usuario.username) : 'Usuario'}">Usuario</span>
+                        <span class="mx-1">•</span>
+                        <span th:if="${p.fechaCreacion != null}" th:text="${p.fechaCreacion}">Fecha</span>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <a class="btn btn-sm btn-outline-primary"
+                       th:if="${p.curso != null and p.video != null}"
+                       th:href="@{/cursos/{cursoId}/videos/{videoId}/preguntas(cursoId=${p.curso.id},videoId=${p.video.id})}">
+                        Ver hilo
+                    </a>
+                    <a class="btn btn-sm btn-outline-secondary ms-2"
+                       th:if="${p.curso != null and p.video != null}"
+                       th:href="@{/cursos/{cursoId}/videos/{videoId}/view(cursoId=${p.curso.id},videoId=${p.video.id})}">
+                        Ir al video
+                    </a>
+                </div>
+            </div>
+            <div class="mt-2" th:text="${p.contenido}">Contenido</div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
