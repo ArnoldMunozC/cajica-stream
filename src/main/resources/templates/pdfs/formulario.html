@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
 <head>
-    <title>Subir PDF - Cajica Stream</title>
+    <title th:text="${editando} ? 'Editar PDF - Cajica Stream' : 'Subir PDF - Cajica Stream'">PDF - Cajica Stream</title>
 </head>
 <body>
 <section>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1>Subir PDF</h1>
+            <h1 th:text="${editando} ? 'Editar PDF' : 'Subir PDF'">PDF</h1>
             <h5 class="text-muted" th:text="${curso.nombre}">Nombre del Curso</h5>
         </div>
         <div>
-            <a th:href="@{/cursos/{id}/videos(id=${curso.id})}" class="btn btn-outline-secondary">
+            <a th:href="@{/cursos/{id}(id=${curso.id})}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i> Volver
             </a>
         </div>
@@ -20,15 +21,23 @@
 
     <div class="card">
         <div class="card-body">
-            <form th:action="@{/cursos/{cursoId}/pdfs/nuevo(cursoId=${curso.id})}" method="post" enctype="multipart/form-data">
+            <form th:action="${editando} ? @{/cursos/{cursoId}/pdfs/{pdfId}/editar(cursoId=${curso.id},pdfId=${materialPdf.id})} : @{/cursos/{cursoId}/pdfs/nuevo(cursoId=${curso.id})}"
+                  method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                    <input type="text" class="form-control" id="titulo" name="titulo"
+                           th:value="${materialPdf.titulo}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="seccion" class="form-label">Sección</label>
-                    <input type="text" class="form-control" id="seccion" name="seccion">
+                    <select class="form-select" id="seccion" name="seccion">
+                        <option value="" th:selected="${materialPdf.seccion == null || #strings.isEmpty(materialPdf.seccion)}">Sin sección</option>
+                        <option th:each="opt : ${seccionOptions}"
+                                th:value="${opt}"
+                                th:text="${opt}"
+                                th:selected="${materialPdf.seccion != null && materialPdf.seccion == opt}"></option>
+                    </select>
                     <div class="form-text">
                         Opcional. Si se indica, el PDF aparecerá dentro del módulo/sección correspondiente.
                     </div>
@@ -36,17 +45,28 @@
 
                 <div class="mb-3">
                     <label for="orden" class="form-label">Orden</label>
-                    <input type="number" class="form-control" id="orden" name="orden" min="1">
+                    <input type="number" class="form-control" id="orden" name="orden" min="1"
+                           th:value="${materialPdf.orden}">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3" th:unless="${editando}">
                     <label for="pdfFile" class="form-label">Archivo PDF</label>
                     <input type="file" class="form-control" id="pdfFile" name="pdfFile" accept="application/pdf" required>
                 </div>
 
+                <div class="mb-3" th:if="${editando}">
+                    <label class="form-label">Archivo actual</label>
+                    <p class="form-control-plaintext">
+                        <i class="bi bi-file-earmark-pdf text-danger"></i>
+                        <span th:text="${materialPdf.pdfFilePath}">archivo.pdf</span>
+                    </p>
+                    <div class="form-text">El archivo PDF no se puede cambiar. Si necesitas otro archivo, elimina este PDF y sube uno nuevo.</div>
+                </div>
+
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-upload"></i> Subir PDF
+                        <i th:class="${editando} ? 'bi bi-save' : 'bi bi-upload'"></i>
+                        <span th:text="${editando} ? 'Guardar cambios' : 'Subir PDF'">Acción</span>
                     </button>
                 </div>
             </form>

@@ -35,7 +35,12 @@
             <thead>
             <tr>
                 <th>Nombre completo</th>
-                <th>Username</th>
+                <th>Identificación</th>
+                <th>Edad</th>
+                <th>Género</th>
+                <th>Clasificación</th>
+                <th>Zona</th>
+                <th>Teléfono</th>
                 <th>Email</th>
                 <th>Activo</th>
                 <th></th>
@@ -43,30 +48,99 @@
             </thead>
             <tbody>
             <tr th:each="usuario : ${usuarios}">
-                <td th:text="${usuario.nombreCompleto}">Nombre Apellido</td>
-                <td th:text="${usuario.username}">username</td>
-                <td colspan="3">
-                    <form class="row g-2 align-items-center" th:action="@{/admin/usuarios/{id}(id=${usuario.id})}" method="post">
-                        <input type="hidden" name="q" th:value="${q}">
-                        <div class="col-12 col-md-6">
-                            <input type="email" class="form-control" name="email" th:value="${usuario.email}" required>
-                        </div>
-                        <div class="col-auto">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="activo" th:checked="${usuario.activo}" th:id="'activo-' + ${usuario.id}">
-                                <label class="form-check-label" th:for="'activo-' + ${usuario.id}">Activo</label>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-sm btn-success">
-                                <i class="bi bi-save"></i> Guardar
-                            </button>
-                        </div>
-                    </form>
+                <td>
+                    <div th:text="${usuario.nombreCompleto}">Nombre Apellido</div>
+                    <small class="text-muted" th:text="${usuario.username}">username</small>
+                </td>
+                <td th:text="${usuario.numeroIdentificacion}">-</td>
+                <td th:text="${usuario.edad}">-</td>
+                <td th:text="${usuario.enfoqueGenero}">-</td>
+                <td th:text="${usuario.clasificacionPoblacional}">-</td>
+                <td th:text="${usuario.zonaResidencia}">-</td>
+                <td th:text="${usuario.telefono}">-</td>
+                <td th:text="${usuario.email}">email@example.com</td>
+                <td>
+                    <span th:if="${usuario.activo}" class="badge bg-success">Sí</span>
+                    <span th:unless="${usuario.activo}" class="badge bg-danger">No</span>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary" 
+                            data-bs-toggle="modal" th:data-bs-target="'#editModal' + ${usuario.id}">
+                        <i class="bi bi-pencil"></i>
+                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <!-- Modals para editar usuarios -->
+    <div th:each="usuario : ${usuarios}">
+        <div class="modal fade" th:id="'editModal' + ${usuario.id}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{/admin/usuarios/{id}(id=${usuario.id})}" method="post">
+                        <input type="hidden" name="q" th:value="${q}">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editar Usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" th:value="${usuario.nombreCompleto}" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" th:value="${usuario.email}" required>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="activo" th:checked="${usuario.activo}" th:id="'modal-activo-' + ${usuario.id}">
+                                <label class="form-check-label" th:for="'modal-activo-' + ${usuario.id}">Activo</label>
+                            </div>
+                            <hr>
+                            <h6>Datos de registro</h6>
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted">Identificación</small>
+                                    <div th:text="${usuario.numeroIdentificacion ?: '-'}">-</div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted">Edad</small>
+                                    <div th:text="${usuario.edad ?: '-'}">-</div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted">Género</small>
+                                    <div th:text="${usuario.enfoqueGenero ?: '-'}">-</div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted">Clasificación</small>
+                                    <div th:text="${usuario.clasificacionPoblacional ?: '-'}">-</div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted">Zona</small>
+                                    <div th:text="${usuario.zonaResidencia ?: '-'}">-</div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted">Teléfono</small>
+                                    <div th:text="${usuario.telefono ?: '-'}">-</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <small class="text-muted">Dirección</small>
+                                    <div th:text="${usuario.direccion ?: '-'}">-</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div th:if="${#lists.isEmpty(usuarios)}" class="alert alert-info mt-3">

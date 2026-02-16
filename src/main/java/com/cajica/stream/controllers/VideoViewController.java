@@ -7,6 +7,7 @@ import com.cajica.stream.entities.QuizIntento;
 import com.cajica.stream.entities.QuizPregunta;
 import com.cajica.stream.entities.QuizRespuesta;
 import com.cajica.stream.entities.Video;
+import com.cajica.stream.services.CertificadoService;
 import com.cajica.stream.services.CursoService;
 import com.cajica.stream.services.MaterialPdfService;
 import com.cajica.stream.services.QuizService;
@@ -21,8 +22,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +42,32 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/cursos/{cursoId}/videos")
 public class VideoViewController {
+
+  private static final Pattern MODULO_PATTERN =
+      Pattern.compile("^\\s*M[oó]dulo\\s*(\\d+)\\s*$", Pattern.CASE_INSENSITIVE);
+
+  private static Integer parseNumeroModulo(String seccion) {
+    if (seccion == null) {
+      return null;
+    }
+    Matcher matcher = MODULO_PATTERN.matcher(seccion);
+    if (!matcher.matches()) {
+      return null;
+    }
+    try {
+      return Integer.parseInt(matcher.group(1));
+    } catch (NumberFormatException e) {
+      return null;
+    }
+  }
+
+  private static List<String> buildSeccionOptions() {
+    List<String> opts = new ArrayList<>();
+    for (int i = 1; i <= 10; i++) {
+      opts.add("Módulo " + i);
+    }
+    return opts;
+  }
 
   public static class ContenidoSeccionItem {
     private final String tipo; // VIDEO | PDF | QUIZ
@@ -95,6 +125,7 @@ public class VideoViewController {
   private final UsuarioService usuarioService;
   private final VideoProgresoService videoProgresoService;
   private final VideoQAService videoQAService;
+  private final CertificadoService certificadoService;
 
   @Autowired
   public VideoViewController(
@@ -104,7 +135,8 @@ public class VideoViewController {
       QuizService quizService,
       UsuarioService usuarioService,
       VideoProgresoService videoProgresoService,
-      VideoQAService videoQAService) {
+      VideoQAService videoQAService,
+      CertificadoService certificadoService) {
     this.videoService = videoService;
     this.cursoService = cursoService;
     this.materialPdfService = materialPdfService;
@@ -112,6 +144,7 @@ public class VideoViewController {
     this.usuarioService = usuarioService;
     this.videoProgresoService = videoProgresoService;
     this.videoQAService = videoQAService;
+    this.certificadoService = certificadoService;
   }
 
   @GetMapping("/{id}/preguntas")
@@ -225,6 +258,9 @@ public class VideoViewController {
       return;
     }
     videoProgresoService.marcarCompletado(auth.getName(), cursoId, id);
+    
+    // Intentar generar certificado automáticamente si cumple todos los requisitos
+    certificadoService.intentarGenerarAutomaticamente(auth.getName(), cursoId);
   }
 
   @PostMapping("/{id}/quiz/{quizId}/submit")
@@ -291,6 +327,9 @@ public class VideoViewController {
           intento.getTotalPreguntas() == 0
               ? 0
               : (int) Math.round((intento.getPuntaje() * 100.0) / intento.getTotalPreguntas());
+
+      // Intentar generar certificado automáticamente si cumple todos los requisitos
+      certificadoService.intentarGenerarAutomaticamente(username, cursoId);
 
       redirectAttributes.addFlashAttribute(
           "mensaje",
@@ -396,6 +435,32 @@ public class VideoViewController {
       }
       secciones.addAll(quizPorSeccion.keySet());
 
+      List<String> seccionesOrdenadas = new ArrayList<>(secciones);
+      seccionesOrdenadas.sort(
+          (a, b) -> {
+            if (Objects.equals(a, b)) {
+              return 0;
+            }
+            if ("Sin sección".equalsIgnoreCase(a)) {
+              return 1;
+            }
+            if ("Sin sección".equalsIgnoreCase(b)) {
+              return -1;
+            }
+            Integer na = parseNumeroModulo(a);
+            Integer nb = parseNumeroModulo(b);
+            if (na != null && nb != null) {
+              return Integer.compare(na, nb);
+            }
+            if (na != null) {
+              return -1;
+            }
+            if (nb != null) {
+              return 1;
+            }
+            return String.CASE_INSENSITIVE_ORDER.compare(a, b);
+          });
+
       Comparator<ContenidoSeccionItem> comparator =
           Comparator.comparing(
                   (ContenidoSeccionItem i) ->
@@ -417,7 +482,7 @@ public class VideoViewController {
                   });
 
       LinkedHashMap<String, List<ContenidoSeccionItem>> contenidoPorSeccion = new LinkedHashMap<>();
-      for (String seccion : secciones) {
+      for (String seccion : seccionesOrdenadas) {
         List<ContenidoSeccionItem> items = new ArrayList<>();
         List<Video> vs = videosPorSeccion.get(seccion);
         if (vs != null) {
@@ -577,6 +642,7 @@ public class VideoViewController {
       model.addAttribute("curso", curso.get());
       model.addAttribute("video", new Video());
       model.addAttribute("accion", "crear");
+      model.addAttribute("seccionOptions", buildSeccionOptions());
       return "videos/formulario";
     } else {
       return "redirect:/cursos";
@@ -622,6 +688,7 @@ public class VideoViewController {
       model.addAttribute("curso", curso.get());
       model.addAttribute("video", video.get());
       model.addAttribute("accion", "editar");
+      model.addAttribute("seccionOptions", buildSeccionOptions());
       return "videos/formulario";
     } else {
       return "redirect:/cursos/" + cursoId;

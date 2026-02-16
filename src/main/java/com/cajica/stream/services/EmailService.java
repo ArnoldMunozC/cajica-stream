@@ -63,13 +63,16 @@ public class EmailService {
       context.setVariable("expiryHours", 24);
       context.setVariable("baseUrl", baseUrl);
 
-      logger.info("Generando enlace de recuperación: {}", resetUrl);
+      logger.info(
+          "Preparando correo de recuperación de contraseña. to={}, username={}",
+          to,
+          username);
 
       // Procesar la plantilla HTML
       String emailContent = templateEngine.process("email/password-recovery", context);
       helper.setText(emailContent, true);
 
-      logger.info("Enviando correo de recuperación a: {} con token: {}", to, token);
+      logger.info("Enviando correo de recuperación a: {}", to);
       mailSender.send(message);
       logger.info("Correo de recuperación enviado a: {}", to);
       return true;

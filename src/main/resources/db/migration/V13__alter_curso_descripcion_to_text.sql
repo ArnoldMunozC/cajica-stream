@@ -1,0 +1,1 @@
+ALTER TABLE curso MODIFY COLUMN descripcion TEXT;

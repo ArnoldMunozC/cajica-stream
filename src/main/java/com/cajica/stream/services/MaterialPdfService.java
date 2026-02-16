@@ -99,4 +99,38 @@ public class MaterialPdfService {
 
     return materialPdfRepository.save(materialPdf);
   }
+
+  public MaterialPdf update(Long id, String titulo, String seccion, Integer orden) {
+    Optional<MaterialPdf> pdfOpt = materialPdfRepository.findById(id);
+    if (pdfOpt.isEmpty()) {
+      return null;
+    }
+
+    MaterialPdf pdf = pdfOpt.get();
+    pdf.setTitulo(titulo);
+
+    String seccionNormalizada = null;
+    if (seccion != null && !seccion.isBlank()) {
+      seccionNormalizada = seccion.trim();
+    }
+    pdf.setSeccion(seccionNormalizada);
+    pdf.setOrden(orden);
+
+    return materialPdfRepository.save(pdf);
+  }
+
+  public boolean delete(Long id) {
+    Optional<MaterialPdf> pdfOpt = materialPdfRepository.findById(id);
+    if (pdfOpt.isEmpty()) {
+      return false;
+    }
+
+    MaterialPdf pdf = pdfOpt.get();
+    if (pdf.getPdfFilePath() != null) {
+      fileStorageService.deleteFile(pdf.getPdfFilePath());
+    }
+
+    materialPdfRepository.deleteById(id);
+    return true;
+  }
 }

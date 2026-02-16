@@ -35,6 +35,10 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             authz ->
                 authz
+                    .requestMatchers("/actuator/health", "/actuator/info")
+                    .permitAll()
+                    .requestMatchers("/certificados/verificar/**")
+                    .permitAll()
                     .requestMatchers(
                         "/",
                         "/cursos",

@@ -457,7 +457,7 @@ public class UsuarioService {
    */
   @Transactional(readOnly = true)
   public Optional<Usuario> validarTokenRecuperacion(String token) {
-    logger.info("Validando token de recuperación: {}", token);
+    logger.info("Validando token de recuperación");
 
     if (token == null || token.isEmpty()) {
       logger.warn("Token vacío o nulo");

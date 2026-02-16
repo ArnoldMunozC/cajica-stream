@@ -51,7 +51,7 @@ public class VideoService {
   public Video save(Video video, MultipartFile thumbnail) {
     // Guardar la miniatura si se proporciona
     if (thumbnail != null && !thumbnail.isEmpty()) {
-      String thumbnailPath = fileStorageService.storeFile(thumbnail);
+      String thumbnailPath = fileStorageService.storeImageDeduplicated(thumbnail);
       video.setThumbnailPath(thumbnailPath);
     }
 
@@ -67,7 +67,7 @@ public class VideoService {
   public Video save(Video video, MultipartFile thumbnail, MultipartFile videoFile) {
     // Guardar la miniatura si se proporciona
     if (thumbnail != null && !thumbnail.isEmpty()) {
-      String thumbnailPath = fileStorageService.storeFile(thumbnail);
+      String thumbnailPath = fileStorageService.storeImageDeduplicated(thumbnail);
       video.setThumbnailPath(thumbnailPath);
     }
 
@@ -94,7 +94,7 @@ public class VideoService {
 
       // Guardar la miniatura si se proporciona
       if (thumbnail != null && !thumbnail.isEmpty()) {
-        String thumbnailPath = fileStorageService.storeFile(thumbnail);
+        String thumbnailPath = fileStorageService.storeImageDeduplicated(thumbnail);
         video.setThumbnailPath(thumbnailPath);
       }
 
@@ -118,7 +118,7 @@ public class VideoService {
 
       // Guardar la miniatura si se proporciona
       if (thumbnail != null && !thumbnail.isEmpty()) {
-        String thumbnailPath = fileStorageService.storeFile(thumbnail);
+        String thumbnailPath = fileStorageService.storeImageDeduplicated(thumbnail);
         video.setThumbnailPath(thumbnailPath);
       }
 
@@ -177,7 +177,7 @@ public class VideoService {
 
       // Actualizar la miniatura si se proporciona una nueva
       if (thumbnail != null && !thumbnail.isEmpty()) {
-        String thumbnailPath = fileStorageService.storeFile(thumbnail);
+        String thumbnailPath = fileStorageService.storeImageDeduplicated(thumbnail);
         video.setThumbnailPath(thumbnailPath);
       }
 
@@ -200,7 +200,7 @@ public class VideoService {
 
       // Actualizar la miniatura si se proporciona una nueva
       if (thumbnail != null && !thumbnail.isEmpty()) {
-        String thumbnailPath = fileStorageService.storeFile(thumbnail);
+        String thumbnailPath = fileStorageService.storeImageDeduplicated(thumbnail);
         video.setThumbnailPath(thumbnailPath);
       }
 

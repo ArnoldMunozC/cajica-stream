@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Verificar Certificado - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Certificado válido -->
+            <div th:if="${valido}" class="card border-success">
+                <div class="card-header bg-success text-white text-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-patch-check-fill"></i> Certificado Válido
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-award display-1 text-success"></i>
+                    </div>
+                    
+                    <table class="table">
+                        <tr>
+                            <th>Código de verificación:</th>
+                            <td th:text="${certificado.codigoVerificacion}">CERT-XXXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <th>Nombre:</th>
+                            <td th:text="${certificado.usuario.nombreCompleto}">Nombre Completo</td>
+                        </tr>
+                        <tr>
+                            <th>Identificación:</th>
+                            <td th:text="${certificado.usuario.numeroIdentificacion ?: 'N/A'}">123456789</td>
+                        </tr>
+                        <tr>
+                            <th>Curso:</th>
+                            <td th:text="${certificado.curso.nombre}">Nombre del Curso</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de emisión:</th>
+                            <td th:text="${#temporals.format(certificado.fechaEmision, 'dd/MM/yyyy')}">01/01/2025</td>
+                        </tr>
+                        <tr>
+                            <th>Videos completados:</th>
+                            <td th:text="${certificado.videosCompletados + '/' + certificado.totalVideos}">0/0</td>
+                        </tr>
+                        <tr>
+                            <th>Quizzes aprobados:</th>
+                            <td th:text="${certificado.quizzesAprobados + '/' + certificado.totalQuizzes}">0/0</td>
+                        </tr>
+                        <tr>
+                            <th>Nota promedio:</th>
+                            <td th:text="${#numbers.formatDecimal(certificado.notaPromedio, 1, 1) + '%'}">0%</td>
+                        </tr>
+                    </table>
+
+                    <div class="alert alert-success text-center">
+                        <i class="bi bi-shield-check"></i>
+                        Este certificado es auténtico y fue emitido por Cajica Stream.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificado no válido -->
+            <div th:unless="${valido}" class="card border-danger">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-x-circle-fill"></i> Certificado No Encontrado
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    <i class="bi bi-exclamation-triangle display-1 text-danger"></i>
+                    <p class="mt-4">
+                        No se encontró ningún certificado con el código:
+                    </p>
+                    <h5 class="text-muted" th:text="${codigo}">CERT-XXXXXXXX</h5>
+                    <hr>
+                    <p class="text-muted">
+                        Por favor verifique que el código sea correcto o contacte al administrador.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a th:href="@{/}" class="btn btn-outline-primary">
+                    <i class="bi bi-house"></i> Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

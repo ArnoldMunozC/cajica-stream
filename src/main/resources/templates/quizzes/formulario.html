@@ -28,7 +28,12 @@
 
                 <div class="mb-3">
                     <label for="seccion" class="form-label">Sección</label>
-                    <input type="text" class="form-control" id="seccion" name="seccion" required>
+                    <select class="form-select" id="seccion" name="seccion" required>
+                        <option value="" selected disabled>Selecciona un módulo</option>
+                        <option th:each="opt : ${seccionOptions}"
+                                th:value="${opt}"
+                                th:text="${opt}"></option>
+                    </select>
                     <div class="form-text">Obligatorio. Debe coincidir con el nombre de la sección/módulo del curso.</div>
                 </div>
 
@@ -57,7 +62,13 @@
 
                 <div class="mb-3">
                     <label for="seccionEdit" class="form-label">Sección</label>
-                    <input type="text" class="form-control" id="seccionEdit" name="seccion" th:value="${quiz.seccion}" required>
+                    <select class="form-select" id="seccionEdit" name="seccion" required>
+                        <option value="" disabled>Selecciona un módulo</option>
+                        <option th:each="opt : ${seccionOptions}"
+                                th:value="${opt}"
+                                th:text="${opt}"
+                                th:selected="${quiz.seccion != null && quiz.seccion == opt}"></option>
+                    </select>
                 </div>
 
                 <div class="mb-3">

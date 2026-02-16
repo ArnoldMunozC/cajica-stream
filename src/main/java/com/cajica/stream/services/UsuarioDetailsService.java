@@ -5,6 +5,8 @@ import com.cajica.stream.entities.Usuario;
 import com.cajica.stream.repositories.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UsuarioDetailsService implements UserDetailsService {
 
+  private static final Logger logger = LoggerFactory.getLogger(UsuarioDetailsService.class);
+
   private final UsuarioRepository usuarioRepository;
 
   @Autowired
@@ -27,6 +31,7 @@ public class UsuarioDetailsService implements UserDetailsService {
   @Override
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    logger.debug("Cargando detalles de usuario para autenticación. username={}", username);
     Usuario usuario =
         usuarioRepository
             .findByUsername(username)
@@ -44,6 +49,11 @@ public class UsuarioDetailsService implements UserDetailsService {
     if (authorities.isEmpty()) {
       authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
+    logger.info(
+        "Usuario cargado para autenticación. username={}, rolesCount={}",
+        usuario.getUsername(),
+        authorities.size());
 
     return new User(
         usuario.getUsername(),

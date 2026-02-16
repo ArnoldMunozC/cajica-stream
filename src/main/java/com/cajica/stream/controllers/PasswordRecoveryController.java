@@ -94,12 +94,12 @@ public class PasswordRecoveryController {
   @GetMapping("/reset")
   public String mostrarFormularioRestablecimiento(
       @RequestParam("token") String token, Model model) {
-    logger.info("Mostrando formulario de restablecimiento para token: {}", token);
+    logger.info("Mostrando formulario de restablecimiento de contraseña");
 
     Optional<Usuario> usuarioOpt = usuarioService.validarTokenRecuperacion(token);
 
     if (usuarioOpt.isEmpty()) {
-      logger.warn("Token inválido o expirado: {}", token);
+      logger.warn("Token inválido o expirado");
       model.addAttribute("error", "El enlace de recuperación es inválido o ha expirado.");
       return "auth/invalid-token";
     }
@@ -115,7 +115,7 @@ public class PasswordRecoveryController {
       @RequestParam("password") String password,
       @RequestParam("confirmPassword") String confirmPassword,
       RedirectAttributes redirectAttributes) {
-    logger.info("Procesando restablecimiento de contraseña para token: {}", token);
+    logger.info("Procesando restablecimiento de contraseña");
 
     // Validar que las contraseñas coincidan
     if (!password.equals(confirmPassword)) {

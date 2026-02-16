@@ -18,6 +18,9 @@ public class Curso {
   private Long id;
 
   private String nombre;
+
+  @Lob
+  @Column(columnDefinition = "TEXT")
   private String descripcion;
   private String categoria;
 

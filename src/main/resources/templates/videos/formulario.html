@@ -37,8 +37,13 @@
 
                     <div class="mb-3">
                         <label for="seccion" class="form-label">Sección</label>
-                        <input type="text" class="form-control" id="seccion" name="seccion"
-                               th:value="${video.seccion}">
+                        <select class="form-select" id="seccion" name="seccion">
+                            <option value="" th:selected="${video.seccion == null || #strings.isEmpty(video.seccion)}">Sin sección</option>
+                            <option th:each="opt : ${seccionOptions}"
+                                    th:value="${opt}"
+                                    th:text="${opt}"
+                                    th:selected="${video.seccion != null && video.seccion == opt}"></option>
+                        </select>
                         <div class="form-text">
                             Opcional. Sirve para agrupar los videos en listas desplegables por módulo/tema.
                         </div>
