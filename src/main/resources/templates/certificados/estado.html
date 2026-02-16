@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Certificación - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>Certificación</h1>
+            <h5 class="text-muted" th:text="${curso.nombre}">Nombre del Curso</h5>
+        </div>
+        <div>
+            <a th:href="@{/cursos/{id}(id=${curso.id})}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver al curso
+            </a>
+        </div>
+    </div>
+
+    <!-- Ya tiene certificado -->
+    <div th:if="${tieneCertificado}" class="card border-success">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0"><i class="bi bi-award"></i> ¡Felicitaciones! Ya tienes tu certificado</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Código de verificación:</strong></p>
+                    <h4 class="text-primary" th:text="${certificado.codigoVerificacion}">CERT-XXXXXXXX</h4>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Fecha de emisión:</strong></p>
+                    <p th:text="${#temporals.format(certificado.fechaEmision, 'dd/MM/yyyy HH:mm')}">01/01/2025</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="mb-1 text-muted">Videos completados</p>
+                    <h5 th:text="${certificado.videosCompletados + '/' + certificado.totalVideos}">0/0</h5>
+                </div>
+                <div class="col-md-4">
+                    <p class="mb-1 text-muted">Quizzes aprobados</p>
+                    <h5 th:text="${certificado.quizzesAprobados + '/' + certificado.totalQuizzes}">0/0</h5>
+                </div>
+                <div class="col-md-4">
+                    <p class="mb-1 text-muted">Nota promedio</p>
+                    <h5 th:text="${#numbers.formatDecimal(certificado.notaPromedio, 1, 1) + '%'}">0%</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="d-grid gap-2 d-md-flex">
+                <a th:href="@{/certificados/curso/{id}/descargar(id=${curso.id})}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-download"></i> Descargar Certificado PDF
+                </a>
+                <a th:href="@{/certificados/verificar/{codigo}(codigo=${certificado.codigoVerificacion})}" 
+                   class="btn btn-outline-secondary" target="_blank">
+                    <i class="bi bi-qr-code"></i> Verificar en línea
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- No tiene certificado - mostrar estado de elegibilidad -->
+    <div th:unless="${tieneCertificado}">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-list-check"></i> Requisitos para certificación</h5>
+            </div>
+            <div class="card-body">
+                <!-- Progreso de videos -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>
+                            <i class="bi bi-play-circle"></i> Videos completados
+                            <span th:if="${elegibilidad.videosCompletos}" class="badge bg-success ms-2">
+                                <i class="bi bi-check"></i> Completado
+                            </span>
+                            <span th:unless="${elegibilidad.videosCompletos}" class="badge bg-warning ms-2">
+                                Pendiente
+                            </span>
+                        </span>
+                        <span th:text="${elegibilidad.videosCompletados + '/' + elegibilidad.totalVideos}">0/0</span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar" 
+                             th:classappend="${elegibilidad.videosCompletos ? 'bg-success' : 'bg-primary'}"
+                             role="progressbar" 
+                             th:style="'width: ' + (elegibilidad.totalVideos > 0 ? (elegibilidad.videosCompletados * 100 / elegibilidad.totalVideos) : 0) + '%'"
+                             th:text="${elegibilidad.totalVideos > 0 ? #numbers.formatDecimal(elegibilidad.videosCompletados * 100.0 / elegibilidad.totalVideos, 1, 0) + '%' : '0%'}">
+                            0%
+                        </div>
+                    </div>
+                    <small class="text-muted">Debes completar el 100% de los videos</small>
+                </div>
+
+                <!-- Progreso de quizzes -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>
+                            <i class="bi bi-question-circle"></i> Quizzes aprobados (≥70%)
+                            <span th:if="${elegibilidad.quizzesCompletos}" class="badge bg-success ms-2">
+                                <i class="bi bi-check"></i> Completado
+                            </span>
+                            <span th:unless="${elegibilidad.quizzesCompletos}" class="badge bg-warning ms-2">
+                                Pendiente
+                            </span>
+                        </span>
+                        <span th:text="${elegibilidad.quizzesAprobados + '/' + elegibilidad.totalQuizzes}">0/0</span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar"
+                             th:classappend="${elegibilidad.quizzesCompletos ? 'bg-success' : 'bg-primary'}"
+                             role="progressbar" 
+                             th:style="'width: ' + (elegibilidad.totalQuizzes > 0 ? (elegibilidad.quizzesAprobados * 100 / elegibilidad.totalQuizzes) : 100) + '%'"
+                             th:text="${elegibilidad.totalQuizzes > 0 ? #numbers.formatDecimal(elegibilidad.quizzesAprobados * 100.0 / elegibilidad.totalQuizzes, 1, 0) + '%' : '100%'}">
+                            0%
+                        </div>
+                    </div>
+                    <small class="text-muted">Debes aprobar todos los quizzes con nota mínima del 70%</small>
+                </div>
+
+                <!-- Nota promedio -->
+                <div class="mb-4" th:if="${elegibilidad.totalQuizzes > 0}">
+                    <p class="mb-1">
+                        <i class="bi bi-graph-up"></i> Nota promedio actual: 
+                        <strong th:text="${#numbers.formatDecimal(elegibilidad.notaPromedio, 1, 1) + '%'}">0%</strong>
+                    </p>
+                </div>
+
+                <hr>
+
+                <!-- Botón para generar certificado -->
+                <div th:if="${elegibilidad.elegible}">
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle"></i> ¡Cumples con todos los requisitos! Ya puedes obtener tu certificado.
+                    </div>
+                    <form th:action="@{/certificados/curso/{id}/generar(id=${curso.id})}" method="post">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="bi bi-award"></i> Obtener Certificado
+                        </button>
+                    </form>
+                </div>
+
+                <div th:unless="${elegibilidad.elegible}">
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i> Aún no cumples con todos los requisitos para obtener el certificado.
+                        Completa los videos y aprueba los quizzes para poder certificarte.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -13,6 +13,10 @@ java {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ['-parameters']
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -29,6 +33,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-mysql'
 
@@ -42,6 +48,13 @@ dependencies {
 
     // Email
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // PDF Generation
+    implementation 'com.itextpdf:itext7-core:7.2.5'
+
+    // QR Code Generation
+    implementation 'com.google.zxing:core:3.5.2'
+    implementation 'com.google.zxing:javase:3.5.2'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

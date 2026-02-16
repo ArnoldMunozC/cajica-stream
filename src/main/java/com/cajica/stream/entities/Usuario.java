@@ -29,6 +29,27 @@ public class Usuario {
   @Column(name = "nombre_completo")
   private String nombreCompleto;
 
+  @Column(name = "numero_identificacion", length = 20)
+  private String numeroIdentificacion;
+
+  @Column(name = "edad")
+  private Integer edad;
+
+  @Column(name = "enfoque_genero", length = 20)
+  private String enfoqueGenero;
+
+  @Column(name = "clasificacion_poblacional", length = 50)
+  private String clasificacionPoblacional;
+
+  @Column(name = "zona_residencia", length = 10)
+  private String zonaResidencia;
+
+  @Column(name = "direccion")
+  private String direccion;
+
+  @Column(name = "telefono", length = 20)
+  private String telefono;
+
   @Column(name = "activo")
   private boolean activo = true;
 

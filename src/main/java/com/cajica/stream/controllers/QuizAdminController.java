@@ -9,6 +9,7 @@ import com.cajica.stream.repositories.QuizOpcionRepository;
 import com.cajica.stream.repositories.QuizPreguntaRepository;
 import com.cajica.stream.repositories.QuizRepository;
 import com.cajica.stream.services.CursoService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +26,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/cursos/{cursoId}/quizzes")
 @PreAuthorize("hasRole('ADMIN')")
 public class QuizAdminController {
+
+  private static List<String> buildSeccionOptions() {
+    List<String> opts = new ArrayList<>();
+    for (int i = 1; i <= 10; i++) {
+      opts.add("Módulo " + i);
+    }
+    return opts;
+  }
 
   private final CursoService cursoService;
   private final QuizRepository quizRepository;
@@ -51,6 +60,7 @@ public class QuizAdminController {
 
     model.addAttribute("curso", curso.get());
     model.addAttribute("quiz", new Quiz());
+    model.addAttribute("seccionOptions", buildSeccionOptions());
     return "quizzes/formulario";
   }
 
@@ -105,6 +115,7 @@ public class QuizAdminController {
 
     model.addAttribute("curso", curso.get());
     model.addAttribute("quiz", quiz.get());
+    model.addAttribute("seccionOptions", buildSeccionOptions());
     return "quizzes/formulario";
   }
 

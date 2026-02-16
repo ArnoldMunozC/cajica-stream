@@ -15,8 +15,8 @@
                 </p>
             </div>
             <div>
-                <a th:href="@{/cursos/{id}/videos(id=${curso.id})}" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left"></i> Volver a la lista
+                <a th:href="@{/cursos/{id}(id=${curso.id})}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver al curso
                 </a>
             </div>
         </div>
@@ -101,22 +101,77 @@
                                 </form>
                             </div>
 
-                            <div th:if="${quizSeleccionado == null and pdfSeleccionado != null}" class="ratio ratio-16x9">
-                                <iframe th:src="@{'/api/cursos/pdfs/' + ${pdfSeleccionado.pdfFilePath}}"
-                                        style="width:100%; height:100%; border:0;"
-                                        title="PDF"></iframe>
+                            <div th:if="${quizSeleccionado == null and pdfSeleccionado != null}">
+                                <div class="mb-3">
+                                    <h5 th:text="${pdfSeleccionado.titulo}">PDF</h5>
+                                    <div class="text-muted small" th:if="${pdfSeleccionado.seccion}">
+                                        Sección: <span th:text="${pdfSeleccionado.seccion}">Sección</span>
+                                    </div>
+                                    <div class="mt-2" sec:authorize="hasRole('ADMIN')">
+                                        <a class="btn btn-sm btn-outline-primary me-2"
+                                           th:href="@{/cursos/{cursoId}/pdfs/{pdfId}/editar(cursoId=${curso.id},pdfId=${pdfSeleccionado.id})}">
+                                            <i class="bi bi-pencil"></i> Editar PDF
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-danger"
+                                           th:href="@{/cursos/{cursoId}/pdfs/{pdfId}/eliminar(cursoId=${curso.id},pdfId=${pdfSeleccionado.id})}"
+                                           onclick="return confirm('¿Estás seguro de eliminar este PDF?')">
+                                            <i class="bi bi-trash"></i> Eliminar PDF
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ratio ratio-16x9">
+                                    <iframe th:src="@{'/api/cursos/pdfs/' + ${pdfSeleccionado.pdfFilePath}}"
+                                            style="width:100%; height:100%; border:0;"
+                                            title="PDF"></iframe>
+                                </div>
                             </div>
 
-                            <div th:if="${quizSeleccionado == null and pdfSeleccionado == null}" class="ratio ratio-16x9">
-                                <video id="videoPlayer"
-                                       th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
-                                       controls
-                                       controlsList="nodownload"
-                                       preload="metadata"
-                                       oncontextmenu="return false;">
-                                    <source th:src="@{'/api/cursos/videos/' + ${video.videoFilePath}}" type="video/mp4">
-                                    Tu navegador no soporta la reproducción de videos.
-                                </video>
+                            <div th:if="${quizSeleccionado == null and pdfSeleccionado == null}">
+                                <!-- Video externo (YouTube) - usando IFrame Player API -->
+                                <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and (video.videoUrl.contains('youtube.com') or video.videoUrl.contains('youtu.be'))}" class="ratio ratio-16x9">
+                                    <div id="youtubePlayer"
+                                         th:data-video-id="${video.videoUrl.contains('youtu.be') ?
+                                             video.videoUrl.substring(video.videoUrl.lastIndexOf('/') + 1) :
+                                             (video.videoUrl.contains('watch?v=') ?
+                                                 #strings.substringBefore(video.videoUrl.substring(video.videoUrl.indexOf('v=') + 2), '&') :
+                                                 '')}"
+                                         th:data-curso-id="${curso.id}"
+                                         th:data-local-video-id="${video.id}">
+                                    </div>
+                                </div>
+
+                                <!-- Video externo (Vimeo) -->
+                                <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and video.videoUrl.contains('vimeo.com')}" class="ratio ratio-16x9">
+                                    <iframe th:src="${'https://player.vimeo.com/video/' + video.videoUrl.replaceAll('.*vimeo.com/', '')}"
+                                            frameborder="0"
+                                            allow="autoplay; fullscreen; picture-in-picture"
+                                            allowfullscreen>
+                                    </iframe>
+                                </div>
+
+                                <!-- Video externo (URL directa a archivo) -->
+                                <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and !video.videoUrl.contains('youtube.com') and !video.videoUrl.contains('youtu.be') and !video.videoUrl.contains('vimeo.com')}" class="ratio ratio-16x9">
+                                    <video id="videoPlayer"
+                                           th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
+                                           controls
+                                           preload="metadata">
+                                        <source th:src="${video.videoUrl}" type="video/mp4">
+                                        Tu navegador no soporta la reproducción de videos.
+                                    </video>
+                                </div>
+
+                                <!-- Video local (subido al servidor) -->
+                                <div th:if="${(video.videoUrl == null or video.videoUrl.isEmpty()) and video.videoFilePath != null}" class="ratio ratio-16x9">
+                                    <video id="videoPlayer"
+                                           th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
+                                           controls
+                                           controlsList="nodownload"
+                                           preload="metadata"
+                                           oncontextmenu="return false;">
+                                        <source th:src="@{'/api/cursos/videos/' + ${video.videoFilePath}}" type="video/mp4">
+                                        Tu navegador no soporta la reproducción de videos.
+                                    </video>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -250,7 +305,59 @@
                 </div>
             </div>
         </div>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script th:inline="javascript">
+        // YouTube IFrame Player API
+        var ytPlayer = null;
+        var ytCompletadoEnviado = false;
+        
+        function onYouTubeIframeAPIReady() {
+            const ytContainer = document.getElementById('youtubePlayer');
+            if (!ytContainer) return;
+            
+            const ytVideoId = ytContainer.dataset.videoId;
+            const cursoId = ytContainer.dataset.cursoId;
+            const localVideoId = ytContainer.dataset.localVideoId;
+            
+            if (!ytVideoId) return;
+            
+            ytPlayer = new YT.Player('youtubePlayer', {
+                videoId: ytVideoId,
+                playerVars: {
+                    'rel': 0,
+                    'modestbranding': 1,
+                    'enablejsapi': 1
+                },
+                events: {
+                    'onStateChange': function(event) {
+                        // YT.PlayerState.ENDED === 0
+                        if (event.data === 0 && !ytCompletadoEnviado) {
+                            ytCompletadoEnviado = true;
+                            marcarYoutubeCompletado(cursoId, localVideoId);
+                        }
+                    }
+                }
+            });
+        }
+        
+        async function marcarYoutubeCompletado(cursoId, videoId) {
+            if (!cursoId || !videoId) return;
+            try {
+                const r = await fetch(`/cursos/${cursoId}/videos/${videoId}/completado`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    credentials: 'same-origin'
+                });
+                if (!r.ok) {
+                    console.warn('marcarYoutubeCompletado failed', r.status);
+                } else {
+                    console.log('YouTube video marcado como completado');
+                }
+            } catch (e) {
+                console.warn('marcarYoutubeCompletado error', e);
+            }
+        }
+        
         // Script para eliminar cualquier reproductor de video duplicado
         document.addEventListener('DOMContentLoaded', function() {
             // Obtener todos los reproductores de video

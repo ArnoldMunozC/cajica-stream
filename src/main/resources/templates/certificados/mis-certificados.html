@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Mis Certificados - Cajica Stream</title>
+</head>
+<body>
+<section>
+    <h1 class="mb-4"><i class="bi bi-award"></i> Mis Certificados</h1>
+
+    <div th:if="${#lists.isEmpty(certificados)}" class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Aún no tienes certificados. 
+        Completa los cursos para obtener tus certificados.
+    </div>
+
+    <div class="row" th:unless="${#lists.isEmpty(certificados)}">
+        <div class="col-md-6 col-lg-4 mb-4" th:each="certificado : ${certificados}">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0" th:text="${certificado.curso.nombre}">Nombre del Curso</h6>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <small class="text-muted">Código de verificación</small><br>
+                        <strong th:text="${certificado.codigoVerificacion}">CERT-XXXXXXXX</strong>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">Fecha de emisión</small><br>
+                        <span th:text="${#temporals.format(certificado.fechaEmision, 'dd/MM/yyyy')}">01/01/2025</span>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">Nota promedio</small><br>
+                        <span th:text="${#numbers.formatDecimal(certificado.notaPromedio, 1, 1) + '%'}">0%</span>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a th:href="@{/certificados/curso/{id}/descargar(id=${certificado.curso.id})}" 
+                           class="btn btn-primary btn-sm">
+                            <i class="bi bi-download"></i> Descargar PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

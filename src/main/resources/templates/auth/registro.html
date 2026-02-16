@@ -7,31 +7,108 @@
 <body>
     <section>
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
+            <div class="col-md-10 col-lg-8">
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header">
                         <h3 class="text-center font-weight-light my-4">Crear Cuenta</h3>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/registro}" th:object="${usuario}" method="post">
+                            <!-- Datos básicos -->
+                            <h5 class="mb-3">Datos Básicos</h5>
                             <div class="row mb-3">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="nombreCompleto" th:field="*{nombreCompleto}" type="text" placeholder="Nombre Completo" required />
-                                        <label for="nombreCompleto">Nombre Completo</label>
+                                        <input class="form-control" id="nombreCompleto" th:field="*{nombreCompleto}" type="text" placeholder="Nombres y Apellidos" required />
+                                        <label for="nombreCompleto">Nombres y Apellidos</label>
                                         <div class="text-danger" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="numeroIdentificacion" th:field="*{numeroIdentificacion}" type="text" placeholder="Número de Identificación" required />
+                                        <label for="numeroIdentificacion">Número de Identificación</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="username" th:field="*{username}" type="text" placeholder="Nombre de Usuario" required />
-                                <label for="username">Nombre de Usuario</label>
-                                <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="edad" th:field="*{edad}" type="number" min="1" max="120" placeholder="Edad" required />
+                                        <label for="edad">Edad</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="telefono" th:field="*{telefono}" type="tel" placeholder="Teléfono" />
+                                        <label for="telefono">Teléfono</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="zonaResidencia" th:field="*{zonaResidencia}" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="Urbana">Urbana</option>
+                                            <option value="Rural">Rural</option>
+                                        </select>
+                                        <label for="zonaResidencia">Zona</label>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" th:field="*{email}" type="email" placeholder="nombre@ejemplo.com" required />
-                                <label for="email">Correo Electrónico</label>
-                                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                <input class="form-control" id="direccion" th:field="*{direccion}" type="text" placeholder="Dirección" />
+                                <label for="direccion">Dirección</label>
+                            </div>
+
+                            <!-- Enfoque de Género y Clasificación Poblacional -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="enfoqueGenero" th:field="*{enfoqueGenero}" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                            <option value="LGBTIQ">LGBTIQ</option>
+                                        </select>
+                                        <label for="enfoqueGenero">Género</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="clasificacionPoblacional" th:field="*{clasificacionPoblacional}">
+                                            <option value="">Ninguna</option>
+                                            <option value="Mujer cabeza de familia">Mujer cabeza de familia</option>
+                                            <option value="Discapacidad">Discapacidad</option>
+                                            <option value="Víctima conflicto armado">Víctima conflicto armado</option>
+                                            <option value="Población Migrante">Población Migrante</option>
+                                            <option value="Indígena">Indígena</option>
+                                            <option value="Raizal/Palenque/Negro/Afro">Raizal / Palenque / Negro / Afro</option>
+                                            <option value="Rom/Gitano">Rom / Gitano</option>
+                                        </select>
+                                        <label for="clasificacionPoblacional">Clasificación Poblacional</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Datos de cuenta -->
+                            <h5 class="mb-3 mt-4">Datos de Cuenta</h5>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="username" th:field="*{username}" type="text" placeholder="Nombre de Usuario" required />
+                                        <label for="username">Nombre de Usuario</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="email" th:field="*{email}" type="email" placeholder="nombre@ejemplo.com" required />
+                                        <label for="email">Correo Electrónico</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
