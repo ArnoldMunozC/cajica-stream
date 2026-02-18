@@ -54,7 +54,7 @@
                 <a th:href="@{/certificados/curso/{id}/descargar(id=${curso.id})}" class="btn btn-primary btn-lg">
                     <i class="bi bi-download"></i> Descargar Certificado PDF
                 </a>
-                <a th:href="@{/certificados/verificar/{codigo}(codigo=${certificado.codigoVerificacion})}" 
+                <a th:href="@{/certificados/verificar/{codigo}(codigo=${certificado.codigoVerificacion})}"
                    class="btn btn-outline-secondary" target="_blank">
                     <i class="bi bi-qr-code"></i> Verificar en línea
                 </a>
@@ -84,10 +84,10 @@
                         <span th:text="${elegibilidad.videosCompletados + '/' + elegibilidad.totalVideos}">0/0</span>
                     </div>
                     <div class="progress" style="height: 25px;">
-                        <div class="progress-bar" 
+                        <div class="progress-bar"
                              th:classappend="${elegibilidad.videosCompletos ? 'bg-success' : 'bg-primary'}"
-                             role="progressbar" 
-                             th:style="'width: ' + (elegibilidad.totalVideos > 0 ? (elegibilidad.videosCompletados * 100 / elegibilidad.totalVideos) : 0) + '%'"
+                             role="progressbar"
+                             th:style="'width: ' + (elegibilidad.totalVideos gt 0 ? (elegibilidad.videosCompletados * 100 / elegibilidad.totalVideos) : 0) + '%'"
                              th:text="${elegibilidad.totalVideos > 0 ? #numbers.formatDecimal(elegibilidad.videosCompletados * 100.0 / elegibilidad.totalVideos, 1, 0) + '%' : '0%'}">
                             0%
                         </div>
@@ -112,8 +112,8 @@
                     <div class="progress" style="height: 25px;">
                         <div class="progress-bar"
                              th:classappend="${elegibilidad.quizzesCompletos ? 'bg-success' : 'bg-primary'}"
-                             role="progressbar" 
-                             th:style="'width: ' + (elegibilidad.totalQuizzes > 0 ? (elegibilidad.quizzesAprobados * 100 / elegibilidad.totalQuizzes) : 100) + '%'"
+                             role="progressbar"
+                             th:style="'width: ' + (elegibilidad.totalQuizzes gt 0 ? (elegibilidad.quizzesAprobados * 100 / elegibilidad.totalQuizzes) : 100) + '%'"
                              th:text="${elegibilidad.totalQuizzes > 0 ? #numbers.formatDecimal(elegibilidad.quizzesAprobados * 100.0 / elegibilidad.totalQuizzes, 1, 0) + '%' : '100%'}">
                             0%
                         </div>
@@ -124,7 +124,7 @@
                 <!-- Nota promedio -->
                 <div class="mb-4" th:if="${elegibilidad.totalQuizzes > 0}">
                     <p class="mb-1">
-                        <i class="bi bi-graph-up"></i> Nota promedio actual: 
+                        <i class="bi bi-graph-up"></i> Nota promedio actual:
                         <strong th:text="${#numbers.formatDecimal(elegibilidad.notaPromedio, 1, 1) + '%'}">0%</strong>
                     </p>
                 </div>
