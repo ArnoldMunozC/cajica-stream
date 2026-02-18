@@ -87,7 +87,7 @@
                         <div class="progress-bar"
                              th:classappend="${elegibilidad.videosCompletos ? 'bg-success' : 'bg-primary'}"
                              role="progressbar"
-                             th:style="'width: ' + (elegibilidad.totalVideos gt 0 ? (elegibilidad.videosCompletados * 100 / elegibilidad.totalVideos) : 0) + '%'"
+                             th:style="${'width: ' + (elegibilidad.totalVideos gt 0 ? (elegibilidad.videosCompletados * 100 / elegibilidad.totalVideos) : 0) + '%'}"
                              th:text="${elegibilidad.totalVideos > 0 ? #numbers.formatDecimal(elegibilidad.videosCompletados * 100.0 / elegibilidad.totalVideos, 1, 0) + '%' : '0%'}">
                             0%
                         </div>
@@ -113,7 +113,7 @@
                         <div class="progress-bar"
                              th:classappend="${elegibilidad.quizzesCompletos ? 'bg-success' : 'bg-primary'}"
                              role="progressbar"
-                             th:style="'width: ' + (elegibilidad.totalQuizzes gt 0 ? (elegibilidad.quizzesAprobados * 100 / elegibilidad.totalQuizzes) : 100) + '%'"
+                             th:style="${'width: ' + (elegibilidad.totalQuizzes gt 0 ? (elegibilidad.quizzesAprobados * 100 / elegibilidad.totalQuizzes) : 100) + '%'}"
                              th:text="${elegibilidad.totalQuizzes > 0 ? #numbers.formatDecimal(elegibilidad.quizzesAprobados * 100.0 / elegibilidad.totalQuizzes, 1, 0) + '%' : '100%'}">
                             0%
                         </div>
