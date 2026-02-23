@@ -17,11 +17,25 @@
                             <!-- Datos básicos -->
                             <h5 class="mb-3">Datos Básicos</h5>
                             <div class="row mb-3">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="nombreCompleto" th:field="*{nombreCompleto}" type="text" placeholder="Nombres y Apellidos" required />
                                         <label for="nombreCompleto">Nombres y Apellidos</label>
                                         <div class="text-danger" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="tipoDocumento" th:field="*{tipoDocumento}" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="TI">Tarjeta de Identidad (TI)</option>
+                                            <option value="CC">Cédula de Ciudadanía (CC)</option>
+                                            <option value="CE">Cédula de Extranjería (CE)</option>
+                                        </select>
+                                        <label for="tipoDocumento">Tipo de Documento</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

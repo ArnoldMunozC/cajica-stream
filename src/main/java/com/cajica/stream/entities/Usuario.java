@@ -29,6 +29,9 @@ public class Usuario {
   @Column(name = "nombre_completo")
   private String nombreCompleto;
 
+  @Column(name = "tipo_documento", length = 30)
+  private String tipoDocumento;
+
   @Column(name = "numero_identificacion", length = 20)
   private String numeroIdentificacion;
 
