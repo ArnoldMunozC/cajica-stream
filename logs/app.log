@@ -127,3 +127,621 @@
 2026-02-23T08:57:53.782-05:00  INFO 16333 --- [cajica-stream] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-23T08:57:53.800-05:00  INFO 16333 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-02-23T08:57:54.021-05:00  INFO 16333 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-23T09:06:44.194-05:00  INFO 63659 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Starting CajicaStreamApplication using Java 17.0.9 with PID 63659 (/Users/arnmunoz/Documents/Learning/tic-cajica/cajica-stream/build/classes/java/main started by arnmunoz in /Users/arnmunoz/Documents/Learning/tic-cajica/cajica-stream)
+2026-02-23T09:06:44.195-05:00  INFO 63659 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-02-23T09:06:44.605-05:00  WARN 63659 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53615] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:06:44.608-05:00  WARN 63659 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53615] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:06:44.735-05:00  INFO 63659 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-23T09:06:44.769-05:00  INFO 63659 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 14 JPA repository interfaces.
+2026-02-23T09:06:45.050-05:00  INFO 63659 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-23T09:06:45.057-05:00  INFO 63659 --- [cajica-stream] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-23T09:06:45.057-05:00  INFO 63659 --- [cajica-stream] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-02-23T09:06:45.080-05:00  INFO 63659 --- [cajica-stream] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-23T09:06:45.080-05:00  INFO 63659 --- [cajica-stream] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 867 ms
+2026-02-23T09:06:45.232-05:00  INFO 63659 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-23T09:06:45.411-05:00  INFO 63659 --- [cajica-stream] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@304068
+2026-02-23T09:06:45.412-05:00  INFO 63659 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-23T09:06:45.454-05:00  INFO 63659 --- [cajica-stream] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/tic_cajica (MySQL 9.6)
+2026-02-23T09:06:45.491-05:00  WARN 63659 --- [cajica-stream] [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-02-23T09:06:45.525-05:00  INFO 63659 --- [cajica-stream] [main] o.f.core.internal.command.DbValidate     : Successfully validated 13 migrations (execution time 00:00.029s)
+2026-02-23T09:06:45.534-05:00  INFO 63659 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Current version of schema `tic_cajica`: 14
+2026-02-23T09:06:45.536-05:00  INFO 63659 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Schema `tic_cajica` is up to date. No migration necessary.
+2026-02-23T09:06:45.572-05:00  INFO 63659 --- [cajica-stream] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-23T09:06:45.596-05:00  INFO 63659 --- [cajica-stream] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2026-02-23T09:06:45.611-05:00  INFO 63659 --- [cajica-stream] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-23T09:06:45.738-05:00  INFO 63659 --- [cajica-stream] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-23T09:06:45.782-05:00  INFO 63659 --- [cajica-stream] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-23T09:06:46.252-05:00  INFO 63659 --- [cajica-stream] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-23T09:06:46.287-05:00  INFO 63659 --- [cajica-stream] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-23T09:06:46.419-05:00  INFO 63659 --- [cajica-stream] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-23T09:06:46.945-05:00  INFO 63659 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de imágenes inicializado en: /Users/arnmunoz/cajica-stream/uploads/images
+2026-02-23T09:06:46.946-05:00  INFO 63659 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de videos inicializado en: /Users/arnmunoz/Documents/Learning/videos
+2026-02-23T09:06:47.074-05:00  INFO 63659 --- [cajica-stream] [main] c.cajica.stream.services.EmailService    : EmailService inicializado con baseUrl: http://localhost:8081
+2026-02-23T09:06:47.175-05:00  WARN 63659 --- [cajica-stream] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-23T09:06:47.345-05:00  INFO 63659 --- [cajica-stream] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-02-23T09:06:47.373-05:00  WARN 63659 --- [cajica-stream] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-02-23T09:06:47.608-05:00  INFO 63659 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-23T09:06:47.617-05:00  INFO 63659 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Started CajicaStreamApplication in 3.738 seconds (process running for 4.142)
+2026-02-23T09:06:47.621-05:00  INFO 63659 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicializando datos de la aplicación...
+2026-02-23T09:06:47.621-05:00  INFO 63659 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Verificando roles predeterminados...
+2026-02-23T09:06:47.631-05:00  INFO 63659 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicialización de roles completada
+2026-02-23T09:06:49.661-05:00  WARN 63659 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53615] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:06:51.260-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-23T09:06:51.261-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-23T09:06:51.262-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-23T09:06:51.702-05:00  WARN 63659 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53615] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:06:59.634-05:00  WARN 63659 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53615] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:07:01.213-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T09:07:47.648-05:00  WARN 63659 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53615] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:07:47.655-05:00  WARN 63659 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=53615] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:10:47.413-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.stream.services.FileStorageService   : Imagen ya existía, se reutiliza. fileName=02693d952d884f36a14c49fc0b000a4b23e4207602d4ac28bcc8cda35f0d4020.jpeg
+2026-02-23T09:11:28.467-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T09:13:26.306-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:13:26.314-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:13:26.315-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:13:26.331-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 1 inscripciones encontradas
+2026-02-23T09:13:26.331-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:13:26.332-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:13:26.332-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:13:26.332-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:13:26.335-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:13:26.336-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T09:13:26.336-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:13:26.337-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 1
+2026-02-23T09:13:26.337-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:13:26.371-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:13:26.377-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:13:26.377-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:13:26.377-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:13:26.382-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T09:13:26.382-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 1
+2026-02-23T09:13:26.383-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:13:49.053-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Inscribiendo mediante JDBC: Usuario ID 18 - Curso ID 16
+2026-02-23T09:13:49.313-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Inscripción completada exitosamente mediante JdbcTemplate. Filas afectadas: 1
+2026-02-23T09:19:30.053-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:19:30.080-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:19:30.081-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:19:30.082-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T09:19:30.083-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:19:30.083-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:19:30.083-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:19:30.084-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:19:30.085-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:19:30.085-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:19:30.085-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:19:30.085-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:19:30.085-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T09:19:30.086-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T09:19:30.086-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T09:19:30.086-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:19:30.161-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:19:30.165-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:19:30.165-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:19:30.165-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:19:30.167-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:19:30.167-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T09:19:30.167-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:19:30.167-05:00  INFO 63659 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:34:14.535-05:00  INFO 63659 --- [cajica-stream] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-23T09:34:14.540-05:00  INFO 63659 --- [cajica-stream] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-23T09:34:14.552-05:00  INFO 63659 --- [cajica-stream] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-23T09:34:14.556-05:00  INFO 63659 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-23T09:34:14.559-05:00  INFO 63659 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-23T09:34:19.806-05:00  INFO 71498 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Starting CajicaStreamApplication using Java 17.0.9 with PID 71498 (/Users/arnmunoz/Documents/Learning/tic-cajica/cajica-stream/build/classes/java/main started by arnmunoz in /Users/arnmunoz/Documents/Learning/tic-cajica/cajica-stream)
+2026-02-23T09:34:19.807-05:00  INFO 71498 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-02-23T09:34:20.240-05:00  INFO 71498 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-23T09:34:20.276-05:00  INFO 71498 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 14 JPA repository interfaces.
+2026-02-23T09:34:20.508-05:00  WARN 71498 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=65225] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:34:20.510-05:00  WARN 71498 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=65225] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:34:20.517-05:00  INFO 71498 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-23T09:34:20.522-05:00  INFO 71498 --- [cajica-stream] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-23T09:34:20.522-05:00  INFO 71498 --- [cajica-stream] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-02-23T09:34:20.543-05:00  INFO 71498 --- [cajica-stream] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-23T09:34:20.544-05:00  INFO 71498 --- [cajica-stream] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 720 ms
+2026-02-23T09:34:20.695-05:00  INFO 71498 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-23T09:34:20.865-05:00  INFO 71498 --- [cajica-stream] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54d60fa1
+2026-02-23T09:34:20.866-05:00  INFO 71498 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-23T09:34:20.900-05:00  INFO 71498 --- [cajica-stream] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/tic_cajica (MySQL 9.6)
+2026-02-23T09:34:20.914-05:00  WARN 71498 --- [cajica-stream] [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-02-23T09:34:20.944-05:00  INFO 71498 --- [cajica-stream] [main] o.f.core.internal.command.DbValidate     : Successfully validated 13 migrations (execution time 00:00.024s)
+2026-02-23T09:34:20.954-05:00  INFO 71498 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Current version of schema `tic_cajica`: 14
+2026-02-23T09:34:20.956-05:00  INFO 71498 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Schema `tic_cajica` is up to date. No migration necessary.
+2026-02-23T09:34:20.994-05:00  INFO 71498 --- [cajica-stream] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-23T09:34:21.020-05:00  INFO 71498 --- [cajica-stream] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2026-02-23T09:34:21.033-05:00  INFO 71498 --- [cajica-stream] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-23T09:34:21.155-05:00  INFO 71498 --- [cajica-stream] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-23T09:34:21.195-05:00  INFO 71498 --- [cajica-stream] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-23T09:34:21.658-05:00  INFO 71498 --- [cajica-stream] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-23T09:34:21.683-05:00  INFO 71498 --- [cajica-stream] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-23T09:34:21.818-05:00  INFO 71498 --- [cajica-stream] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-23T09:34:22.352-05:00  INFO 71498 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de imágenes inicializado en: /Users/arnmunoz/cajica-stream/uploads/images
+2026-02-23T09:34:22.352-05:00  INFO 71498 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de videos inicializado en: /Users/arnmunoz/Documents/Learning/videos
+2026-02-23T09:34:22.495-05:00  INFO 71498 --- [cajica-stream] [main] c.cajica.stream.services.EmailService    : EmailService inicializado con baseUrl: http://localhost:8081
+2026-02-23T09:34:22.603-05:00  WARN 71498 --- [cajica-stream] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-23T09:34:22.774-05:00  INFO 71498 --- [cajica-stream] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-02-23T09:34:22.801-05:00  WARN 71498 --- [cajica-stream] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-02-23T09:34:23.048-05:00  INFO 71498 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-23T09:34:23.056-05:00  INFO 71498 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Started CajicaStreamApplication in 3.46 seconds (process running for 3.959)
+2026-02-23T09:34:23.060-05:00  INFO 71498 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicializando datos de la aplicación...
+2026-02-23T09:34:23.060-05:00  INFO 71498 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Verificando roles predeterminados...
+2026-02-23T09:34:23.062-05:00  INFO 71498 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicialización de roles completada
+2026-02-23T09:34:27.831-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-23T09:34:27.836-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-23T09:34:27.840-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-02-23T09:34:30.123-05:00  WARN 71498 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=65225] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-02-23T09:34:40.714-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T09:35:20.887-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:35:20.896-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:35:20.896-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:35:20.910-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T09:35:20.910-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:35:20.911-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:20.911-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:35:20.911-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:35:20.915-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:35:20.915-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:35:20.915-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:20.915-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:35:20.915-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T09:35:20.916-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T09:35:20.916-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T09:35:20.916-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:35:21.009-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:35:21.016-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:35:21.016-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:21.017-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:35:21.024-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:21.025-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T09:35:21.025-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:35:21.026-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:35:51.126-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:35:51.148-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:35:51.148-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:35:51.150-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T09:35:51.150-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:35:51.152-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:51.152-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:35:51.152-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:35:51.153-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:35:51.153-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:35:51.153-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:51.153-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:35:51.153-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T09:35:51.153-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T09:35:51.153-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T09:35:51.154-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:35:51.276-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:35:51.309-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:35:51.309-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:51.309-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:35:51.312-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:35:51.312-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T09:35:51.312-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:35:51.312-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:44:24.435-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.stream.services.FileStorageService   : Imagen ya existía, se reutiliza. fileName=02693d952d884f36a14c49fc0b000a4b23e4207602d4ac28bcc8cda35f0d4020.jpeg
+2026-02-23T09:47:03.070-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:47:03.086-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:47:03.086-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:47:03.088-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T09:47:03.088-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:47:03.091-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:47:03.091-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:47:03.091-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:47:03.093-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:47:03.093-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:47:03.094-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:47:03.094-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:47:03.094-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T09:47:03.095-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T09:47:03.095-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T09:47:03.095-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:47:03.214-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:47:03.220-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:47:03.221-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:47:03.221-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:47:03.221-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:47:03.221-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T09:47:03.222-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:47:03.222-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:58:15.820-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:58:15.829-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:58:15.829-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:58:15.832-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T09:58:15.832-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:58:15.833-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:15.833-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:58:15.833-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:58:15.834-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:58:15.835-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:58:15.836-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:15.836-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:58:15.836-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T09:58:15.837-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T09:58:15.838-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T09:58:15.838-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:58:15.973-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:58:15.977-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:58:15.977-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:15.977-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:58:15.978-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:15.978-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T09:58:15.978-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:58:15.978-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:58:20.626-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:58:20.629-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:58:20.629-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:58:20.630-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T09:58:20.630-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:58:20.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:20.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:58:20.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:58:20.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:58:20.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:58:20.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:20.632-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:58:20.632-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T09:58:20.632-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T09:58:20.632-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T09:58:20.632-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:58:20.716-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:58:20.722-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:58:20.725-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:20.726-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:58:20.729-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:20.731-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T09:58:20.731-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:58:20.732-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:58:21.723-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T09:58:21.727-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T09:58:21.727-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T09:58:21.728-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T09:58:21.728-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T09:58:21.729-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:21.729-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:58:21.729-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T09:58:21.730-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:58:21.730-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:58:21.730-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:21.730-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:58:21.731-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T09:58:21.731-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T09:58:21.731-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T09:58:21.732-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T09:58:21.821-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T09:58:21.826-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T09:58:21.826-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:21.826-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T09:58:21.828-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T09:58:21.828-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T09:58:21.828-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T09:58:21.828-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T09:58:40.829-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.stream.services.FileStorageService   : Archivo almacenado exitosamente. isVideo=false, fileName=e9292633-c9b6-415e-9033-c6d2f5c6e190.png, sizeBytes=464413
+2026-02-23T09:59:07.706-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.stream.services.FileStorageService   : Imagen almacenada (deduplicada) exitosamente. fileName=1fef7b9295f6ef810d0ce82275a0b2fdcc00aa0f10631507e8bd016bd7664013.png, sizeBytes=34451
+2026-02-23T09:59:36.696-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T10:00:15.296-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T10:00:15.306-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T10:00:15.306-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T10:00:15.309-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T10:00:15.309-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T10:00:15.310-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:15.310-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:00:15.310-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T10:00:15.311-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:00:15.311-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:00:15.311-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:15.311-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:00:15.311-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T10:00:15.312-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T10:00:15.312-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T10:00:15.313-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:00:15.373-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T10:00:15.377-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T10:00:15.377-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:15.377-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:00:15.379-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:15.379-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T10:00:15.379-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:00:15.379-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:00:52.232-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T10:00:52.243-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T10:00:52.244-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T10:00:52.248-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T10:00:52.248-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T10:00:52.249-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:52.249-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:00:52.249-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T10:00:52.250-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:00:52.250-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:00:52.250-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:52.250-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:00:52.250-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T10:00:52.251-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T10:00:52.251-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T10:00:52.251-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:00:52.349-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T10:00:52.353-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T10:00:52.354-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:52.354-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:00:52.357-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:00:52.357-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T10:00:52.357-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:00:52.357-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:05:16.534-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T10:05:16.578-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T10:05:16.579-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T10:05:16.582-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T10:05:16.582-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T10:05:16.583-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T10:05:16.583-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:05:16.583-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T10:05:16.584-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:05:16.584-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:05:16.584-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:05:16.584-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:05:16.584-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T10:05:16.585-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T10:05:16.585-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T10:05:16.585-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:05:16.698-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T10:05:16.715-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T10:05:16.716-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T10:05:16.716-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:05:16.738-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:05:16.738-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T10:05:16.741-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:05:16.741-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:10:16.479-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.stream.services.FileStorageService   : Imagen almacenada (deduplicada) exitosamente. fileName=da0b84a1beb4496237a0b21702134576aec5bec9aacc8b656da6f4537306adce.png, sizeBytes=60435
+2026-02-23T10:13:04.500-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T10:13:04.522-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T10:13:04.522-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T10:13:04.524-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T10:13:04.524-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T10:13:04.525-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T10:13:04.525-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:13:04.525-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T10:13:04.527-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:13:04.527-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:13:04.527-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:13:04.527-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:13:04.527-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Curso: ID=16, Nombre=curso salud publica
+2026-02-23T10:13:04.528-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 2
+2026-02-23T10:13:04.528-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=16, Nombre=curso salud publica
+2026-02-23T10:13:04.528-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T10:13:04.561-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T10:13:04.564-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T10:13:04.564-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T10:13:04.564-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T10:13:04.565-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.cajica.stream.services.UsuarioService  : Se encontraron 2 cursos inscritos para el usuario ID: 18
+2026-02-23T10:13:04.565-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 2
+2026-02-23T10:13:04.565-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T10:13:04.565-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 16, Nombre: curso salud publica
+2026-02-23T10:13:41.305-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.stream.services.FileStorageService   : Archivo almacenado exitosamente. isVideo=false, fileName=bb2c74ae-2e7c-4145-bfbc-aa40fbb39bc9.png, sizeBytes=137423
+2026-02-23T10:14:30.010-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.stream.services.FileStorageService   : Imagen almacenada (deduplicada) exitosamente. fileName=db2e1c5a1402ef4d17e50da57fd855501cb19c908c6118343e5be4bcaee17cfa.png, sizeBytes=137423
+2026-02-23T10:14:45.771-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T10:14:50.038-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T10:21:18.537-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.stream.services.FileStorageService   : Archivo almacenado exitosamente. isVideo=false, fileName=92449dcb-df39-49a2-a7f5-5f5d24fa3563.png, sizeBytes=60435
+2026-02-23T10:22:12.324-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.stream.services.FileStorageService   : Imagen ya existía, se reutiliza. fileName=da0b84a1beb4496237a0b21702134576aec5bec9aacc8b656da6f4537306adce.png
+2026-02-23T10:40:35.606-05:00  WARN 71498 --- [cajica-stream] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m14s173ms).
+2026-02-23T10:59:24.469-05:00  WARN 71498 --- [cajica-stream] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m18s844ms).
+2026-02-23T11:00:43.897-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T11:14:00.648-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T11:15:13.684-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T11:15:13.738-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T11:15:13.738-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T11:15:13.753-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T11:15:13.753-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T11:15:13.754-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T11:15:13.754-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:15:13.755-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T11:15:13.759-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T11:15:13.759-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T11:15:13.759-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso: ID=15, Nombre=Curso de Cocina
+2026-02-23T11:15:13.761-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 1
+2026-02-23T11:15:13.763-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=15, Nombre=Curso de Cocina
+2026-02-23T11:15:13.843-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T11:15:13.859-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T11:15:13.860-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T11:15:13.860-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:15:13.866-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T11:15:13.866-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 1
+2026-02-23T11:15:13.866-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 15, Nombre: Curso de Cocina
+2026-02-23T11:15:39.826-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.CertificadoController  : Descarga de certificado solicitada. username=arnold, cursoId=15
+2026-02-23T11:15:40.358-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.controllers.CertificadoController  : Descarga de certificado solicitada. username=arnold, cursoId=15
+2026-02-23T11:24:34.117-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T11:24:47.122-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoViewController    : Recibida solicitud para cancelar inscripción al curso ID: 15
+2026-02-23T11:24:47.125-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoViewController    : Usuario autenticado: arnold
+2026-02-23T11:24:47.135-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoViewController    : Intentando cancelar inscripción del usuario ID: 18 al curso ID: 15
+2026-02-23T11:24:47.136-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Cancelando inscripción: Usuario ID 18 - Curso ID 15
+2026-02-23T11:24:47.172-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Inscripción cancelada exitosamente mediante JdbcTemplate. Filas afectadas: 1
+2026-02-23T11:24:47.189-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoViewController    : Inscripción cancelada exitosamente
+2026-02-23T11:26:51.725-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T11:26:51.741-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T11:26:51.741-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T11:26:51.750-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 1 inscripciones encontradas
+2026-02-23T11:26:51.750-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T11:26:51.751-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T11:26:51.751-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:26:51.752-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T11:26:51.754-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.cajica.stream.services.UsuarioService  : Se encontraron 0 cursos inscritos para el usuario ID: 18
+2026-02-23T11:26:51.755-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 0
+2026-02-23T11:26:51.870-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T11:26:51.873-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T11:26:51.874-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T11:26:51.874-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:26:51.878-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Se encontraron 0 cursos inscritos para el usuario ID: 18
+2026-02-23T11:26:51.880-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 0
+2026-02-23T11:27:51.267-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=lina, rolesCount=1
+2026-02-23T11:28:02.659-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.CursoViewController    : Recibida solicitud para cancelar inscripción al curso ID: 15
+2026-02-23T11:28:02.661-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.CursoViewController    : Usuario autenticado: lina
+2026-02-23T11:28:02.664-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.CursoViewController    : Intentando cancelar inscripción del usuario ID: 19 al curso ID: 15
+2026-02-23T11:28:02.664-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Cancelando inscripción: Usuario ID 19 - Curso ID 15
+2026-02-23T11:28:02.675-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Inscripción cancelada exitosamente mediante JdbcTemplate. Filas afectadas: 1
+2026-02-23T11:28:02.688-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.CursoViewController    : Inscripción cancelada exitosamente
+2026-02-23T11:31:05.747-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T11:31:22.204-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-10] c.c.s.controllers.CertificadoController  : Descarga de certificado solicitada. username=arnold, cursoId=13
+2026-02-23T11:31:22.443-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.s.controllers.CertificadoController  : Descarga de certificado solicitada. username=arnold, cursoId=13
+2026-02-23T11:32:41.738-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-1] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=lina, rolesCount=1
+2026-02-23T11:32:50.244-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Inscribiendo mediante JDBC: Usuario ID 19 - Curso ID 15
+2026-02-23T11:32:50.251-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-6] c.cajica.stream.services.UsuarioService  : Inscripción completada exitosamente mediante JdbcTemplate. Filas afectadas: 1
+2026-02-23T11:37:57.156-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.CertificadoController  : Descarga de certificado solicitada. username=lina, cursoId=15
+2026-02-23T11:37:57.375-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CertificadoController  : Descarga de certificado solicitada. username=lina, cursoId=15
+2026-02-23T11:38:57.410-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T11:39:52.374-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.stream.services.FileStorageService   : Archivo almacenado exitosamente. isVideo=false, fileName=c961a181-dc89-46c1-a0c3-c2c928df0d5b.jpeg, sizeBytes=14997
+2026-02-23T11:41:22.862-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T11:41:27.509-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T11:42:36.547-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.stream.services.FileStorageService   : Imagen ya existía, se reutiliza. fileName=02693d952d884f36a14c49fc0b000a4b23e4207602d4ac28bcc8cda35f0d4020.jpeg
+2026-02-23T11:43:20.496-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.stream.services.FileStorageService   : Archivo almacenado exitosamente. isVideo=false, fileName=4e4b7ec0-88dd-42d2-a45b-316578508003.pdf, sizeBytes=562124
+2026-02-23T11:48:09.105-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T11:48:09.110-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T11:48:09.111-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T11:48:09.116-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 1 inscripciones encontradas
+2026-02-23T11:48:09.116-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T11:48:09.116-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T11:48:09.117-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:48:09.117-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T11:48:09.119-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.cajica.stream.services.UsuarioService  : Se encontraron 0 cursos inscritos para el usuario ID: 18
+2026-02-23T11:48:09.120-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 0
+2026-02-23T11:48:09.139-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T11:48:09.143-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T11:48:09.143-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T11:48:09.143-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:48:09.144-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.cajica.stream.services.UsuarioService  : Se encontraron 0 cursos inscritos para el usuario ID: 18
+2026-02-23T11:48:09.144-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-8] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 0
+2026-02-23T11:48:29.175-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.cajica.stream.services.UsuarioService  : Inscribiendo mediante JDBC: Usuario ID 18 - Curso ID 20
+2026-02-23T11:48:29.182-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.cajica.stream.services.UsuarioService  : Inscripción completada exitosamente mediante JdbcTemplate. Filas afectadas: 1
+2026-02-23T11:49:02.228-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T11:49:02.238-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T11:49:02.238-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T11:49:02.241-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T11:49:02.241-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T11:49:02.242-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:02.242-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:49:02.242-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T11:49:02.244-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 20, Nombre: curso prueba
+2026-02-23T11:49:02.244-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:02.244-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.cajica.stream.services.UsuarioService  : Curso: ID=20, Nombre=curso prueba
+2026-02-23T11:49:02.244-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 1
+2026-02-23T11:49:02.244-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=20, Nombre=curso prueba
+2026-02-23T11:49:02.289-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T11:49:02.298-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T11:49:02.298-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:02.298-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:49:02.300-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:02.300-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 1
+2026-02-23T11:49:02.300-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 20, Nombre: curso prueba
+2026-02-23T11:49:23.582-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Accediendo a Mis Cursos para el usuario: arnold
+2026-02-23T11:49:23.589-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Usuario encontrado con ID: 18
+2026-02-23T11:49:23.589-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Verificando si el usuario ID 18 tiene inscripciones
+2026-02-23T11:49:23.591-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Usuario ID 18: 2 inscripciones encontradas
+2026-02-23T11:49:23.591-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : ¿El usuario tiene inscripciones? true
+2026-02-23T11:49:23.592-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Obteniendo cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:23.592-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.* FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:49:23.592-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Parámetro usuarioId: 18
+2026-02-23T11:49:23.592-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso encontrado - ID: 20, Nombre: curso prueba
+2026-02-23T11:49:23.592-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:23.592-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.cajica.stream.services.UsuarioService  : Curso: ID=20, Nombre=curso prueba
+2026-02-23T11:49:23.593-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Cursos inscritos recuperados: 1
+2026-02-23T11:49:23.593-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.controllers.InscripcionController  : Curso inscrito: ID=20, Nombre=curso prueba
+2026-02-23T11:49:23.619-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.CursoRestController    : Obteniendo cursos inscritos para el usuario: arnold
+2026-02-23T11:49:23.625-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.CursoRestController    : Usuario encontrado con ID: 18
+2026-02-23T11:49:23.626-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Obteniendo datos crudos de cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:23.626-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Ejecutando consulta SQL: SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path FROM curso c JOIN inscripciones i ON c.id = i.curso_id WHERE i.usuario_id = ? AND c.activo = true
+2026-02-23T11:49:23.630-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 18
+2026-02-23T11:49:23.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 1
+2026-02-23T11:49:23.631-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-3] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 20, Nombre: curso prueba
+2026-02-23T12:05:21.419-05:00  WARN 71498 --- [cajica-stream] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m26s437ms).
+2026-02-23T12:07:14.175-05:00  WARN 71498 --- [cajica-stream] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m52s758ms).
+2026-02-23T12:57:06.616-05:00  WARN 71498 --- [cajica-stream] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m52s441ms).
+2026-02-23T12:58:26.359-05:00  WARN 71498 --- [cajica-stream] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s742ms).
+2026-02-23T13:13:39.377-05:00  WARN 71498 --- [cajica-stream] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m13s18ms).
+2026-02-23T13:14:24.203-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-2] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T13:14:28.206-05:00  INFO 71498 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-02-23T13:14:59.781-05:00  INFO 71498 --- [cajica-stream] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-23T13:14:59.796-05:00  INFO 71498 --- [cajica-stream] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-23T13:14:59.834-05:00  INFO 71498 --- [cajica-stream] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-23T13:14:59.867-05:00  INFO 71498 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-23T13:14:59.887-05:00  INFO 71498 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
