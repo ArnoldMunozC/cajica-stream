@@ -73,6 +73,17 @@ public class UsuarioService {
 
   @Transactional
   public Usuario registrarUsuario(Usuario usuario) {
+    // Normalizar nombre completo a minúsculas
+    if (usuario.getNombreCompleto() != null) {
+      usuario.setNombreCompleto(usuario.getNombreCompleto().trim().toLowerCase());
+    }
+
+    // Formatear número de identificación con puntos (ej: 1234567 → 1.234.567)
+    if (usuario.getNumeroIdentificacion() != null) {
+      String soloDigitos = usuario.getNumeroIdentificacion().replaceAll("[^0-9]", "");
+      usuario.setNumeroIdentificacion(formatearNumeroConPuntos(soloDigitos));
+    }
+
     // Codificar la contraseña antes de guardar
     usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
@@ -105,6 +116,17 @@ public class UsuarioService {
 
     usuario.agregarRol(rol);
     return usuarioRepository.save(usuario);
+  }
+
+  private String formatearNumeroConPuntos(String digitos) {
+    if (digitos == null || digitos.isEmpty()) {
+      return digitos;
+    }
+    StringBuilder sb = new StringBuilder(digitos);
+    for (int i = sb.length() - 3; i > 0; i -= 3) {
+      sb.insert(i, '.');
+    }
+    return sb.toString();
   }
 
   @Transactional
@@ -184,7 +206,9 @@ public class UsuarioService {
 
     // Verificar que el usuario y el curso existen
     String checkUsuarioSql = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
-    String checkCursoSql = "SELECT COUNT(*) FROM curso WHERE id = ? AND activo = true";
+    String checkCursoSql =
+        "SELECT COUNT(*) FROM curso WHERE id = ? AND activo = true AND inscripciones_abiertas ="
+            + " true";
 
     int usuarioExists = jdbcTemplate.queryForObject(checkUsuarioSql, Integer.class, usuarioId);
     int cursoExists = jdbcTemplate.queryForObject(checkCursoSql, Integer.class, cursoId);

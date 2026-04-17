@@ -43,13 +43,23 @@ public class AuthController {
   public String registrarUsuario(
       @Valid @ModelAttribute("usuario") Usuario usuario,
       BindingResult result,
-      @org.springframework.web.bind.annotation.RequestParam("confirmPassword") String confirmPassword,
+      @org.springframework.web.bind.annotation.RequestParam("confirmPassword")
+          String confirmPassword,
       RedirectAttributes redirectAttributes) {
 
     logger.info(
         "Iniciando registro de usuario. username={}, email={}",
         usuario.getUsername(),
         usuario.getEmail());
+
+    // Validar que el número de identificación contenga solo dígitos
+    String docRaw = usuario.getNumeroIdentificacion();
+    if (docRaw != null && !docRaw.trim().isEmpty() && !docRaw.trim().matches("[0-9]+")) {
+      result.rejectValue(
+          "numeroIdentificacion",
+          "error.usuario",
+          "El número de identificación debe contener solo dígitos, sin puntos ni comas");
+    }
 
     // Validar que las contraseñas coincidan
     if (!usuario.getPassword().equals(confirmPassword)) {

@@ -93,6 +93,28 @@ public class CursoService {
     return false;
   }
 
+  public boolean disableInscripciones(Long id) {
+    Optional<Curso> optionalCurso = cursoRepository.findById(id);
+    if (optionalCurso.isPresent()) {
+      Curso curso = optionalCurso.get();
+      curso.setInscripcionesAbiertas(false);
+      cursoRepository.save(curso);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean enableInscripciones(Long id) {
+    Optional<Curso> optionalCurso = cursoRepository.findById(id);
+    if (optionalCurso.isPresent()) {
+      Curso curso = optionalCurso.get();
+      curso.setInscripcionesAbiertas(true);
+      cursoRepository.save(curso);
+      return true;
+    }
+    return false;
+  }
+
   public Curso update(Long id, Curso cursoDetails) {
     Optional<Curso> optionalCurso = cursoRepository.findById(id);
     if (optionalCurso.isPresent()) {

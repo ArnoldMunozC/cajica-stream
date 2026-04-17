@@ -9,17 +9,17 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.events.Event;
 import com.itextpdf.kernel.events.IEventHandler;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
-import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
@@ -36,8 +36,9 @@ import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,6 +49,13 @@ public class CertificadoPdfService {
 
   @Value("${app.certificado.template:/static/images/diploma.png}")
   private String certificadoTemplatePath;
+
+  private final ConfiguracionSistemaService configuracionSistemaService;
+
+  @Autowired
+  public CertificadoPdfService(ConfiguracionSistemaService configuracionSistemaService) {
+    this.configuracionSistemaService = configuracionSistemaService;
+  }
 
   private static final DeviceRgb COLOR_AZUL_OSCURO = new DeviceRgb(0, 51, 102);
   private static final DeviceRgb COLOR_DORADO = new DeviceRgb(184, 157, 102);
@@ -106,13 +114,22 @@ public class CertificadoPdfService {
       DateTimeFormatter formatterEvento =
           DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
       String fechaEvento = certificado.getFechaEmision().format(formatterEvento);
+      String fechaVigencia = certificado.getFechaVigencia().format(formatterEvento);
       document.add(
-          new Paragraph("el día " + fechaEvento)
+          new Paragraph("el día " + fechaEvento + " (vigente hasta " + fechaVigencia + ")")
               .setFont(fontRegular)
               .setFontSize(10)
               .setFontColor(COLOR_AZUL_OSCURO)
               .setTextAlignment(TextAlignment.CENTER)
               .setFixedPosition(1, 80, 225, pageWidth - 160));
+
+      // Firma del emisor (solo si está configurada)
+      String emisorNombre = configuracionSistemaService.getEmisorNombre();
+      String emisorCargo = configuracionSistemaService.getEmisorCargo();
+      if (emisorNombre != null && !emisorNombre.isBlank()) {
+        agregarFirma(
+            document, fontBold, fontRegular, emisorNombre.toUpperCase(), emisorCargo.toUpperCase());
+      }
 
       // QR Code y código de verificación (zona inferior)
       agregarCodigoVerificacion(document, pdf, certificado, fontRegular);
@@ -149,7 +166,11 @@ public class CertificadoPdfService {
       PdfDocument pdfDoc = docEvent.getDocument();
       Rectangle pageSize = docEvent.getPage().getPageSize();
 
-      PdfCanvas pdfCanvas = new PdfCanvas(docEvent.getPage().newContentStreamBefore(), docEvent.getPage().getResources(), pdfDoc);
+      PdfCanvas pdfCanvas =
+          new PdfCanvas(
+              docEvent.getPage().newContentStreamBefore(),
+              docEvent.getPage().getResources(),
+              pdfDoc);
       Canvas canvas = new Canvas(pdfCanvas, pageSize);
       Image bg = new Image(template);
       bg.scaleToFit(pageSize.getWidth(), pageSize.getHeight());
@@ -218,33 +239,41 @@ public class CertificadoPdfService {
     document.add(headerTable);
   }
 
-  private void agregarFirma(Document document, PdfFont fontBold, PdfFont fontRegular) {
-    // Línea de firma
-    document.add(
-        new Paragraph("_".repeat(40))
-            .setTextAlignment(TextAlignment.CENTER)
-            .setMarginBottom(5));
+  private void agregarFirma(
+      Document document,
+      PdfFont fontBold,
+      PdfFont fontRegular,
+      String emisorNombre,
+      String emisorCargo) {
+    float pageWidth = document.getPdfDocument().getDefaultPageSize().getWidth();
+    float firmaX = pageWidth / 2 - 100;
 
     document.add(
-        new Paragraph("LEIDY SUAREZ FERNANDEZ")
+        new Paragraph(emisorNombre)
             .setFont(fontBold)
-            .setFontSize(11)
+            .setFontSize(10)
+            .setFontColor(COLOR_AZUL_OSCURO)
             .setTextAlignment(TextAlignment.CENTER)
-            .setMarginBottom(2));
+            .setFixedPosition(1, firmaX - 80, 40, 360)
+            .setMarginBottom(1));
 
     document.add(
-        new Paragraph("DIRECTORA DE ASEGURAMIENTO DESARROLLO Y SERVICIOS DE SALUD")
+        new Paragraph(emisorCargo)
             .setFont(fontRegular)
-            .setFontSize(9)
+            .setFontSize(8)
+            .setFontColor(COLOR_AZUL_OSCURO)
             .setTextAlignment(TextAlignment.CENTER)
-            .setMarginBottom(10));
+            .setFixedPosition(1, firmaX - 80, 28, 360));
   }
 
   private void agregarCodigoVerificacion(
       Document document, PdfDocument pdf, Certificado certificado, PdfFont fontRegular) {
     try {
       // Generar QR Code
-      String urlVerificacion = normalizarBaseUrl(baseUrl) + "/certificados/verificar/" + certificado.getCodigoVerificacion();
+      String urlVerificacion =
+          normalizarBaseUrl(baseUrl)
+              + "/certificados/verificar/"
+              + certificado.getCodigoVerificacion();
       byte[] qrCodeImage = generarQRCode(urlVerificacion, 60, 60);
 
       Table qrTable = new Table(UnitValue.createPercentArray(new float[] {1, 2}));

@@ -22,6 +22,7 @@ public class Curso {
   @Lob
   @Column(columnDefinition = "TEXT")
   private String descripcion;
+
   private String categoria;
 
   @Column(name = "imagen_path")
@@ -29,6 +30,9 @@ public class Curso {
 
   @Column(name = "activo", nullable = false)
   private boolean activo = true;
+
+  @Column(name = "inscripciones_abiertas", nullable = false)
+  private boolean inscripcionesAbiertas = true;
 
   @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Video> videos = new ArrayList<>();
@@ -55,6 +59,7 @@ public class Curso {
 
   public Curso() {
     this.activo = true;
+    this.inscripcionesAbiertas = true;
   }
 
   // Helper method to add video to the course

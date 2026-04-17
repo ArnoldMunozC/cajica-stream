@@ -19,7 +19,8 @@
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="nombreCompleto" th:field="*{nombreCompleto}" type="text" placeholder="Nombres y Apellidos" required />
+                                        <input class="form-control" id="nombreCompleto" th:field="*{nombreCompleto}" type="text" placeholder="Nombres y Apellidos" required
+                                               style="text-transform: lowercase;" />
                                         <label for="nombreCompleto">Nombres y Apellidos</label>
                                         <div class="text-danger" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}"></div>
                                     </div>
@@ -40,8 +41,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="numeroIdentificacion" th:field="*{numeroIdentificacion}" type="text" placeholder="Número de Identificación" required />
+                                        <input class="form-control" id="numeroIdentificacion" th:field="*{numeroIdentificacion}" type="text" placeholder="Número de Identificación"
+                                               pattern="[0-9]+" inputmode="numeric" required />
                                         <label for="numeroIdentificacion">Número de Identificación</label>
+                                        <div class="form-text text-muted">Solo números, sin puntos ni comas.</div>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('numeroIdentificacion')}" th:errors="*{numeroIdentificacion}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -154,6 +158,29 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            // Forzar minúsculas en nombre completo al escribir
+            document.getElementById('nombreCompleto').addEventListener('input', function() {
+                const pos = this.selectionStart;
+                this.value = this.value.toLowerCase();
+                this.setSelectionRange(pos, pos);
+            });
+
+            // Bloquear cualquier carácter no numérico en número de identificación
+            const docInput = document.getElementById('numeroIdentificacion');
+            docInput.addEventListener('keypress', function(e) {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+            docInput.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const texto = (e.clipboardData || window.clipboardData).getData('text');
+                const soloDigitos = texto.replace(/[^0-9]/g, '');
+                document.execCommand('insertText', false, soloDigitos);
+            });
+        </script>
     </section>
 </body>
 </html>

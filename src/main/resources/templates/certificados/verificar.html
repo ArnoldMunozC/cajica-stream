@@ -42,6 +42,10 @@
                             <td th:text="${#temporals.format(certificado.fechaEmision, 'dd/MM/yyyy')}">01/01/2025</td>
                         </tr>
                         <tr>
+                            <th>Vigente hasta:</th>
+                            <td th:text="${#temporals.format(certificado.fechaVigencia, 'dd/MM/yyyy')}">01/01/2026</td>
+                        </tr>
+                        <tr>
                             <th>Videos completados:</th>
                             <td th:text="${certificado.videosCompletados + '/' + certificado.totalVideos}">0/0</td>
                         </tr>

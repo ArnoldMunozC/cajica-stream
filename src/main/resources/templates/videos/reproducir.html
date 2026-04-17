@@ -77,7 +77,6 @@
                                                        th:name="'q_' + ${p.id}"
                                                        th:value="${o.id}">
                                                 <label class="form-check-label" th:for="'q_' + ${p.id} + '_' + ${o.id}" th:text="${o.texto}">Opción</label>
-                                                <span class="badge bg-success ms-2" th:if="${quizIntento != null and o.correcta}">Correcta</span>
                                             </div>
                                         </div>
 
@@ -88,7 +87,6 @@
                                                        th:name="'q_' + ${p.id}"
                                                        th:value="${o.id}">
                                                 <label class="form-check-label" th:for="'q_' + ${p.id} + '_' + ${o.id}" th:text="${o.texto}">Opción</label>
-                                                <span class="badge bg-success ms-2" th:if="${quizIntento != null and o.correcta}">Correcta</span>
                                             </div>
                                         </div>
                                     </div>
@@ -310,17 +308,17 @@
         // YouTube IFrame Player API
         var ytPlayer = null;
         var ytCompletadoEnviado = false;
-        
+
         function onYouTubeIframeAPIReady() {
             const ytContainer = document.getElementById('youtubePlayer');
             if (!ytContainer) return;
-            
+
             const ytVideoId = ytContainer.dataset.videoId;
             const cursoId = ytContainer.dataset.cursoId;
             const localVideoId = ytContainer.dataset.localVideoId;
-            
+
             if (!ytVideoId) return;
-            
+
             ytPlayer = new YT.Player('youtubePlayer', {
                 videoId: ytVideoId,
                 playerVars: {
@@ -339,7 +337,7 @@
                 }
             });
         }
-        
+
         async function marcarYoutubeCompletado(cursoId, videoId) {
             if (!cursoId || !videoId) return;
             try {
@@ -357,7 +355,7 @@
                 console.warn('marcarYoutubeCompletado error', e);
             }
         }
-        
+
         // Script para eliminar cualquier reproductor de video duplicado
         document.addEventListener('DOMContentLoaded', function() {
             // Obtener todos los reproductores de video

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Configuración del Diploma - Cajica Stream</title>
+</head>
+<body>
+    <section>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-award"></i> Configuración del Diploma</h1>
+            <a th:href="@{/cursos}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-pencil-square"></i> Datos del emisor del diploma</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small mb-4">
+                            Esta información aparecerá en la sección de firma de todos los diplomas que se generen a partir de ahora.
+                        </p>
+
+                        <form th:action="@{/admin/configuracion/diploma}" method="post">
+                            <div class="mb-3">
+                                <label for="emisorNombre" class="form-label fw-semibold">
+                                    Nombre completo de quien emite
+                                </label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="emisorNombre"
+                                       name="emisorNombre"
+                                       th:value="${emisorNombre}"
+                                       placeholder="Ej: LEIDY SUAREZ FERNANDEZ"
+                                       maxlength="200"
+                                       required>
+                                <div class="form-text">Se mostrará en mayúsculas en el diploma.</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="emisorCargo" class="form-label fw-semibold">
+                                    Cargo
+                                </label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="emisorCargo"
+                                       name="emisorCargo"
+                                       th:value="${emisorCargo}"
+                                       placeholder="Ej: DIRECTORA DE ASEGURAMIENTO DESARROLLO Y SERVICIOS DE SALUD"
+                                       maxlength="300"
+                                       required>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Guardar configuración
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:if="${emisorNombre != null and !#strings.isEmpty(emisorNombre)}" class="card mt-4 border-secondary">
+                    <div class="card-header">
+                        <h6 class="mb-0 text-secondary"><i class="bi bi-eye"></i> Vista previa del pie de diploma</h6>
+                    </div>
+                    <div class="card-body text-center py-4">
+                        <div style="border-top: 2px solid #333; display: inline-block; padding-top: 8px; min-width: 280px;">
+                            <div class="fw-bold" th:text="${#strings.toUpperCase(emisorNombre)}"></div>
+                            <div class="small text-muted" th:text="${#strings.toUpperCase(emisorCargo)}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

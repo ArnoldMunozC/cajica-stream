@@ -1,0 +1,750 @@
+
+
+MINTIC	{@ NINEDUCACIÓN
+REGLAMENTO OPERATIVO
+""FONDO TALENTO T.I.”
+CONSTrTUIDO ENTRE EL INSTITUTO COLOMBïANO DE CRÉDITO EDUCATE\/O Y ESTUDIOS TÉCNICOS IN EL EXTERIOR “MAPIANO OSPINA PÉBT" - ICATEX Y EL FO?DO DE TECNOLOGÍAS DE LA INFORMACIÖN Y LAN COMU?ICACIONES
+
+       CAPÍTULO I NATURALEZA DEL FONDO
+
+
+
+
+
+
+Pàgina 1 de 24
+
+ARTÍCULO PRIMERO. - GLOSARIO: Para un correcto entendimiento del presente reglamento, además de las definiciones que se encuentran incluidas dentro del texto del mismo, se definen los siguientes términos:
+
+• CONVENIO: Es el No. 2017-0426 (Numeración ICETEX) — 0000930 del 2017 (Numeración FONTIC), mediante el cual se constituyõ el FONDO TALENTO T.I.
+
+• PERIODO APROBADO: Periodo académico en el que han sido cursadas y aprobadas las materias de la malla curricular establecida en cada periodo académico por la institución, en el SNIES o en la Secretaria de Educación.
+
+• VALOR DEL PROGRAMA ACADÉMICO: Corresponde al valor total del programa académico cobrado por la institución, el cual se paga por periodos académicos y, que equivale al valor de la orden de matrícula ordinaria por el número de periodos que componen el programa, el cual incluye los incrementos que correspondan por ley.
+
+• PERIODO ACADÉMICO: Ciclo de tìempo en que la Institución dicta eJ correspondiente programa académico (Ciclos, Trimestres, Semestres, Años, etc.).
+
+• PROGRAMA ACADÉMICO: Corresponde a los programas ofrecidos por las instituciones y registrados en el SNIES, con registro vigente, según corresponda, en los siguientes niveles de formación: a. Tecnológico y b. Profesional Universitario.
+
+• ICETEX: lnstituto Colombiano de Crédito Educativo y Estudios Técnicos en el Exterior. Entidad que administra los recursos del Fondo TALENTO T.I.
+
+• MINTIC: Ministerio de Tecnologías de la Información y las Comunicaciones. Entidad que dispone de los recursos del Fondo TALENTO T.I.
+
+• FONTIC: Fondo de Tecnologías de la Información y las Comunicaciones.
+
+
+NINTTC	NINEDUCACIÓN
+REGLAMENTO OPERATIVO "”FONDO TALENTO T.I."
+CONSTITUIDO ENTRE EL INSTITUTO COLOMBIANO DE CRT2DITO EDUCATNO Y ESTUDIOS TÉCNICOS EN EL EXTERIOR "MARIANO OSPINA PúRW" - ICE	Y EL FONDO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS COMLINICACIONEE
+
+
+
+
+
+
+Pagina 2 de 24
+
+• CRÉDITO: Crédito Educativo Condonable otorgado por el ICETEX, con cargo al FONDO TALENTO T.I., previa autorización de la Junta Administradora.
+• DESISTIDO: Es el estado de aquellos beneficiarios que renuncian voluntariamente a su crédito.
+
+• ADJUDICATARIO: Aspirante que ha cumplido con los requisitos minimos establecidos en la convocatoria para la cual se ha presentado y que ha resultado aprobado durante el proceso de evaluación de la misma. Es el aspirante aprobado habilitado para iniciar el proceso de legalización. El cumplimiento de requisitos mínimos no da lugar a crear un derecho adquirido.
+
+• INSTITUCIÓN: Son: a) Las Instituciones de Educación Superior con registro vigente en el SNIES, que comprenden: a. Instituciones Técnicas Profesionales; b. Instituciones de Educación Superior, ambas con oferta activa y vigente de programas académicos relacionados con Tecnologías de la Información, acorde con la naturaleza del FONDO TALENTO T.I.
+
+• DERECHO ADQUIRIDO: Se entenderá como derecho adquirido por parte del adjudicatario sõlo cuando culmine el proceso de legalización y obtenga concepto jurídico viable de las garantias emitido por partg del ICETEX.
+
+ARTÍCULO SEGUNDO. - FINALIDAD: El Fondo en Administración estará destinado a financiar mediante créditos educativos condonables para programas de formación académiGa, en los niveles tecnológico y profesional universitario relacionados con ãreas de tecnologías de la información y afines, con los recursos girados por EL CONSTITUYENTE al ICETEX, quien actuarã como administrador y mandatario.
+
+PARÁGRAFO: Para el FONDO TALENTO T.I, se entiende por temas relacionados con el sector de TI y afines, entre otros los siguientes.”
+
+1. Desarrollo de software y aplicaciones informátias.
+2. Gestión de Proyectos de TI.
+3. Control y aseguramiento de la calidad en TI.
+4. Arquitectura y seguridad en TI.
+5. Mercadeo y/o comercialización y/o gestión de ventas en TI.
+6. Modelos de calidad para el desarrollo de software
+
+NlNEDUCACIóN
+
+
+
+REGLAMENTO OPERATIVO “’FONDO TALENTO T.I.”
+CONSTITUIDO ENTRE EL INSTITUTO COLOMBIANO DE CRÉDITO EDUCATIVO Y ESTUDIOS TÉCNICOS EN EL MTERIOR "MARIANO OSPINA PÉREZ" - ICETEX Y EL FONDO DE TECNOLOGIAS DE LA INFORMACIÓN Y LAS COMUNICACIONES
+
+
+
+
+
+
+
+
+
+
+
+
+Pàgina 3 de 24
+7. Todas aquellas iniciativas lideradas por el MINTIC en desarrollo de la ejecución de la Política Pública en el Sector.
+
+ARTÍCULO TERCERO. - DESCRIPCIÕN: El FONDO se crea para la formación de ciudadanos colombianos en áreas relacionadas con Tecnologías de la Información y afines, con el fin de fortalecer el talento humano de este sector y a su vez, revertir el conocimiento adquirido en la estrategia de Gobiemo en Línea en el marco del Plan Vive Digital para la Gente, en temas que se consideran de interés para el sector TI. En este sentido, los temas que se consideran de interés para el sector TI son los relacionados y afines con las siguientes categorias:
+
+- Aplicar conocimientos generales en el uso de TI para gestionar el desarrollo y aplicabilidad de la lmplementación de la Estrategia de Gobiemo en Línea, de acuerdo con sus componentes y herramientas, que pueden ser objeto de investigación y desarrollo.
+- Uso y apropiación de TI con el objeto de favorecer y facilitar el desarrollo de la Estrategia Gobierno en Línea o al interior de cada sector definido de clase mundial, de bienes y servicios, orientados a hacer más productiva y competitiva la respetiva cadena de valor.
+Conocimientos y habilidades específicas para emprender proyectos de gestión tecnológica, de conocimiento y de investigación e innovación orientados a generar valor y utilidad a la Estrategia Gobierno en Línea, y al modelo de producción corporativo que propenda por el control, aseguramiento y mejoramiento de los procesos de desarrollo de aplicaciones y de prestación de servicios.
+Gestión tecnológica dirigida a la negociación, comercializaciôn de software, servicios de consultoría
+en tecnología y canales de distribuciõn.
+- Fomento y aplicaciôn de normas, criterios y estãndares de calidad en el desarrollo de software a partir de la cadena de valor de su proceso de producción.
+- Desarrollo de apliaciones para dispositivos móviles y sistemas de información con criterio de especialidad.
+- Gestión de proyectos, capacidad para el emprendimiento y el aprovechamiento de la infraestructura existente de TI.
+- Gestión de proyectos de desarrollo colaborativo y software libre.
+- Gestión de proyectos, capacidad para el emprendimiento y el aprovechamiento de datos abiertos.
+- Capacidad de liderazgo, de gestiõn de la innovación, de negociación y Gontratación para facilitar la apertura de nuevas oportunidades de mercado no sólo locales sino internacionales.
+- Capacidad de liderazgo, de gestión de la innovación para la Estrategia Gobierno en Línea.
+
+
+
+¢
+
+
+REGLAMENTO OPERATIVO
+""FONDO TALENTO T.I."
+CONSTITUIDO Er' E EL INSTITUTO COLOMBIANO DE CREDITO EDUCATIVO Y ESTUDIOS TECNICOS EN EL TERIOR "MARIANO OSPIMA PÉRW - ICETEX Y EL FONDO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS COMUNICACIONES
+PàgTna 4 de 24
+
+ARTÍCULO CUARTO. - BENEFICIARIOS: Serãn beneficiarios del FONDO los ciudadanos colombianos en general, que demuestren interés en adquirir formación en TI, que hayan sido seleccionados en el respectivo proceso de la convocatoria por parte de la Junta Administradora y que una vez seleccionados hayan efectuado los trámites de legalización del crêdito educativo y cuenten con el Concepto Jurídico Viable de las garantias por parte del ICETEX.
+
+ARTÍCULO QUINTO. - GASTOS FINANCIABLES: A través del FONDO y de acuerdo con la aprobación realizada por la Junta Administradora; se financiará por beneficiario para estudios en los niveles tecnológicos y profesionales, el rubro de matrícula en topes que se establecerán en cada convocatoria.
+
+PARÁGRAFO PRIMERO: Sólo se finanGiará el rubro de matrícula; no se financiarán periodos académicos intersemestrales, ni cursos de homologación, complementarios o de recuperación, ni de otro tipo que no se encuentren incluidos en el plan curricular oficial del programa de estudios. lgualmente, tampoco se financiarán derechos de grado.
+
+PARÁGRAFO SEGUNDO: Los rubros autorizados en el momento de la adjudicación, sólo serán reconocidos, a partir de la aprobaciõn del crédito condonable, y en ningún caso tendrãn efecto retroactivo para los ciclos acadêmicos que ya hayan sido cursados por parte del beneficiario.
+
+CAPÍTULO II ADMINISTRACIÕN DEL FONDO
+
+ARTÍCULO SEXTO. - LINEAMIENTOS	ADMINISTRATIVOS: Los recursos del FONDO	serán
+administrados por el ICETEX, en su calidad de administrador - mandatario del FONTIC, a través de la Vicepresidencia de Fondos en Administración. El ICETEX ejecutará las órdenes, políticas y planes trazados por la Junta Administradora del FONDO. De igual forma, prestará asistencia y asesoría directa al FONTIC en los temas de su competencia y de acuerdo con las obligaciones contenidas en el Convenio.
+
+ARTÍCULO SÉPTIMO. - JUNTA ADMINISTRADORA DEL FONDO: Será el organismo encargado de establecer las políticas administrativas y el direccionamiento que se debe dar al FONDO, así como velar por la debida ejecución del mismo. Esta Junta estará integrada por:
+NTNEDUCACIÓN
+REGLAMENTO OPERATIVO
+““FONDO TALENTO T.I."
+CONSTITUIDO ENTRE EL INSTITUTO COLOMBIANO DE CRÉDITO EDUCATI\/O Y ESTUDIOS TÉCNICOS EN EL EXTERIOR “MARIANO OSPINA PÉREZ" - 1CETEX Y EL FONDO DE TECNOLOGÍA DE LA INFORMACION Y LAS COMUNICACION W
+
+
+
+
+
+Pagina 5 de 24
+a) Por parte del FONDO TIC - MINTIC: a) El Director de Desarrollo de la Industria de Tecnologías de la Información, o la persona que este delegue por escrito; b) El Asesor del Viceministerio de Econom ía Digital, Alejandro Gallego Hernandez Grado 1020-16, o la persona que este delegue por escrito; todos con voz y voto.
+b) Por parte de ICETEX: El Vicepresidente de Fondos en Administración o la persona que este designe por escrito, con voz sin voto.
+
+PARÁGRAFO: A las sesiones de la Junta Administradora del FONDO podrán asistir los funcionarios o asesores que las partes consideren necesarios para su desarrollo. Dichas personas tendrán voz pero no voto.
+
+ARTÍCULO OCTAVO. - FUNCIONES DE LA JUNTA ADMINISTRADORA DEL FONDO: Le corresponde
+a la Junta Administradora del FONDO, las siguientes funciones:
+
+1. Aprobar el Reglamento Operativo del Fondo, el cual deberá ser expedido por unanimidad por todos los miembros de la Junta Administradora del Fondo dentro de los treinta (30) días siguientes al perfeccionamiento del presente Convenio. Dicho reglamento deberá hacer alusión a los siguientes aspectos: Naturaleza del Fondo, Administración del Fondo, Junta Administradora, Proceso de selección y adjudicación del crédito, Condiciones del crédito, Proceso de desembolso y Condonación del Crédito, entre otros.
+2. Verificar el cumplimiento de los procedimientos establecidos en el Reglamento Operativo del Fondo y en cada una de las convocatorias, recomendando si es del caso, las modificaciones y ajustes que sean pertinentes.
+3. Realizar la aprobación y adjudicación de los créditos condonables.
+4. Velar por la gestión eficiente de los recursos del mismo y por la correcta ejecución de las operaciones objeto del FONDO.
+5. Estudiar los asuntos y solicitudes necesarias para una oportuna ejecución del convenio.
+6. Evaluar semestralmente la ejecución del programa con base en los informes que para el efecto presente EL ICETEX.
+7. Reunirse ordinariamente para evaluar el desarrollo del Convenio y extraordinariamente a solicitud de una de Las Partes, conforme a lo que al respecto se estipule en el Reglamento Operativo del Convenio, para lo cual deberá fijar las fechas y el lugar de las reuniones ordinarias y extraordinarias.
+8. Revisar y planificar las convocatorias y los demás asuntos propios del convenio y su operación.
+
+
+MINTO C	MINEDUCACIóN
+REGLAMENTO OPERATIVO "“FONDO TALENTO T.I."
+CONSTiTUIDO ENTRY EL INST1TUTO COLOMBIANO DE CRÉDITO EDUCATE\/O Y ESTUDIOS TÉCNICOS EN EL EXTERIOR "MARïANO OSPIMA PÉR8Z" - ICETEX Y EL GO¥DO DE TEONOLOG?AS DE LA INFORMACIÕN Y LAS cOMUNICACIOMES
+
+
+
+
+
+
+
+Pågina 6 de 24
+9. Aprobar las condonaciones de los créditos que cumplan con los requisitos previstos en el Reglamento Operativo.
+10. Autorizar el paso al cobro de las obligaciones que no cumplan con los requisitos de condonación establecidos en el reglamento operativo.
+11. Definir los lineamientos de seguimiento e impartir instrucciones, para que la supervisìón del Fondo se realice conforme con las normas que regulan la materia para el correcto y adecuado cumplimiento de las actividades del Fondo y de la inversión de los recursos.
+12. Velar de manera conjunta que se cumpla Io acordado por las partes del Convenio.
+13. Impartir las directrices y recomendaciones necesarias para el cumplimiento del objeto.
+14. Estudiar los informes técnicos, administrativos y financieros sobre la ejecución del convenio cuando a esto haya lugar, para el mejoramiento de la ejecución del mismo.
+15. Servir como espaGio de discusión y debate de los asuntos que sean abordados para el desarrollo del convenio, así como ser la instancia inicial para la resolución de las controversias que puedan Ilegar a presentarse.
+16. Adicional a las oblìgaciones incluidas en el Reglamento Operativo del Convenio, las demás que se consideren pertinentes para el logro de los objetivos del Fondo.
+
+PARÁGRAFO PRIMERO: Los aspectos que no queden expresamente contemplados en el Convenio o en el presente Reglamento Operativo, se regirán por las instrucciones que expresamente imparta EL CONSTITUYENTE al ICETEX, subsidiariamente de acuerdo con las previsiones del Reglamento de Crédito Educativo del ICETEX y dem?s políticas y procedimientos ordinarios de esa Entidad.
+
+PARÁGRAFO SEGUNDO: El ICETEX en calidad de administrador — mandatario, será responsable exclusivamente por aquellas oblìgaciones establecidas en el Convenio lnteradministrativo No. 2017-0426 (Numeración ICETEX) — 0000930 del 2017 (Numeración FONTIC) y en el presente Reglamento Operativo, sin exceder los Iímites del encargo, en consecuenGia sólo será responsable por aquellas actos que correspondan a su gestión y conforme a las instrucciones dadas por EL CONSTITUYENTE.
+
+ARTÎCULO NOVENO. - REUNIONES DE LA JUNTA ADMINISTRADORA: La Junta Administradora se
+reunirá en forma ordinaria mínimo cada TRES (3) meses y serã convocada, de manera escrita o por cualquier medio electrónico por el FONTIC-MINTIC. Sin embargo, la Junta Administradora podrá reunirse extraordinariamente por solicitud de cualquiera de sus miembros, mediante convocatoria escrita o por medio electrónico.
+NINTIC	NINEDUCACIÓN
+REGLAMENTO OPERATIVO ““FONDO TALENTO T.I.”
+CONSTŒUIDO ENTRE EL INSTITUTO COLOMBIANO DE CRÉDITO EDUCATiVO Y ESTUDIOS TECNICOS EN EL EXTERIOR
+•MAPIANO OSPINA PÉR 2" - ICETEX Y EL FONDO DE TECNOLOGiA5 DE LA INFOpÏøACIÓN Y	AMUNïCAØîONES
+
+                  CAPÍTULO III CONVOCATORIAS, PROCESO DE SELECCIÓN Y ADJUDICACIÕN DE LOS CRÉDITOS EDUCATIVOS
+
+
+
+
+
+
+Pàgins 7 de 24
+
+ARTÍCULO DÉCIMO. - CONVOCATORIAS: La convocatoria es el procedimiento mediante el cual se divulgan los términos, alcances, requisitos, criterios y condiciones para los aspirantes al crédito condonable. Toda convocatoria deberá ser ampliamente divulgada a través de los medios de comunicaciôn que para tal efecto disponga EL CONSTITUYENTE. Cualquier mecanismo que se escoja para la publicidad de las convocatorias debe garantizar que toda la población objeto del FONDO, tenga acceso a esta informaGiõn en forma oportuna.
+
+La divulgacìôn de las convocatorias y de los resultados de la mismas será realizada a través de la página Web de EL ICETEX y a través de los mecanismos que EL CONSTITUYENTE designe para tal fin.
+
+Las convocatorias deberán contener como mínimo los siguientes aspectos:
+
+1) Fecha de apertura y cierre.
+2) Requisitos mínimos que los aspirantes deben cumplir.
+3) Procedimiento y fecha límite de postulación.
+4) Criterìos para la evaluaciõn y calificación de los postulantes y selección de posibles beneficiarios.
+5) Fecha de publicación de los resultados de la convocatoria.
+6) Requisitos para legalización de los créditos educativos.
+7) Requisitos como Deudor Solidario.
+8) Requisitos para la condonación de los créditos educativos.
+
+ARTÎCULO DÉCIMO PRIMERO. - PROGRAMAS FINANCIABLES AUTORIZADOS: Las características y
+condiciones de los programas financiables para cada convocatoria se describirán en los términos de la misma, constituyéndose en un referente de identificaciõn para la selecciõn del programa de preferencia. En todo caso, el programa seleccionado por el aspirante, aparte de encontrarse dentro de la competencia de las áreas de Tecnologías de Información y temas afines, deber? corresponder con los niveles de estudio aprobados dentro de la finalidad del presente reglamento operativo.
+
+Será requisito para la autorizaciôn de financiación de un programa académico, que las Instituciones de Educación que Io ofrezcan estén aprobadas por parte de los organismos competentes y que además el
+
+
+MINEDUCACIÓN
+
+
+
+
+REGLAMENTO OPERATIVO "“FONDO TALENTO T.I."
+CONSTITUÍDO ENTRE EL IMSTITUTO COLOMBIANO DE CRÉDITO EDUCATIVO Y ESTUDIOS TÉCNICOS EN EL EXTERIOR "MARIANO O6PINA PÉREZ" - ICETEX Y EL FONDO DE TECNOLOGIAS DE LA íNFORMAC]ON Y LAS COMUNíCACIONES
+Pàgina 8 de 24
+programa académico se encuentre con registro calificado activo al momento de efectuar la respectiva matricula.
+
+ARTÍCULO DÉCIMO SEGUNDO. - REQUISITOS MÍNIMOS DE LOS ASPIRANTES: Los aspirantes a la
+financiación del FONDO, a través de la figura de crédito educativo condonable, deberán acreditar como mínimo los siguientes requisitos:
+
+a} Ser Ciudadano Colombiano.
+b) Estar admitido en una Institución de Educación Superior reconocida por el Ministerio de Educación Nacional a un programa del nivel Tecnolõgico o Universitario vigente, con registro calificado activo, registrado en el SNIES (Sistema Nacional de Información de la Educación Superior).
+)  Haber presentado las pruebas SABER 11 o la prueba de Estado equivalente.
+d) Tener una cuenta propia de correo electrõnico.
+e) Inscribirse a través del medio que se indique en cada convocatoria.
+f) Tener un deudor solidario y diligenciar el formulario de deudor solidario dispuesto para tal fin a través de la página web del ICETEX y obtener la aprobación del mismo.
+g) Los demãs requisitos especificados en cada convocatoria.
+
+ARTÍCULO DÉCIMO TERCERO. - EVALUACIÓN Y CALIFICACIÓN DE LOS POSTULANTES: Dentro
+del cronograma establecido en cada convocatoria, el ICETEX procederá a evaluar las solicitudes de financiación a partir de la información suministrada por los aspírantes durante el proceso de inscripciõn y a seleccionar aquellas que cumplan con los requisitos y criterios de postulación definidos en cada convocatoria; dicha selección será puesta a consideración de la Junta Administradora, quien determinará los aspirantes a ser aprobados.
+
+Una vez evaluadas las solicitudes, para efectos de la selección de los posibles beneficiarios de la financiación y conforme a la disponibilidad de recursos existentes en el FONDO, la Junta Administradora del FONDO establecerá los montos de financiación que serán aprobados para cada aspirante de acuerdo con los parámetros establecidos en el presente Reglamento Operativo.
+
+ARTÍCULO DÉCIMO CUARTO. - CRITERIOS PARA LA SELECCIÓN DE POSIBLES BENEFICIARIOS:
+Todo proceso de selección de posibles beneficiarios de financiación con cargo a los recursos del FONDO, será adelantado por el ICETEX, a partir de las solicitudes presentadas por los postulantes y
+
+MINTIC	NINEDUCACIÓN
+REGLAMENTO OPERATIVO “"FONDO TALENTO T.I.”
+CONSTTTUIDO ENTRE EL INSTTTUTO COLOMBIANO DE CRÉDITO EDUCATIVO Y ESTUDIO TÉCNICOS EN EL EXTERIOB
+“MARMO OEPINA PÉREZ” - TCWEX Y EL FONDO DE TECNOLOGIAS DE LA INPORMACI n Y LAS COMUNICACTONEE
+
+
+
+
+
+
+Pãgina 9 de 24
+conforme a los requisitos mínimos y criterios establecidos por EL CONSTITUYENTE para cada convocatoria.
+
+PARÁGRAFO PRIMERO: El cumplimiento de los requisitos de selección no genera ningún derecho para el postulado ni obligación para el FONDO; mientras que el aspirante seleccionado no efectúe los trámites de legalización del crédito educativo y no cuente con el Concepto Jurídico Viable sobre las garantias por parte del ICETEX, este no podrã considerarse como beneficiario de EL FONDO.
+
+PARAGRAFO SEGUNDO: En caso de resultados iguales en el proceso de evaluación, entre dos o mãs candidatos, cuando los recursos disponibles en el FONDO no sean suficientes para atender más solicitudes, se procederá en conformidad con las metodologías de desempate establecidos por EL CONSTITUYENTE para cada convocatoria.
+
+PARÁGRAFO TERCERO: Los aspirantes sõlo podrán ser beneficiarios del crédito condonable del FONDO por una sola y ünica vez.
+
+ARTÍCULO DÉCIMO QUINTO. - ADJUDICACIÓN DE LOS CRÉDITOS EDUCATIVOS: Una vez surtido
+el proceso de evaluación, calificaciõn y selecciõn de posibles beneficiarios realizada por el ICETEX, este procederá a informar a la Junta Administradora del FONDO quien aprobará la adjudicaciõn de los créditos a los beneficios, atendiendo a la disponibilidad de recursos existentes en el FONDO, lo cual quedará consignado en acta de Junta Administradora.
+
+PARÁGRAFO: En el evento en que hubiese recursos adicionales disponibles en el FONDO, estos podrán ser destinados para financiar un mayor número de aspirantes de los inicialmente determinados en la Convocatoria vigente, por decisión de la Junta Administradora de EL FONDO.
+
+ARTÍCULO DÉCIMO SEXTO. - DOCUMENTOS Y LEGALIZACION DEL CRÉDITO CONDONABLE: Los
+beneficiarios seleccionados, luego de contar con el estado ‘Aprobado” de su solicitud en la plataforma del ICETEX, y tener registrado un Deudor Solidario en el momento de la inscripción de acuerdo con los requisitos establecidos en cada convocatoria, deberá realizar la legalización de su crédito condonable a través de las Oficinas de Atención al Usuario del Instituto Colombiano de Crédito Educativo y Estudios Técnicos en el Exterior — ICETEX en las diferentes regionales, dentro de los términos establecidos para ello, con la documentación establecida en cada convocatoria.
+
+
+
+@  MINTIC	{@ MlNEDUCAClóN
+REGLAMENTO OPERATIVO "‘FONDO TALENTO T.I."
+CONSTITUIDO ENTRE EL INWFTUTO COLOMBIANO DE CADíTO EDUCATIVO Y ESTUDIOS T£CMICO5 EN EL EXNRIOR "MARtANO OSPINA PÉREZ" - ICETEX Y EL I"ONDO DE TECNOLOGÍA DE LA IMFORMACIÓN Y LAS COMUNICACIONES
+
+
+
+
+
+
+Pagina 10 de 24
+PARÁGRAFO PRIMERO: Toda la información suministrada por el aspirante en el formulario de inscripción, y evaluada por el ICETEX de acuerdo con los criterios establecidos en cada convocatoria, deberá estar respaldada por documentos que evidencien lo pertinente en el momento de la legalización.
+
+PARAGRAFO SEGUNDO: La generación de la garantía (pagaré y carta de instrucciones) se hace en las Oficinas Atención al Usuario del ICETEX y para ello el aspirante seleccionado deberá tener aprobado deudor solidario que respalda la obligación.
+
+PARÁGRAFO TERCERO: El ICETEX brindará a los aspirantes seleccionado del FONDO asesoría oportuna en aspectos básicos referentes al trãmite y manejo del crédito, firma de garantias, así como de las condiciones para mantener el crédito educativo.
+
+PARÁGRAFO CUARTO: En el evento en que el aspirante seleccionado no cumpla, dentro de los plazos establecidos, con los requisitos determinados en los términos de la Convocatoria para efectos de la legalizaciõn del crédito educativo, cesará automãticamente cualquier aspiración a ser beneficiario del crédito.
+
+PARÁGRAFO QUINTO: En caso de que el aspirante realice la legalización del crédito una vez iniciado el periodo académico correspondiente para el cual ha hecho la solicitud, la Junta Administradora podrã autorizar al ICETEX efectuar el desembolso correspondiente a la Institución de Educación Superior en caso de que el beneficiario hubiese cancelado el valor del periodo académico con recursos propios. El beneficiario deberã adelantar los trámites Gorrrespondientes ante la Institución de Educaciõn Superior para el reintegro de los recursos.
+
+ARTÍCULO DÉCIMO SÉPTIMO. - GARANTÍAS DEL CRÉDITO EDUCATIVO: La obligación crediticia
+(crédito condonable) adquirida con el FONDO TALENTO T.I, se respalda con un deudor solidario, que deberá suscribir junto con el aspirante seleccionado, y presentar las siguientes garantías:
+
+a) Un pagaré con espacios en blanco. La suscripción del pagaré implica la firma del mismo por parte del aspirante seleccionado y el deudor solidario, así como la impresión de las huellas dactilares. Este documento no requiere reconocimiento de firma ante notario o autoridad competente.
+
+MINTIC	NlNEDUCAC\óN
+
+
+
+
+REGLAMENTO OPERATIVO ""FONDO TALENTO T.I."
+CONSTITUIDO ENTRE £LINST!TUTO COLOMBIANO DE CRÉDITO EOOCATIVO Y ESTUDIOS TECNICOS EN E¢ EXTERIOR "MARJANO OSPINA PÉRM" - ICETEX Y EL FONDO DE TECNOLOGÍAS DE LA TNFOWACTÓN Y LAS AMUNICACIONES
+
+
+
+
+
+
+
+
+
+
+
+
+Pâgina 11 de 24
+b) Una carta de instrucciones. En la cual el aspirante seleccionado y el deudor solidario, expresan conocer y aGeptar las obligaciones adquiridas con el ICETEX y lo autoriza para llenar los espacios en blanco del pagaré, implica la impresiõn de las huellas dactilares. Este documento, requiere reconocimiento de firma ante notario o autoridad competente.
+
+Está documentación se presenta al momento de legalizar el crédito ante el ICETEX.
+
+PARÁGRAFO PRIMERO: En caso que el resultado del estudio realizado al deudor solidario sea negativo, el beneficiario deberá presentar un nuevo deudor solidario para su estudio y aprobación con el fin de tramitar el crédito condonable, lo cual deberá hacerse durante el plazo establecido en cada convocatoria para la legalización del crédito.
+
+PARÁGRAFO SEGUNDO: El procedimiento de legalización culminará una vez el aspirante entregue al ICETEX el pagaré y la carta de instrucciones debidamente suscritos y obtengan el Concepto Jurídico Viable de conformidad con el presente reglamento operativo, adquiriendo así el carácter de beneficiario.
+
+CAPÍTULO IV
+CONDICIONES DEL CRÉDITO EDUCATIVO Y OBLIGACIONES DE LOS BENEFICARIOS DEL FONDO
+
+ARTÍCULO DÉCIMO OCTAVO. - VIGENCIA DEL CRÉDITO EDUCATIVO: La financiación del crédito a través del FONDO se garantizarã por el número de periodos académicos solicitados por el aspirante en el formulario de inscripción, en correspondencia con la duración del programa académico según lo registrado en el SNIES de acuerdo con el programa y tipo de institución.
+
+PARÁGRAFO: Bajo ninguna circunstancia se financiarán periodos académicos cursados y culminados con anterioridad a la fecha de adjudicación del crédito.
+
+ARTÍCULO DÉCIMO NOVENO. - DESEMBOLSO DE LOS RECURSOS: Una vez finalizado el proceso de legalización de los créditos educativos, el ICETEX informará al CONSTITUYENTE sobre lo pertinente, para que esta apruebe la realización de los giros correspondientes, decisión que deberá quedar consignada en acta de reunión de la Junta Administradora del FONDO. Una vez surtido lo anterior, el ICETEX trasladará a las instituciones de educación superior los recursos correspondientes por concepto de matrícula.
+
+t•lÍNTIC
+
+
+
+REGLAMENTO OPERATIVO "”FONDO TALENTO T.I."
+CONSTITUIDO ENTRE EL INSTTTUTO COLOMBIANO DE CRÉDITO EDUCATIVO Y ESTUDIOS TÉCNICOS EN EL EXCESOS "MARIANO OSPINA PÉREZ" - ICETEX Y EL FONDO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS COMUNICACIONES
+
+
+
+
+
+
+
+
+
+
+
+
+Pàgins 12 de 24
+
+ARTÍCULO VIGÉSIMO. - RENOVACIÓN DEL CRÉDITO EDUCATIVO: Una vez finalizado el periodo académico, para efectos de renovación del crédito, el beneficiario deberá realizar los siguientes pasos:
+
+a) Actualizar sus datos en la plataforma web que para ello disponga el ICETEX.
+b) Presentar ante la oficina de atención al usuario del ICETEX o en la Institución de Educaciõn Superior y dentro de los plazos establecidos, los documentos relacionados a continuaGión:
+
+1. Certificado de notas o calificaciones oficial del último semestre o periodo cursado, con un PROMEDIO mínimo en el SEMESTRE o periodo de tres punto seis (3.6) sobre cinco punto cero (5.0), o su equivalente. También debe constar el PROMEDIO ACUMULADO.
+2. Recibo u orden de matrícula donde conste el periodo a cursar, el programa académico y el valor de la matrícula ordinario.
+3. Copia del pago realizado por el beneficiario a la INSTITUCIÓN, por concepto del porcentaje vigente que corresponda a la PRIMA DE GARANTÍA del periodo cursado.
+4. Formulario de actualización de datos (el que se genera al actualizar datos a través de la página web del ICETEX).
+
+ Una vez el ICETEX realice la verificación de requisitos de renovación informará a la Junta Administradora del FONDO para que apruebe los montos que soportarán la renovación de los créditos educativos para el siguiente periodo académico.
+
+Con base en la autorización de desembolso de la Junta Administradora y montos a cubrir a través de la renovación de los créditos educativos, el ICETEX realizará los giros correspondientes a las Instituciones de Educación Superior.
+
+PARÁGRAFO PRIMERO: El promedio mínimo obligatorio para renovar el crédito es de tres punto seis (3.6) en cada periodo académico en una escala de 1 a 5 o el equivalente a este promedio mínimo en otras escalas de calificación.
+
+En caso en que en el semestre o periodo cursado el beneficiario no cumpla con el PROMEDIO mínimo del PERIODO o SEMESTRE requerido para la renovación, se verificará el PROMEDIO ACUMULADO. Dicho acumulado deberá ser superior a tres punto seis (3.6), en una escala de uno (1) a cinco punto cero (5.0), o el equivalente a este promedio en otras escalas de calificaciõn. Debe entenderse que el
+MINTIC	NlN€DUCACIóN
+REGLAMENTO OPERATIVO ““FONDO TALENTO T.I.”
+CONSTITUÍDO ENTRE EL TNSTrTUTO COLOMBIANO DE CRÉDITO EOUCATIVO Y ESTUDIOS TÉCNICOS UN EL EXTERIOR “MARIANO OSPINA 8ÉREZ” - íCETM Y EL FONDO DE TECNOLOGÍAS DE LA INFORMACIÕN Y LAS CCiMUNíCACIONW
+
+
+
+
+
+Papina 13 de '24
+PROMEDIO ACUMULADO es el promedio de todo el programa cursado, calculado y suministrado por la INSTITUCIÓN, y NO solamente el promedio de notas del tiempo cursado desde que se adjudicó el crédito.
+
+En el evento en que el primer semestre el beneficiario no obtenga el promedio mínimo requerido, podrá renovar el crédito siempre y cuando cumpla los siguientes requisitos:
+
+- Tener un promedio entre 3.2 y 3.59
+- Si perdió una o más materias éstas deben ser asumidas por eí beneficiario como se indica en el parãgrafo tercero de este mismo artículo.
+- Para el siguiente semestre el beneficiario deberá obtener un promedio de 3.6 o superior, de acuerdo con el lineamiento general establecido.
+
+PARÁGRAFO SEGUNDO: El crédito educativo se renovarã solamente para la continuación del programa académico inicialmente aprobado y en la institución acadêmica inicialmente aprobada.
+
+No obstante lo anterior, la JUNTA ADMINISTRADORA del FONDO podrá tomar decisión sobre solicitudes de cambios de INSTITUCIÓN, cuando se presenten situaciones imprevisibles y de fuerza mayor que sean debidamente probadas y argumentadas. Los trámites ante las INSTITUCIONES son responsabilidad del beneficiario quien deberá asumir los costos propios de dicha situación.
+
+En todo caso, el FONDO sólo financiará el total de periodos solicitados por el aspirante en el formulario de inscripción y de acuerdo con la duración del programa originalmente aprobado.
+
+PARÁGRAFO TERCERO: Se aclara:
+
+- Si la pérdida de una o varias materias implica no obtener el promedio mínimo requerido para la renovación o la pérdida deJ semestre académico, es causaJ de suspensión temporal y el beneficiario deberá aplazar el crédito y asumir con recursos propios la recuperación de dicho evento. Una vez obtenido el promedio necesario para continuar con el crédito, el beneficiario deberá realizar la actualización de datos a través de las oficinas de atención al usuario del ICETEX o la Institución de Educación Superior, realizar la renovación para el siguiente periodo académico. En todo caso, solo se permitirá el aplazamiento del crédito por máximo dos periodos académicos.
+
+/•tlNEDUCACJóN
+BUM8RflS
+
+REGLAMENTO OPERATIVO
+""FONDO TALENTO T.I."
+CONSTITUÍDO ENTRE EL INSTITUTO COLOMBIANO DE CRÉDITO EDUCATT\/O Y ESTUDIOS TECNICOS EN EL EXTERIOR "MARIANO OSPINA PÉREZ" - ICETEX Y EL FONDO DE TECNOLOGIAS DE LA lNFORlgACíON Y LAN COMUNICAC|ONES
+
+
+
+
+
+
+Pàgina 14 de 24
+
+- En caso de que el beneficiario pierda una o varias materias en el correspondiente periodo académico sin que tal situación afecte el promedio mínimo exigido en este Reglamento, podrá continuar el programa teniendo en cuenta que, si la formación le toma más del tiempo del previsto para el desarrollo del programa académico, el pago de los semestres o materias adicionales deben ser asumidos con recursos propios por el beneficiario.
+
+- En caso de que el beneficiario cancele una o varias materias luego de matriculadas, deberá asumir el costo adicional que estas causen a futuro, igualmente si la formación le toma más del tiempo del previsto para el desarrollo del programa académico, el pago de los semestres o materias adicionales deben ser asumidos con recursos propios por el beneficiario.
+
+- En caso que el beneficiario culmine su plan de estudios de manera satisfactoria y haya requerido menos recursos del monto total aprobado, la condonación del crédito se efectuará por el total de los recursos utilizados no implicando de ninguna forma reintegros, desembolsos o giros, sea al beneficiario o a la Institución educativa, de los montos no utilizados.
+
+PARÁGRAFO CUARTO: Una vez el ICETEX reciba la autorización de los giros correspondientes a la renovación de los créditos educativos para cada periodo académico, a partir del reporte de renovaciõn suministrado por el ICETEX, procederá a desembolsar los recursos a partir de los rubros autorizados por la Junta Administradora del FONDO mediante Acta.
+
+ARTÍCULO VIGÉSIMO PRIMERO. - PRIMA DE GARANTÍA: El ICETEX descontarã a los beneficiarios del Fondo el uno punto cinco por ciento (1.5%) sobre cada desembolso que efectué en créditos educativos, con el objeto de IIevarIo al Fondo de Garantías del ICETEX para cubrir los riesgos de muerte o invalidez física o mental total permanente del beneficiario, eventos en los cuales el fondo de garantias del ICETEX reintegrarã al Fondo, el saldo de capital girado que adeude el estudiante, en el evento que se configure la siniestralidad. En todo caso, el beneficiario cancelará a la Institución Educativa el valor correspondiente al porcentaje descontado de cada desembolso.
+
+PARÁGRAFO: En caso de presentarse alguno de los riesgos antes mencionados, el Fondo de Garantías del ICETEX reintegrará al FONDO TALENTO T.I, el saldo de capital adeudado por el beneficiario. La invalidez física o mental total y permanente deberá ser por hecho sobreviniente del beneficiario, el cual se deberá acreditar por autoridad competente.
+MINTIC	{@ IvllNEDUCAtlóN
+REGLAMENTO OPERATIVO
+““FONDO TALENTO T.I.”
+i	CONSTITUÍDO ENTRE EL INSTITUTO COLOMBIANO DE CRÉDITO EDUCATIVO Y WTUDIOS TECNTCOS EN EL EXTERIOR “MARIANO OSPINA PARA” - ICETEX Y EL FONDO DE TECNOLOGIAS DE LA INFORMACION Y LAN COMUNICACjONES
+
+
+
+
+
+
+Pàgine 15 de 24
+
+
+ARTÍCULO	VIGÉSIMO	SEGUNDO.	-  CAUSALES	DE  SUSPENSIÓN	TEMPORAL	DE  LOS
+DESEMBOLSOS: Son causales de suspensión temporal de los desembolsos del crêdito educativo los siguientes:
+
+a) Retiro temporal del programa de estudios.
+b) Cierre temporal de la Institución de Educaciõn y/o del programa académico, debida y oportunamente manifestada por el beneficiario.
+c) El no GumpIimiento oportuno de los requisitos para la renovaciôn del crédito establecidos en este Reglamento y máximo por dos (2) periodos académicos del programa de estudios.
+d) Aplazamiento a solicitud expresa y oportuna del beneficiario, hasta por dos (2) periodos académicos del programa de estudios, debidamente justificado.
+e) Pérdida de un periodo académico.
+f) Las demãs que estime la Junta Administradora del FONDO.
+
+ARTÍCULO	VIGÉSIMO	TERCERO.	-  CAUSALES	DE  SUSPENSIÕN	DEFINITIVA	DE	LOS
+DESEMBOLSOS: Son causales de suspensión definitiva de los desembolsos y en consecuencia pérdida del crédito, los siguientes:
+
+a) Abandono injustificado del programa académico.
+b) Adulteración de documentos o presentación de información falsa.
+c) Cambio de Instituciôn de Educación y/o programa académico sin la previa autorizaciõn de la
+JUNTA ADMINISTRADORA DEL FONDO.
+d) La no tramitación de la renovación del crédito habiendo acumulado dos periodos académicos de aplazamiento o cumplido el plazo máximo de suspensión temporal de acuerdo con el artículo anterior.
+e) Retiro definitivo del beneficiario del programa académico.
+f) Tener un promedio académico acumulado por debajo del promedio mínimo acumulado requerido establecido en este Reglamento, habiendo superado dos (2) aplazamientos consecutivos.
+g) Incumplimiento por parte del beneficiario de cualquiera de las obligaciones establecidas en el
+presente Reglamento.
+h) Utilización de los recursos para fines distintos de aquellos para los cuales fueron otorgados.
+i) Suspender el crédito condonable por más de dos periodos académicos, sin previa autorización de la Junta Administradora del FONDO.
+
+
+IvIINEDUCAClóN
+REGLAMENTO OPERATIVO “’FONDO TALENTO T.I.”
+CONSTITUIDO ENTRE EL INSTITUTO COLOMBIANO DE C@DITO EDUCATIVO Y ESTUDIOS ÉTNICOS EN EL EXTERIOR “MARIANO OSPINA PEREZ” - ICETEX Y EL FONDO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS COMUNICACION¥5
+
+
+
+
+
+
+PàgTna 16 de 24
+j) Muerte o invalidez física o mental total y permanente del beneficiario, que impidan la realización de los estudios por parte del beneficiario.
+k) Expresa voluntad de renuncia del beneficiario, comunicada por escrito por el titular.
+I) La expulsión del beneficiario de la INSTITUCIÓN por inasistencia, bajo rendimiento académico, causas disciplinarias y faltas al reglamento estudiantil, determinadas por la INSTITUCIÓN.
+m) Finalización de la VIGENCIA DEL CRÉDITO EDUCATIVO (número de periodos académicos solicitados por el aspirante en correspondencia con la duración oficial del programa) y que fue aprobada en la etapa de estudio del crédito.
+n) Las demás que estime la JUNTA ADMINISTRADORA del FONDO en consonancia con el presente Reglamento y la respectiva convocatoria.
+
+ARTÍCULO VIGÉSIMO CUARTO. - EFECTOS DE LA SUSPENSIÓN DEFINITIVA DEL CRÉDITO: La
+declaración de suspensiõn definitiva de los desembolsos por las causales anteriormente mencionadas se harã mediante acta de sesión de la JUNTA ADMINISTRADORA del FONDO, y tendrá como consecuencia la exigibilidad inmediata de la obligación por parte del ICETEX, en las condiciones establecidas en el presente reglamento, salvo para los numerales j) y m).
+
+Todo lo anterior queda registrado en las actas de reunión de la JUNTA ADMINISTRADORA del FONDO, y a ella se le informa sobre el estado general del FONDO y de los beneficiarios.
+
+Cuando la suspensión definitiva del crédito sea por “Expresa voluntad de renuncia del beneficiario”, el beneficiario comunicará al ICETEX, quien procederá con el paso al cobro y asignación del plan de pagos e informará a la Junta.
+
+ARTÍCULO VIGÉSIMO QUINTO. - OBLIGACIONES DE LOS BENEFICIARIOS DEL FONDO: Son
+obligaciones de los beneficiarios del Fondo, además de los que consagran la Constitución Política y las Leyes, las s‹guientes:
+
+a) Adelantar el programa de estudios inscrito de acuerdo con las condiciones establecidas por la correspondiente institución educativa y el presente reglamento operativo.
+b) Invertir los recursos girados exclusivamente para los fines pactados.
+c) Cumplir con lo estipulado para la renovación del crédito, con la debida oportunidad.
+S MINTIC	NlNEDUCAClóN
+REGLAMENTO OPERATIVO ““FONDO TALENTO T.I.”
+CONSTÏTUIDO ENTRE EL INSTÏTUTO COLOMBMO DE CRÉDITO EDUCATIVO Y ESTUDIOS TECNïCOS EN EL EXTERIOR
+“MARIANO OSPINA PARED"‘ - ICETW Y EL FONDO DE TECNOLOGÎAS DE L INFORMACIÓN Y LAS COMUNlCACïONE5
+
+
+
+
+
+
+Pàgina 17 de 24
+d) Presentar al ICETEX, cuando Io exija y sin perjuicio de las obligaciones señaladas en los literales anteriores, la informaciõn pertinente al desarrollo del programa que se encuentra cursando y las novedades académicas o administrativas, si las hubiere.
+e) Reportar oportunamente al ICETEX, mediante el proceso de actualizaciõn de datos concerniente a la renovación del crédito, los cambios de dirección, teléfono, correo electrõnico y cualquier dato personal que permita mantener comunicación constante e inmediata.
+	Cumplir las condiciones con base en las cuales se otorga el crédito educativo, así como los requisitos para su condonación.
+g) Pagar directamente a la Institución de Educación Superior el valor de la suma descontada por concepto de prima de garantía, conforme al ARTÍCULO VIGÉSIMO PRIMERO — PRIMA DE GARANTÍA del presente Reglamento Operativo.
+h) Informar at ICETEX mediante Gomunicaciõn escrita, sobre la suspensión temporal o definitiva de los estudios, o cualquier otra novedad que afecte el curso normal del programa y del beneficio, explicando los motivos que la ocasionaron.
+i) Una vez cursadas y aprobadas todas las materias del plan de estudio correspondiente at programa, el beneficiario deberá enviar una comunicación expresa al FONTIC - MINTIC informando sobre la terminación de sus estudios, adjuntando constancia suscrita por la Institución de Educaciõn Superior; esta comunicación es requisito indispensable para realizar el proceso de condonaciõn.
+j) Realizar las gestiones oportunas y necesarias para el manejo del crédito otorgado, así como hacer seguimiento periódico al estado de su crédito, desembolsos o reintegros.
+k) Reintegrar al ICETEX y con destino al FONDO dentro de los plazos que se establezca, el valor mayor girado por error presentado en el trämite de desembolso, cuando así haya sucedido.
+I) No hacer solicitudes simultáneas para programas académicos cubiertos por el mismo FONDO.
+m) Cancelar al ICETEX y con destino al FONDO TALENTO T.I, de conformidad con el plan de pago establecido, el valor del crédito financiado cuando la Junta Administradora determine que el beneficiario no cumplió con los requisitos de condonaciõn dentro de los plazos establecidos o a la finalización del último período financiado para los beneficiarios que no terminaron el programa académico, de conformidad con el presente reglamento operativo.
+n) Cumplir las demás obligaciones previstas en este Reglamento y en la convocatoria específica.
+
+PARÁGRAFO: En el evento en que el beneficiario incumpla alguna o algunas de las oblìgaciones contenidas en este Reglamento y especialmente en el presente artículo, la Junta Administradora del Fondo, podrá solicitar at ICETEX la suspensión de los desembolsos y/o el paso al cobro de la obligación.
+
+
+MINTIC	I•llNEDUCAClóN
+REGLAMENTO OPERATIVO
+"‘FONDO TALENTO T.I."
+INSTITUIDO ENTRE EL INJfTUTO COLOMBIANO DE CREDITO EDUCATIVO Y ESTUDIOS TÉCNICOS EN EL EXTERJOR "MAgTANO OSPTNA PAEZ" - íCETM Y EL FONDO DE TECNOLOGÍA I DE LA INFORMACION Y LW COMUNICACIONES
+
+
+
+
+
+
+PàgTna 18 de :24
+
+CAPÍTULO V
+CONDONACIÓN DEL CRÉDITO EDUCATIVO Y RECUPERACIÓN DE CARTERA
+
+ARTÍCULO	VIGÉSIMO	SEXTO.  - REQUISITOS	PARA  LA  CONDONACIÓN	DEL  CREDITO
+EDUCATIVO: Los requisitos para obtener la condonación del crédito educativo son los siguientes:
+
+1- Cursar y aprobar todo el programa académico cumpliendo con todas las condiciones establecidas en el reglamento operativo.
+2- Obtener el título o grado respectivo para el programa que se financiô, expedido por una institución de educaciõn formalmente aprobada según su nivel de formación.
+3- Revertir el conocimiento adquirido entregando un producto, previo aval del FonTIC / MinTIC, en beneficio del desarrollo de las estrategias de Gobierno en Línea en cualquiera de las entidades que conforman la administración pública de acuerdo con el artículo 39 de la Ley 489 de 1998, (aquella que la modifique, sustituya o derogue) o de una entidad particular que cumpla funciones administrativas, y acorde al alcance del nivel de formación, en las siguientes opciones:
+
+a) PRÁCTICA: Realizar una práctica empresarial en una entidad de naturaleza pública (asesoría, acompañamiento o sensibilización), cumpliendo con el siguiente número de horas de acuerdo con el nivel de formación, así:
+i. TeGnóIogo:
+ii. Profesional:
+200 horas
+300 horas
+
+b) CAPACITACIÓN: Impartir y acreditar horas de capacitación a por lo menos 15 personas de una entidad de naturaleza pública.
+
+i. Profesional:	150 horas
+
+c) PROYECTO, ESTUDIO, INVESTIGACIÓN O DESARROLLO: Realizar proyecto, estudio, investigación o desarrollo de un aplicativo o software, que sea dirigido y aplicado por la Entidad de naturaleza pública, el cual se concluye con un producto entregable.
+
+
+
+
+REGLAMENTO OPERATIVO “‘FONDO TALENTO T.I."
+CONSTiTUTDO ENTRE EL IMSTTTUTO COLOMBIANO DE CRÉOITO EDUCATIVO Y ESTUDIOS TÉCnICOG EN EL ERIOR “MARIANO OSPINA PÉREZ"' - ICETEX Y EL FONDO DE TECNOLOGÍAS DE LA INFOR¥A¢i0¥ Y LA COMUNICACIONES
+Pàgina 19 de 24
+d) PROYECTO DE GRADO DIRIGIDO POR LA INSTITUCIÕN EDUCATIVA Y RECIBIDO POR
+LA ENTIDAD DE NATURALEZA PUBLICA: Realizar el proyecto de grado dirigido por la lnstituciõn Educativa donde se cursa el programa académico financiado a través Fondo y que sea recibido por la Entidad de naturaleza púbJica.
+
+Todas estas modalidades estarán reglamentadas en el instructivo de condonación, publicado en la
+pãgina de Talento TI.
+
+
+3- Certificado del recibo de cualquiera de las líneas de condonación descritas en el numeral anterior, acorde a la Estrategia de Gobierno en Línea por parte de la entidad destinataria y obtener la aprobación de este requisito por parte de la Junta Administradora del FONDO.
+
+4- Realjzar la cesión de los derechos patrimoniales, en relación con la aplicación y/o software o investigación que desarrolle el beneficiario a la entidad correspondiente. (En el caso que sea aplicable).
+
+La cesión de los derechos patrimoniales de autor, se entenderá para el cumplimiento del proceso de condonación, con la radicación por parte del beneficiario del documento de cesión de derechos de autor ante la entidad beneficiaria.
+
+PARÃGRAFO PRIMERO: Una vez el beneficiario haya finalizado el programa de académico financiado, deberá escoger cualquiera de las opciones para revertir el conocimiento adquirido, para lo cual, deberã diligenciar el Formato de autorización expedida por la Entidad del Estado para iniciar con el proceso que permitirá el cumplimiento de la condonación - Anexo No. 01 (práctica, capacitación o proyecto, estudio, investigación o desarrollo, de un aplicativo o software, proyecto de grado,), o el Formato de autorización expedida por Institución Educativa y Entidad del Estado para iniciar con el Proyecto de Grado que permitirá el cumplimiento de la condonación — Anexo No. 02, según el caso. El Formato deberá ser firmado por parte de la entidad destinaria. De igual forma, el beneficiario deberá adjuntar el documento de identificación del funcionario público de la entidad destinataria que autoriza el requisito de condonaciõn, tales como el documento de identidad del funcionario público y la certificación de talento humano de la entidad destinataria donde se certifique que a la fecha del registro del proyecto ante el MINTIC/FONTIC se encuentra vinculado a la misma o acto administrativo que certifique la vinculación al funcionario a la entidad.
+
+MINEDUCACIóN
+
+
+REGLAMENTO OPERATIVO
+"“FONDO TALENTO T.I."
+CONWfTUlDO ENTRE EL INSTITUTO COLOMBIANO DE CRÉDITO EDUCATIVO Y ESTUDIOS TCN1COS EN EL EXTERIOR "MARIANO OSPINA PÉREZ" - ICETM Y EL FONDO DE TEONOLOGIAS DE LA IN€ORMACIÓN Y LAS COMUNICACìONE 8
+
+
+
+
+
+
+
+PagTna 20 de 24
+PARÁGRAFO SEGUNDO: Los documentos citados en el parágrafo anterior, deberãn enviarse fisicamente al Ministerio de Tecnologías de la Información y las Comunicaciones a la siguiente dirección: Carrera 8 entre calles 12 y 13 Edificio Murillo Toro, hasta tanto no se provea por parte del Mintic una plataforma donde dichos documentos puedan ser incluidos digitalmente para aprobación por parte del Mintic/Fontic. Recibidos los mismos, el Mintic/Fontic enviará via correo electrónico al beneficiario manifestando la aceptación de la inscripción de la opción para revertir el conocimiento adquirido y como requisito para la condonación de su crédito.
+
+Todas las especificaciones y características técnicas de los servicios o productos que son objeto de opción de condonación estarán reglamentadas y detalladas en el instructivo de condonación que será publicado en la página de Talento TI (www.talentoti.qov.co).
+
+4- Certificado del recibo de cualquiera de las líneas de condonación descritas en el numeral anterior, acorde a la Estrategia de Gobierno en Línea por parte de la entidad destinataria y obtener la aprobación de este requisito por parte de la Junta Administradora del FONDO.
+
+5- Las demás que puedan ser exigidas de acuerdo con los términos de cada convocatoria.
+
+ARTÍCULO VIGÉSIMO SÉPTIMO. - DOCUMENTOS PARA LA CONDONACIÓN DEL CRÉDITO
+EDUCATIVO: Para efectos de la condonación de la obligación crediticia, el beneficiario deberá tramitar ante el Junta Administradora del FONDO, a través de la correspondiente dependencia que determine el FONTIC - MINTIC, la solicitud de condonación soportada en los siguientes documentos, los cuales deberán ser radicados en el punto de atención al ciudadano del Ministerio de Tecnologías de la Información y las Comunicaciones:
+
+1. Solicitud escrita de condonación informando los requisitos acreditados, firmada por el beneficiario. (Ver formato en el instructivo de condonaciõn)
+2. Certificación oficial suscrita por la Institución Educativa de las calificaciones obtenidas en cada periodo académico cursado que incluya la fecha de terminación del programa de estudios y promedio acumulado del programa.
+3. Copia del documento de identidad vigente del beneficiario.
+4. Copia del diploma
+5. Copia del acta de grado.
+
+{@ NlNEDUCAClóN
+
+
+REGLAMENTO OPERATIVO
+“‘FONDO TALENTO T.I.”
+CONSTITUIDO ENTRE EL INSTTTUTO COLOMBIANO DE CRÉDITO EDUCATIVO Y ESTLIDIOS TÉCNICOS EN EL EXTERiOR "MARIANO OSPINA PARA• - IMETA Y EL FONDO DE TECNOLOGÍAS DE LA INFORMACION LAS COMUNICACIONES
+
+
+
+
+
+
+
+
+
+
+
+
+Pàgina 21 de 24
+6. Formato de constancia de recibo y aceptación expedida por la Entidad del Estado, para el cumplimiento de la condonación. (Ver formato en el instructivo de condonación). De igual forma, el beneficiario deberá adjuntar los documentos de identificación del funcionario público de la entidad destinataria que reGibe y aGepta el producto entregado por el beneficiario, tales como el documento de identidad y la certificación de talento humano de la entidad destinataria donde se certifique que a la fecha del recibo del proyecto se encontraba vinculado a la misma o acto administrativo que certifique la vinculación al funcionario a la entidad.
+7. Entrega del soporte que contenga copia del desarrollo con instaladores, manual del usuario y manual de instalaciõn en CD o trabajo de investigación, según sea el caso.
+
+Todas las especificaciones y características técnicas de los servicios o productos que son objeto de opciôn de condonación estarán reglamentadas y detalhadas en el instructivo de condonación que será publicado en la página de Talento TI (www.talentoti.gov.co).
+
+PARÁGRAFO PRIMERO: El CONSTITUYENTE deberá recibir la documentación y verificar el cumplimiento de los requisitos de condonación presentados por los beneficiarios del Fondo, y deberá presentarlo a la Junta Administradora para su correspondiente aprobación. El ICETEX, suministrará al CONSTITUYENTE el valor final de la cartera de cada beneficiario; el cual corresponderá al valor a condonarse en caso de aprobación por parte de la Junta Administradora, y deberá ser incluído dentro del acta de junta y de la resoluciôn de condonación expedida por el ICETEX.
+
+La condonación de los créditos será autorizada por la JUNTA ADMINISTRADORA del FONDO con base en el cumplimiento de los requisitos establecidos y quedando como constancia de ello un acta, con la relación de los beneficiarios y valores a condonar, con fundamento en la documentación entregada por cada beneficiario y en cumplimiento de los requisitos. El ICETEX, basado en dicha acta, emitirá un Auto Administrativo con la relación de los beneficiarios y los valores a condonar, donde formalizarã las condonaciones.
+
+PARÁGRAFO SEGUNDO: Para el cumplimiento de los requisitos de condonación, el beneficiario deberá presentar la documentación exigida al FONTIC / MINTIC en un término máximo de veinticuatro (24) meses, contados a partir de la fecha de acta de grado de los estudios financiados.
+
+PARÁGRAFO TERCERO: Entre las opciones de condonación, el beneficiario podrã realizar PRÁCTICA,
+CAPACITACIÕN, PROYECTO (tendrá la posibilidad de presentar el mismo proyecto de grado del
+
+
+@  MINTîC	MINEDUCACJÓN
+REGLAMENTO OPERATIVO
+"“FONDO TALENTO T.I."
+COMSTÏTUIDO ENTRE EL INSTTTUTO COLOMBIANO DE CRÉDITO EDUCATiVO Y ESTUDIOS TECNICOS EN EL EXTERIOR
+•MARIANO OSPI?A PÉREZ’* • ICETSX Y EL FONDO DE TECNOLOGÎAS DE LA INFOR?fl CION  LAB COMUNICACIONES
+
+
+
+
+
+
+Pàgina 22 de 24
+programa académico), ESTUDIO, INVESTIGACIÓN O DESARROLLO, la misma podrá ser presentada de forma individual o en grupo. AI solicitar la inscripción del proyecto para condonación en grupo (más de una persona) es necesario tener en cuenta que se deben cumplir las condiciones especîficas establecidas por la normatividad de la Institución Educativa. Todas estas modalidades estarán reglamentadas en el instructivo de condonaciõn, publicado en la página de Talento TI.
+
+ARTÍCULO VIGÉSIMO OCTAVO. - RECUPERACIÕN DE CARTERA: El proceso de recuperación de la cartera de los créditos de los beneficiarios que no cumplan con los requisitos de condonación, estará a cargo del ICETEX y los recursos provenientes de esta operación aumentarán la disponibilidad del FONDO.
+
+La Junta Administradora del FONDO, deberá informar al ICETEX la relación de los beneficiarios del FONDO que no cumplieron con los requisitos exigidos para la condonación y que deberán ser pasados al cobro por parte del ICETEX.
+
+Cuando el incumplimiento se deba a la no culminación del programa de estudios por causas debidamente justificadas, se podrá otorgar un período de gracia de un (1) año a partir de la fecha de deserción para comenzar a pagar el 100% de la deuda. Para tal efecto, la Junta Administradora del FONDO informará al ICETEX, los beneficiarios, los valores y la fecha a partir de la cual se deberá iniciar el pago de las obligaciones Io cual quedará consignado en acta.
+
+Cuando el incumplimiento se deba a la no culminación del programa de estudios por causas no justificadas, el beneficiario deber? cancelar directamente al ICETEX y con destino at FONDO TALENTO
+T.I el valor del crédito, a partir de la fecha de retiro del periodo financiado. Para tal efecto, la Junta Administradora del FONDO, notificará al ICETEX el paso al cobro de la obligación lo cual quedará consignado en acta.
+
+PARÁGRAFO: La autorización de las decisiones de ejecución de cartera por incumplimiento de las obligaciones de los beneficiarios, será responsabilidad de la Junta Administradora del FONDO, con fundamento en los informes respectivos.
+
+ARTÎCULO VIGÉSIMO NOVENO. - AMORTIZACIÓN: Consiste en la obligación que tiene el beneficiario de pagar al ICETEX en pesos colombianos y en cuotas mensuales, la totalidad de las sumas recibidas,
+
+
+MlNT|C	NINEDUCACIóN
+
+
+
+
+REGLAMENTO OPERATIVO
+““FONDO TALENTO T.I.”
+CONSTITUIDO ENTRE EL INSTTTLITO COLOMBIANO DE CRÉDITO EDUCATIVO Y E6TUDTOS TÉCNICOS EN EL EXTE9TOR "MARIANO OSPINA PARA" - ICETEX Y EL FONDO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS COMUNICACIONES
+los intereses generados durante la época de amortización, en caso de incumplimiento de las condiciones de condonación o de la no finalización del periodo financiado.
+
+ARTÍCULO TRIGÉSIMO. - DE LA FORMA DE PAGO: Los beneficiarios que no cumplan con los requisitos de condonación en el plazo establecido o no Gulminen el periodo académico financiado, deberãn cancelar al ICETEX el capital junto con los intereses que se generen, en cuotas mensuales sucesivas a partir de la notificaGiõn realizada por el ICETEX, bajo las siguientes condiciones:
+TASA DE INTERÉS:
+
+
+
+
+TASA INTERESES DE MORA.
+
+
+
+
+
+
+PLAN DE AMORTIZACIÓN:
+
+
+
+
+BASE DE LA LIQUIDACIÓN:
+
+
+
+
+INICIACIÓN DE PAGOS:
+La tasa que se aplicará durante la etapa de amortización, hasta la cancelación total de la deuda, será la establecida por el Reglamento de Crédito Educativo del ICETEX.
+
+La tasa de interés moratorio se aplicará en cualquier momento de la vigencia del crédito, a partir del incumplimiento del crédito de conformidad con la tasa establecida por el Reglamento de Crédito Educativo del ICETEX.
+
+La cuota de amortizaciõn se pagará mensualmente con plan de cuota fja, de conformidad con lo previsto en el Reglamento de Crédito Educativo del ICETEX.
+
+La base de la liquidación será el saldo de capital girado, más los intereses causados desde la fecha de paso al cobro hasta la fecha de liquidación.
+
+El plazo de cancelación del crédito será igual al total del periodo financiado y se iniciará a partir de la notificación de la Junta Administradora al ICETEX, con la relación de los beneficiarios que deberãn ser pasados para cobro.
+
+
+
+@  I IINTIC	MINEDUCACJóN
+REGLAMENTO OPERATIVO
+“‘FONDO TALENTO T.I.”
+CONSTTTUïDO ENTRE EL INSTITUTO COLOMBïANO DE CRÉDITO EDUCATIVO Y ESTUDIOS TÉCNICOS EN EL EXTEpÏOR
+• øœíaNo osejN PÉREZ° - icETzx Y EL FONDO oï= TECNOLOGíAS DE LA lNFORMAciöN Y LAS COMLINICACIONES
+
+CAPÍTULO VI
+GENERALIDADES
+
+
+
+
+
+
+
+Pagina 24 de 24
+
+ARTÍCULO TRIGÉSIMO PRIMERO. - INTERPRETACION DE NORMAS O VACIOS NORMATIVOS:
+Para los casos no previstos o aspectos que no queden expresamente contemplados en este Reglamento, se regirán por Io establecido en el Reglamento de Crédito Educativo del ICETEX y demás políticas y procedimientos ordinarios de esa Entidad. En caso de presentarse contradicciõn entre este reglamento operativo y el Reglamento de Cr?dito Educativo del ICETEX, primará el presente Reglamento Operativo del FONDO TALENTO T.I.
+
+ARTÍCULO TRIGÉSIMO SEGUNDO. - VIGENCIA DE LAS ESTIPULACIONES: El presente reglamento
+rige a partir de la fecha de su aprobación.
+
+En constancia de to anterior, se firma a los 	(--) días de mes de noviembre de 2017. Por el FONTIC / MINTIC,
+MARIA	LDO
+irec ra de D sarrollo de la! Industria de TI
+
+
+Revisó: Carolina Foliaco/ MínT C” Revisó: Francisco Suarez/Min	””- Revisó: Adriana Medina/ MínTI
+
+Por el ICETEX,
+ALEJANDRO	GALLEGO	HERNANDEZ
+Asesor deí Viceministerio de Economía Digital
+
+
+Vicepresidente de Fondos en Administración (E)
+
+Revisó: Yiïda Magaly Nuñez Arenas / ICETEX Reviso: Raul Roa Mora / ICETM

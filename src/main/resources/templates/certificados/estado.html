@@ -33,6 +33,10 @@
                     <p><strong>Fecha de emisión:</strong></p>
                     <p th:text="${#temporals.format(certificado.fechaEmision, 'dd/MM/yyyy HH:mm')}">01/01/2025</p>
                 </div>
+                <div class="col-md-6">
+                    <p><strong>Vigente hasta:</strong></p>
+                    <p th:text="${#temporals.format(certificado.fechaVigencia, 'dd/MM/yyyy HH:mm')}">01/01/2026</p>
+                </div>
             </div>
             <hr>
             <div class="row">
