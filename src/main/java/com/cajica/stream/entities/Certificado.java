@@ -27,6 +27,14 @@ public class Certificado {
   @Column(name = "fecha_emision", nullable = false)
   private LocalDateTime fechaEmision;
 
+  @Transient
+  public LocalDateTime getFechaVigencia() {
+    if (fechaEmision == null) {
+      return null;
+    }
+    return fechaEmision.plusYears(1);
+  }
+
   @Column(name = "nota_promedio")
   private Double notaPromedio;
 

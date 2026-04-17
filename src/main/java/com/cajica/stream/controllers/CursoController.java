@@ -3,11 +3,14 @@ package com.cajica.stream.controllers;
 import com.cajica.stream.entities.Curso;
 import com.cajica.stream.services.CursoService;
 import com.cajica.stream.services.FileStorageService;
+import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -144,21 +147,55 @@ public class CursoController {
   }
 
   @GetMapping("/videos/{fileName:.+}")
-  public ResponseEntity<Resource> getVideo(@PathVariable String fileName) {
+  public ResponseEntity<Resource> getVideo(
+      @PathVariable String fileName,
+      @RequestHeader(value = HttpHeaders.RANGE, required = false) String rangeHeader) {
     try {
       Path filePath = fileStorageService.getFilePath(fileName, true);
       Resource resource = new UrlResource(filePath.toUri());
 
-      if (resource.exists()) {
+      if (!resource.exists()) {
+        return ResponseEntity.notFound().build();
+      }
+
+      long fileSize = Files.size(filePath);
+      MediaType mediaType = MediaType.parseMediaType("video/mp4");
+
+      // Sin Range: devolver el archivo completo con Accept-Ranges para indicar soporte
+      if (rangeHeader == null) {
         return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType("video/mp4")) // Ajustamos al tipo de video
+            .contentType(mediaType)
+            .header(HttpHeaders.ACCEPT_RANGES, "bytes")
+            .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileSize))
             .header(
                 HttpHeaders.CONTENT_DISPOSITION,
                 "inline; filename=\"" + resource.getFilename() + "\"")
             .body(resource);
-      } else {
-        return ResponseEntity.notFound().build();
       }
+
+      // Con Range: respuesta 206 Partial Content
+      String rangeValue = rangeHeader.replace("bytes=", "");
+      String[] parts = rangeValue.split("-");
+      long start = Long.parseLong(parts[0]);
+      long end =
+          (parts.length > 1 && !parts[1].isEmpty()) ? Long.parseLong(parts[1]) : fileSize - 1;
+
+      if (start >= fileSize || end >= fileSize || start > end) {
+        return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE)
+            .header(HttpHeaders.CONTENT_RANGE, "bytes */" + fileSize)
+            .build();
+      }
+
+      long contentLength = end - start + 1;
+      InputStream inputStream = Files.newInputStream(filePath);
+      inputStream.skip(start);
+
+      return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
+          .contentType(mediaType)
+          .header(HttpHeaders.ACCEPT_RANGES, "bytes")
+          .header(HttpHeaders.CONTENT_RANGE, "bytes " + start + "-" + end + "/" + fileSize)
+          .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(contentLength))
+          .body(new InputStreamResource(inputStream));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }

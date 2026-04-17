@@ -9,7 +9,7 @@
     <h1 class="mb-4"><i class="bi bi-award"></i> Mis Certificados</h1>
 
     <div th:if="${#lists.isEmpty(certificados)}" class="alert alert-info">
-        <i class="bi bi-info-circle"></i> Aún no tienes certificados. 
+        <i class="bi bi-info-circle"></i> Aún no tienes certificados.
         Completa los cursos para obtener tus certificados.
     </div>
 
@@ -29,13 +29,17 @@
                         <span th:text="${#temporals.format(certificado.fechaEmision, 'dd/MM/yyyy')}">01/01/2025</span>
                     </p>
                     <p class="card-text">
+                        <small class="text-muted">Vigente hasta</small><br>
+                        <span th:text="${#temporals.format(certificado.fechaVigencia, 'dd/MM/yyyy')}">01/01/2026</span>
+                    </p>
+                    <p class="card-text">
                         <small class="text-muted">Nota promedio</small><br>
                         <span th:text="${#numbers.formatDecimal(certificado.notaPromedio, 1, 1) + '%'}">0%</span>
                     </p>
                 </div>
                 <div class="card-footer">
                     <div class="d-grid gap-2">
-                        <a th:href="@{/certificados/curso/{id}/descargar(id=${certificado.curso.id})}" 
+                        <a th:href="@{/certificados/curso/{id}/descargar(id=${certificado.curso.id})}"
                            class="btn btn-primary btn-sm">
                             <i class="bi bi-download"></i> Descargar PDF
                         </a>

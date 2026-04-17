@@ -52,7 +52,9 @@ public class CursoViewController {
   public String verCurso(@PathVariable Long id, Model model) {
     Optional<Curso> curso = cursoService.findById(id);
     if (curso.isPresent()) {
-      model.addAttribute("curso", curso.get());
+      Curso cursoEntity = curso.get();
+      model.addAttribute("curso", cursoEntity);
+      model.addAttribute("inscripcionesAbiertas", cursoEntity.isInscripcionesAbiertas());
 
       // Verificar si el usuario está autenticado
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -82,6 +84,17 @@ public class CursoViewController {
 
   @PostMapping("/{id}/inscribir")
   public String inscribirEnCurso(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    Optional<Curso> cursoOpt = cursoService.findById(id);
+    if (cursoOpt.isEmpty()) {
+      redirectAttributes.addFlashAttribute("error", "Curso no encontrado.");
+      return "redirect:/cursos";
+    }
+    if (!cursoOpt.get().isInscripcionesAbiertas()) {
+      redirectAttributes.addFlashAttribute(
+          "error", "Las inscripciones a este curso están deshabilitadas por un administrador.");
+      return "redirect:/cursos/" + id;
+    }
+
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     if (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser")) {
       String username = auth.getName();
@@ -144,6 +157,32 @@ public class CursoViewController {
       logger.warn("Intento de cancelar inscripción sin usuario autenticado");
     }
 
+    return "redirect:/cursos/" + id;
+  }
+
+  @PostMapping("/{id}/inscripciones/deshabilitar")
+  @PreAuthorize("hasRole('ADMIN')")
+  public String deshabilitarInscripciones(
+      @PathVariable Long id, RedirectAttributes redirectAttributes) {
+    boolean ok = cursoService.disableInscripciones(id);
+    if (ok) {
+      redirectAttributes.addFlashAttribute("mensaje", "Inscripciones deshabilitadas.");
+    } else {
+      redirectAttributes.addFlashAttribute("error", "Curso no encontrado.");
+    }
+    return "redirect:/cursos/" + id;
+  }
+
+  @PostMapping("/{id}/inscripciones/habilitar")
+  @PreAuthorize("hasRole('ADMIN')")
+  public String habilitarInscripciones(
+      @PathVariable Long id, RedirectAttributes redirectAttributes) {
+    boolean ok = cursoService.enableInscripciones(id);
+    if (ok) {
+      redirectAttributes.addFlashAttribute("mensaje", "Inscripciones habilitadas.");
+    } else {
+      redirectAttributes.addFlashAttribute("error", "Curso no encontrado.");
+    }
     return "redirect:/cursos/" + id;
   }
 

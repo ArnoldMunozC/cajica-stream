@@ -1,0 +1,2 @@
+ALTER TABLE curso
+ADD COLUMN inscripciones_abiertas BOOLEAN NOT NULL DEFAULT TRUE;
