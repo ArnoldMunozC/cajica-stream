@@ -4,147 +4,261 @@
       th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
 <head>
     <title>Usuarios - Cajica Stream</title>
+    <style>
+        .admin-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #003366 100%);
+            color: #fff;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-pill {
+            background: rgba(255,255,255,0.12);
+            border-radius: 20px;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+        }
+        .table > :not(caption) > * > * { padding: 0.85rem 1rem; }
+        .table thead th {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #718096;
+            border-bottom: 2px solid #e2e8f0;
+            background: #f8f9fc;
+        }
+        .table tbody tr:hover { background: #f0f4ff; }
+        .user-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #003366, #0b63a8);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .search-box { max-width: 380px; }
+    </style>
 </head>
 <body>
 <section>
-    <h1 class="mb-4">Usuarios</h1>
-
-    <form class="row g-2 align-items-center mb-3" th:action="@{/admin/usuarios}" method="get">
-        <div class="col-sm-8 col-md-6">
-            <input type="text" class="form-control" name="q" placeholder="Buscar por nombre completo" th:value="${q}">
+    <!-- Header admin -->
+    <div class="admin-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h1 class="h3 mb-1 fw-bold"><i class="bi bi-people me-2"></i>Gestión de Usuarios</h1>
+            <p class="mb-0 opacity-75 small">Administra los usuarios registrados en la plataforma</p>
         </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i> Buscar
-            </button>
+        <div class="stat-pill">
+            <i class="bi bi-person-check me-1"></i>
+            <span th:text="${#lists.size(usuarios)}">0</span> usuarios
+            <span th:if="${q != null and !#strings.isEmpty(q)}" th:text="' para &quot;' + ${q} + '&quot;'"></span>
         </div>
-        <div class="col-auto" th:if="${q != null and !#strings.isEmpty(q)}">
-            <a class="btn btn-outline-secondary" th:href="@{/admin/usuarios}">Limpiar</a>
-        </div>
-    </form>
-
-    <div class="text-muted mb-2">
-        Mostrando <span th:text="${#lists.size(usuarios)}">0</span> usuarios
-        <span th:if="${q != null and !#strings.isEmpty(q)}">
-            para "<span th:text="${q}">q</span>"
-        </span>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped align-middle">
-            <thead>
-            <tr>
-                <th>Nombre completo</th>
-                <th>Identificación</th>
-                <th>Edad</th>
-                <th>Género</th>
-                <th>Clasificación</th>
-                <th>Zona</th>
-                <th>Teléfono</th>
-                <th>Email</th>
-                <th>Activo</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="usuario : ${usuarios}">
-                <td>
-                    <div th:text="${usuario.nombreCompleto}">Nombre Apellido</div>
-                    <small class="text-muted" th:text="${usuario.username}">username</small>
-                </td>
-                <td th:text="${usuario.numeroIdentificacion}">-</td>
-                <td th:text="${usuario.edad}">-</td>
-                <td th:text="${usuario.enfoqueGenero}">-</td>
-                <td th:text="${usuario.clasificacionPoblacional}">-</td>
-                <td th:text="${usuario.zonaResidencia}">-</td>
-                <td th:text="${usuario.telefono}">-</td>
-                <td th:text="${usuario.email}">email@example.com</td>
-                <td>
-                    <span th:if="${usuario.activo}" class="badge bg-success">Sí</span>
-                    <span th:unless="${usuario.activo}" class="badge bg-danger">No</span>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary" 
-                            data-bs-toggle="modal" th:data-bs-target="'#editModal' + ${usuario.id}">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- Buscador -->
+    <div class="card mb-4">
+        <div class="card-body py-3">
+            <form class="d-flex gap-2 align-items-center search-box"
+                  th:action="@{/admin/usuarios}" method="get">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0 ps-0"
+                           name="q" placeholder="Buscar por nombre..." th:value="${q}">
+                </div>
+                <button type="submit" class="btn btn-primary px-3">Buscar</button>
+                <a th:if="${q != null and !#strings.isEmpty(q)}"
+                   class="btn btn-outline-secondary" th:href="@{/admin/usuarios}">
+                    <i class="bi bi-x"></i>
+                </a>
+            </form>
+        </div>
     </div>
 
-    <!-- Modals para editar usuarios -->
+    <!-- Tabla -->
+    <div th:unless="${#lists.isEmpty(usuarios)}" class="card">
+        <div class="table-responsive">
+            <table class="table mb-0 align-middle">
+                <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Documento</th>
+                    <th>Edad</th>
+                    <th>Género</th>
+                    <th>Zona</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="user-avatar"
+                                 th:text="${usuario.nombreCompleto != null and !#strings.isEmpty(usuario.nombreCompleto) ?
+                                           #strings.toUpperCase(#strings.substring(usuario.nombreCompleto, 0, 1)) : 'U'}">
+                            </div>
+                            <div>
+                                <div class="fw-semibold small"
+                                     th:text="${usuario.nombreCompleto ?: usuario.username}"></div>
+                                <div class="text-muted" style="font-size:0.75rem;"
+                                     th:text="'@' + ${usuario.username}"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="small" th:text="${usuario.numeroIdentificacion ?: '—'}"></td>
+                    <td class="small" th:text="${usuario.edad ?: '—'}"></td>
+                    <td class="small" th:text="${usuario.enfoqueGenero ?: '—'}"></td>
+                    <td>
+                        <span th:if="${usuario.zonaResidencia != null}"
+                              class="badge rounded-pill"
+                              th:classappend="${usuario.zonaResidencia == 'Rural'} ? 'bg-success bg-opacity-10 text-success' : 'bg-primary bg-opacity-10 text-primary'"
+                              th:text="${usuario.zonaResidencia}"></span>
+                        <span th:unless="${usuario.zonaResidencia}" class="text-muted small">—</span>
+                    </td>
+                    <td class="small" th:text="${usuario.telefono ?: '—'}"></td>
+                    <td class="small" th:text="${usuario.email}"></td>
+                    <td>
+                        <span th:if="${usuario.activo}"
+                              class="badge bg-success bg-opacity-10 text-success rounded-pill">
+                            <i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i>Activo
+                        </span>
+                        <span th:unless="${usuario.activo}"
+                              class="badge bg-danger bg-opacity-10 text-danger rounded-pill">
+                            <i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i>Inactivo
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" title="Editar"
+                                data-bs-toggle="modal"
+                                th:data-bs-target="'#editModal' + ${usuario.id}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div th:if="${#lists.isEmpty(usuarios)}" class="text-center py-5">
+        <i class="bi bi-people" style="font-size:3.5rem;color:#cbd5e0;"></i>
+        <h5 class="mt-3 text-muted">No se encontraron usuarios</h5>
+        <p class="text-muted small" th:if="${q != null and !#strings.isEmpty(q)}">
+            Ningún usuario coincide con "<span th:text="${q}"></span>"
+        </p>
+    </div>
+
+    <!-- Modals -->
     <div th:each="usuario : ${usuarios}">
         <div class="modal fade" th:id="'editModal' + ${usuario.id}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="border-radius:14px;overflow:hidden;">
                     <form th:action="@{/admin/usuarios/{id}(id=${usuario.id})}" method="post">
                         <input type="hidden" name="q" th:value="${q}">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Editar Usuario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <div class="modal-header border-0 pb-0"
+                             style="background:linear-gradient(135deg,#1a1a2e,#003366);">
+                            <div class="d-flex align-items-center gap-3 pb-3">
+                                <div class="user-avatar"
+                                     style="width:48px;height:48px;font-size:1.1rem;"
+                                     th:text="${usuario.nombreCompleto != null and !#strings.isEmpty(usuario.nombreCompleto) ?
+                                               #strings.toUpperCase(#strings.substring(usuario.nombreCompleto, 0, 1)) : 'U'}">
+                                </div>
+                                <div class="text-white">
+                                    <h5 class="mb-0 fw-bold"
+                                        th:text="${usuario.nombreCompleto ?: usuario.username}"></h5>
+                                    <small class="opacity-75" th:text="'@' + ${usuario.username}"></small>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close btn-close-white ms-auto mb-auto"
+                                    data-bs-dismiss="modal"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Nombre completo</label>
-                                <input type="text" class="form-control" th:value="${usuario.nombreCompleto}" disabled>
+
+                        <div class="modal-body pt-4">
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-8">
+                                    <label class="form-label small fw-semibold">Email</label>
+                                    <input type="email" class="form-control" name="email"
+                                           th:value="${usuario.email}" required>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activo"
+                                               th:checked="${usuario.activo}"
+                                               th:id="'modal-activo-' + ${usuario.id}">
+                                        <label class="form-check-label fw-semibold"
+                                               th:for="'modal-activo-' + ${usuario.id}">
+                                            Usuario activo
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" th:value="${usuario.email}" required>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" name="activo" th:checked="${usuario.activo}" th:id="'modal-activo-' + ${usuario.id}">
-                                <label class="form-check-label" th:for="'modal-activo-' + ${usuario.id}">Activo</label>
-                            </div>
-                            <hr>
-                            <h6>Datos de registro</h6>
-                            <div class="row">
-                                <div class="col-6 mb-2">
-                                    <small class="text-muted">Identificación</small>
-                                    <div th:text="${usuario.numeroIdentificacion ?: '-'}">-</div>
+
+                            <p class="small fw-semibold text-muted mb-2">Datos de registro</p>
+                            <div class="row g-2 small">
+                                <div class="col-6 col-md-4">
+                                    <div class="p-2 bg-light rounded-2">
+                                        <div class="text-muted mb-1" style="font-size:0.7rem;">IDENTIFICACIÓN</div>
+                                        <div class="fw-semibold" th:text="${usuario.numeroIdentificacion ?: '—'}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <small class="text-muted">Edad</small>
-                                    <div th:text="${usuario.edad ?: '-'}">-</div>
+                                <div class="col-6 col-md-4">
+                                    <div class="p-2 bg-light rounded-2">
+                                        <div class="text-muted mb-1" style="font-size:0.7rem;">EDAD</div>
+                                        <div class="fw-semibold" th:text="${usuario.edad ?: '—'}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <small class="text-muted">Género</small>
-                                    <div th:text="${usuario.enfoqueGenero ?: '-'}">-</div>
+                                <div class="col-6 col-md-4">
+                                    <div class="p-2 bg-light rounded-2">
+                                        <div class="text-muted mb-1" style="font-size:0.7rem;">GÉNERO</div>
+                                        <div class="fw-semibold" th:text="${usuario.enfoqueGenero ?: '—'}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <small class="text-muted">Clasificación</small>
-                                    <div th:text="${usuario.clasificacionPoblacional ?: '-'}">-</div>
+                                <div class="col-6 col-md-4">
+                                    <div class="p-2 bg-light rounded-2">
+                                        <div class="text-muted mb-1" style="font-size:0.7rem;">ZONA</div>
+                                        <div class="fw-semibold" th:text="${usuario.zonaResidencia ?: '—'}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <small class="text-muted">Zona</small>
-                                    <div th:text="${usuario.zonaResidencia ?: '-'}">-</div>
+                                <div class="col-6 col-md-4">
+                                    <div class="p-2 bg-light rounded-2">
+                                        <div class="text-muted mb-1" style="font-size:0.7rem;">TELÉFONO</div>
+                                        <div class="fw-semibold" th:text="${usuario.telefono ?: '—'}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <small class="text-muted">Teléfono</small>
-                                    <div th:text="${usuario.telefono ?: '-'}">-</div>
+                                <div class="col-6 col-md-4">
+                                    <div class="p-2 bg-light rounded-2">
+                                        <div class="text-muted mb-1" style="font-size:0.7rem;">CLASIFICACIÓN</div>
+                                        <div class="fw-semibold"
+                                             th:text="${usuario.clasificacionPoblacional ?: '—'}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-12 mb-2">
-                                    <small class="text-muted">Dirección</small>
-                                    <div th:text="${usuario.direccion ?: '-'}">-</div>
+                                <div class="col-12">
+                                    <div class="p-2 bg-light rounded-2">
+                                        <div class="text-muted mb-1" style="font-size:0.7rem;">DIRECCIÓN</div>
+                                        <div class="fw-semibold" th:text="${usuario.direccion ?: '—'}"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Guardar
+
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-outline-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary fw-semibold">
+                                <i class="bi bi-check-circle me-1"></i>Guardar cambios
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div th:if="${#lists.isEmpty(usuarios)}" class="alert alert-info mt-3">
-        No hay usuarios para mostrar.
     </div>
 </section>
 </body>

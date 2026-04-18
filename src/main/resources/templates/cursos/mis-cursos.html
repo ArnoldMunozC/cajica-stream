@@ -6,113 +6,102 @@
 </head>
 <body>
     <section>
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Mis Cursos</h1>
+        <!-- Hero -->
+        <div class="hero-section rounded-3 mb-4" style="margin-left:-12px;margin-right:-12px;">
+            <div class="container py-2">
+                <h1 class="mb-1"><i class="bi bi-journal-bookmark me-2"></i>Mis Cursos</h1>
+                <p class="mb-0 opacity-75">Cursos en los que estás inscrito</p>
+            </div>
         </div>
 
-        <div th:if="${mensaje}" class="alert alert-success alert-dismissible fade show" role="alert">
-            <span th:text="${mensaje}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-
-        <!-- Contenedor para mostrar los cursos cargados con JavaScript -->
+        <!-- Contenedor dinámico -->
         <div id="cursos-container">
-            <div class="text-center my-5">
+            <div class="text-center py-5">
                 <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Cargando...</span>
                 </div>
-                <p class="mt-2">Cargando tus cursos inscritos...</p>
+                <p class="text-muted mt-3">Cargando tus cursos...</p>
             </div>
         </div>
 
-        <!-- Template para cuando no hay cursos inscritos -->
+        <!-- Template: sin cursos -->
         <template id="no-cursos-template">
-            <div class="alert alert-info">
-                <p>No estás inscrito en ningún curso todavía.</p>
-                <a th:href="@{/cursos}" class="btn btn-primary">Explorar Cursos</a>
+            <div class="text-center py-5">
+                <i class="bi bi-journal-x" style="font-size:4rem;color:#cbd5e0;"></i>
+                <h4 class="mt-3 text-muted">Aún no estás inscrito en ningún curso</h4>
+                <p class="text-muted small">Explora el catálogo y comienza tu formación.</p>
+                <a href="/cursos" class="btn btn-primary mt-2">
+                    <i class="bi bi-grid me-1"></i>Explorar Cursos
+                </a>
             </div>
         </template>
 
-        <!-- Template para la tarjeta de curso -->
+        <!-- Template: card de curso -->
         <template id="curso-card-template">
             <div class="col">
-                <div class="card h-100 curso-card">
-                    <img class="card-img-top curso-imagen" alt="Imagen del curso">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del Curso</h5>
-                        <p class="card-text">Descripción del curso...</p>
+                <div class="card h-100">
+                    <div class="curso-img-wrapper position-relative">
+                        <img class="card-img-top curso-imagen" alt="Imagen del curso">
                     </div>
-                    <div class="card-footer bg-transparent border-top-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="badge bg-primary">Categoría</span>
-                            <div>
-                                <a class="btn btn-sm btn-outline-primary ver-detalles">Ver Detalles</a>
-                                <a class="btn btn-sm btn-primary ver-videos">Ver Videos</a>
-                            </div>
+                    <div class="card-body d-flex flex-column">
+                        <div class="mb-2">
+                            <span class="badge-categoria curso-categoria">Categoría</span>
                         </div>
+                        <h5 class="card-title fw-semibold mb-1 curso-nombre">Nombre del Curso</h5>
+                        <p class="card-text text-muted small flex-grow-1 curso-descripcion"></p>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex gap-2 pb-3">
+                        <a class="btn btn-primary btn-sm ver-curso">
+                            <i class="bi bi-eye me-1"></i>Ver curso
+                        </a>
+                        <a class="btn btn-outline-primary btn-sm ver-videos">
+                            <i class="bi bi-play-circle me-1"></i>Videos
+                        </a>
                     </div>
                 </div>
             </div>
         </template>
 
-        <script th:inline="javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                // Cargar los cursos inscritos desde el endpoint REST
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
                 fetch('/api/cursos/mis-cursos')
-                    .then(response => response.json())
+                    .then(r => r.json())
                     .then(cursos => {
-                        const cursosContainer = document.getElementById('cursos-container');
-
+                        const container = document.getElementById('cursos-container');
                         if (cursos.length === 0) {
-                            // No hay cursos inscritos, mostrar mensaje
-                            const noCursosTemplate = document.getElementById('no-cursos-template');
-                            cursosContainer.innerHTML = noCursosTemplate.innerHTML;
-                        } else {
-                            // Hay cursos inscritos, mostrarlos
-                            const rowDiv = document.createElement('div');
-                            rowDiv.className = 'row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4';
-
-                            cursos.forEach(curso => {
-                                const cursoCard = crearCursoCard(curso);
-                                rowDiv.appendChild(cursoCard);
-                            });
-
-                            cursosContainer.innerHTML = '';
-                            cursosContainer.appendChild(rowDiv);
+                            container.innerHTML = document.getElementById('no-cursos-template').innerHTML;
+                            return;
                         }
+                        const row = document.createElement('div');
+                        row.className = 'row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4';
+                        cursos.forEach(curso => row.appendChild(crearCard(curso)));
+                        container.innerHTML = '';
+                        container.appendChild(row);
                     })
-                    .catch(error => {
-                        console.error('Error al cargar los cursos:', error);
-                        const cursosContainer = document.getElementById('cursos-container');
-                        cursosContainer.innerHTML = '<div class="alert alert-danger">Error al cargar los cursos. Por favor, intenta de nuevo más tarde.</div>';
+                    .catch(() => {
+                        document.getElementById('cursos-container').innerHTML =
+                            '<div class="alert alert-danger"><i class="bi bi-exclamation-circle me-2"></i>Error al cargar los cursos. Intenta de nuevo.</div>';
                     });
             });
 
-            function crearCursoCard(curso) {
-                const template = document.getElementById('curso-card-template');
-                const cursoCard = template.content.cloneNode(true);
-
-                // Configurar la imagen
-                const img = cursoCard.querySelector('.curso-imagen');
+            function crearCard(curso) {
+                const tpl = document.getElementById('curso-card-template').content.cloneNode(true);
+                const img = tpl.querySelector('.curso-imagen');
                 if (curso.imagenPath) {
                     img.src = '/api/cursos/images/' + curso.imagenPath;
                 } else {
-                    img.src = 'https://via.placeholder.com/800x400?text=Sin+Imagen';
+                    img.parentElement.innerHTML =
+                        '<div class="curso-imagen d-flex align-items-center justify-content-center" ' +
+                        'style="background:linear-gradient(135deg,#003366,#0b63a8);">' +
+                        '<i class="bi bi-book-half text-white" style="font-size:3.5rem;opacity:0.4;"></i></div>';
                 }
-
-                // Configurar el título y la descripción
-                cursoCard.querySelector('.card-title').textContent = curso.nombre;
-                cursoCard.querySelector('.card-text').textContent =
-                    curso.descripcion ? (curso.descripcion.length > 100 ? curso.descripcion.substring(0, 100) + '...' : curso.descripcion) : '';
-
-                // Configurar la categoría
-                cursoCard.querySelector('.badge').textContent = curso.categoria || 'Sin categoría';
-
-                // Configurar los enlaces
-                cursoCard.querySelector('.ver-detalles').href = '/cursos/' + curso.id;
-                cursoCard.querySelector('.ver-videos').href = '/cursos/' + curso.id + '/videos';
-
-                return cursoCard.querySelector('.col');
+                tpl.querySelector('.curso-nombre').textContent = curso.nombre;
+                tpl.querySelector('.curso-descripcion').textContent =
+                    curso.descripcion ? curso.descripcion.substring(0, 110) + (curso.descripcion.length > 110 ? '...' : '') : '';
+                tpl.querySelector('.curso-categoria').textContent = curso.categoria || 'Sin categoría';
+                tpl.querySelector('.ver-curso').href = '/cursos/' + curso.id;
+                tpl.querySelector('.ver-videos').href = '/cursos/' + curso.id + '/videos';
+                return tpl.querySelector('.col');
             }
         </script>
     </section>

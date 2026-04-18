@@ -2,9 +2,12 @@ package com.cajica.stream.controllers;
 
 import com.cajica.stream.entities.Curso;
 import com.cajica.stream.entities.Quiz;
+import com.cajica.stream.entities.QuizIntento;
 import com.cajica.stream.entities.QuizOpcion;
 import com.cajica.stream.entities.QuizPregunta;
 import com.cajica.stream.entities.QuizPreguntaTipo;
+import com.cajica.stream.repositories.ContenidoProgresoRepository;
+import com.cajica.stream.repositories.QuizIntentoRepository;
 import com.cajica.stream.repositories.QuizOpcionRepository;
 import com.cajica.stream.repositories.QuizPreguntaRepository;
 import com.cajica.stream.repositories.QuizRepository;
@@ -39,16 +42,22 @@ public class QuizAdminController {
   private final QuizRepository quizRepository;
   private final QuizPreguntaRepository quizPreguntaRepository;
   private final QuizOpcionRepository quizOpcionRepository;
+  private final QuizIntentoRepository quizIntentoRepository;
+  private final ContenidoProgresoRepository contenidoProgresoRepository;
 
   public QuizAdminController(
       CursoService cursoService,
       QuizRepository quizRepository,
       QuizPreguntaRepository quizPreguntaRepository,
-      QuizOpcionRepository quizOpcionRepository) {
+      QuizOpcionRepository quizOpcionRepository,
+      QuizIntentoRepository quizIntentoRepository,
+      ContenidoProgresoRepository contenidoProgresoRepository) {
     this.cursoService = cursoService;
     this.quizRepository = quizRepository;
     this.quizPreguntaRepository = quizPreguntaRepository;
     this.quizOpcionRepository = quizOpcionRepository;
+    this.quizIntentoRepository = quizIntentoRepository;
+    this.contenidoProgresoRepository = contenidoProgresoRepository;
   }
 
   @GetMapping("/nuevo")
@@ -70,6 +79,7 @@ public class QuizAdminController {
       @RequestParam("titulo") String titulo,
       @RequestParam("seccion") String seccion,
       @RequestParam("maxIntentos") Integer maxIntentos,
+      @RequestParam(value = "diasEspera", required = false) Integer diasEspera,
       @RequestParam(value = "activo", defaultValue = "false") boolean activo,
       RedirectAttributes redirectAttributes) {
 
@@ -96,6 +106,7 @@ public class QuizAdminController {
     quiz.setTitulo(titulo);
     quiz.setSeccion(seccionNormalizada);
     quiz.setMaxIntentos(maxIntentos == null || maxIntentos < 1 ? 1 : maxIntentos);
+    quiz.setDiasEspera(diasEspera != null && diasEspera >= 1 ? diasEspera : null);
     quiz.setActivo(activo);
     quiz.setCurso(cursoOpt.get());
 
@@ -126,6 +137,7 @@ public class QuizAdminController {
       @RequestParam("titulo") String titulo,
       @RequestParam("seccion") String seccion,
       @RequestParam("maxIntentos") Integer maxIntentos,
+      @RequestParam(value = "diasEspera", required = false) Integer diasEspera,
       @RequestParam(value = "activo", defaultValue = "false") boolean activo,
       RedirectAttributes redirectAttributes) {
 
@@ -153,11 +165,39 @@ public class QuizAdminController {
     quiz.setTitulo(titulo);
     quiz.setSeccion(seccionNormalizada);
     quiz.setMaxIntentos(maxIntentos == null || maxIntentos < 1 ? 1 : maxIntentos);
+    quiz.setDiasEspera(diasEspera != null && diasEspera >= 1 ? diasEspera : null);
     quiz.setActivo(activo);
 
     quizRepository.save(quiz);
     redirectAttributes.addFlashAttribute("mensaje", "Quiz actualizado");
     return "redirect:/cursos/" + cursoId + "/quizzes/" + quizId + "/preguntas";
+  }
+
+  @GetMapping("/{quizId}/eliminar")
+  @org.springframework.transaction.annotation.Transactional
+  public String eliminarQuiz(
+      @PathVariable Long cursoId,
+      @PathVariable Long quizId,
+      RedirectAttributes redirectAttributes) {
+
+    Optional<Quiz> quizOpt = quizRepository.findById(quizId);
+    if (quizOpt.isEmpty()) {
+      redirectAttributes.addFlashAttribute("error", "Quiz no encontrado");
+      return "redirect:/cursos/" + cursoId;
+    }
+
+    // 1. Eliminar progreso de contenido
+    contenidoProgresoRepository.deleteByTipoAndContenidoId("QUIZ", quizId);
+
+    // 2. Eliminar intentos (cascada a respuestas)
+    List<QuizIntento> intentos = quizIntentoRepository.findByQuizId(quizId);
+    quizIntentoRepository.deleteAll(intentos);
+
+    // 3. Eliminar el quiz (cascada a preguntas y opciones)
+    quizRepository.deleteById(quizId);
+
+    redirectAttributes.addFlashAttribute("mensaje", "Quiz eliminado exitosamente");
+    return "redirect:/cursos/" + cursoId;
   }
 
   @GetMapping("/{quizId}/preguntas")
@@ -202,7 +242,6 @@ public class QuizAdminController {
       @PathVariable Long quizId,
       @RequestParam("enunciado") String enunciado,
       @RequestParam("tipo") QuizPreguntaTipo tipo,
-      @RequestParam(value = "orden", required = false) Integer orden,
       RedirectAttributes redirectAttributes) {
 
     Optional<Quiz> quizOpt = quizRepository.findById(quizId);
@@ -216,11 +255,16 @@ public class QuizAdminController {
       return "redirect:/cursos/" + cursoId + "/quizzes/" + quizId + "/preguntas/nueva";
     }
 
+    List<QuizPregunta> existentes = quizPreguntaRepository.findByQuizIdOrderByOrdenAscIdAsc(quizId);
+    int siguienteOrden =
+        existentes.stream().mapToInt(p -> p.getOrden() != null ? p.getOrden() : 0).max().orElse(0)
+            + 1;
+
     QuizPregunta pregunta = new QuizPregunta();
     pregunta.setQuiz(quizOpt.get());
     pregunta.setEnunciado(enunciado);
     pregunta.setTipo(tipo);
-    pregunta.setOrden(orden);
+    pregunta.setOrden(siguienteOrden);
 
     QuizPregunta saved = quizPreguntaRepository.save(pregunta);
     redirectAttributes.addFlashAttribute("mensaje", "Pregunta creada. Ahora agrega opciones.");
@@ -261,7 +305,6 @@ public class QuizAdminController {
       @PathVariable Long preguntaId,
       @RequestParam("enunciado") String enunciado,
       @RequestParam("tipo") QuizPreguntaTipo tipo,
-      @RequestParam(value = "orden", required = false) Integer orden,
       RedirectAttributes redirectAttributes) {
 
     Optional<QuizPregunta> preguntaOpt = quizPreguntaRepository.findById(preguntaId);
@@ -284,7 +327,6 @@ public class QuizAdminController {
     QuizPregunta pregunta = preguntaOpt.get();
     pregunta.setEnunciado(enunciado);
     pregunta.setTipo(tipo);
-    pregunta.setOrden(orden);
 
     quizPreguntaRepository.save(pregunta);
     redirectAttributes.addFlashAttribute("mensaje", "Pregunta actualizada");
@@ -335,7 +377,6 @@ public class QuizAdminController {
       @PathVariable Long preguntaId,
       @RequestParam("texto") String texto,
       @RequestParam(value = "correcta", defaultValue = "false") boolean correcta,
-      @RequestParam(value = "orden", required = false) Integer orden,
       RedirectAttributes redirectAttributes) {
 
     Optional<QuizPregunta> preguntaOpt = quizPreguntaRepository.findById(preguntaId);
@@ -356,10 +397,15 @@ public class QuizAdminController {
     }
 
     QuizPregunta pregunta = preguntaOpt.get();
+    List<QuizOpcion> existentes =
+        quizOpcionRepository.findByPreguntaIdOrderByOrdenAscIdAsc(preguntaId);
+
+    // Asignar orden automáticamente como siguiente número
+    int siguienteOrden =
+        existentes.stream().mapToInt(o -> o.getOrden() != null ? o.getOrden() : 0).max().orElse(0)
+            + 1;
 
     if (pregunta.getTipo() == QuizPreguntaTipo.UNICA && correcta) {
-      List<QuizOpcion> existentes =
-          quizOpcionRepository.findByPreguntaIdOrderByOrdenAscIdAsc(preguntaId);
       for (QuizOpcion o : existentes) {
         o.setCorrecta(false);
       }
@@ -370,7 +416,7 @@ public class QuizAdminController {
     opcion.setPregunta(pregunta);
     opcion.setTexto(texto);
     opcion.setCorrecta(correcta);
-    opcion.setOrden(orden);
+    opcion.setOrden(siguienteOrden);
 
     quizOpcionRepository.save(opcion);
     redirectAttributes.addFlashAttribute("mensaje", "Opción agregada");

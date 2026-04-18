@@ -26,6 +26,9 @@ public class Quiz {
   @Column(name = "activo", nullable = false)
   private boolean activo = true;
 
+  @Column(name = "dias_espera")
+  private Integer diasEspera;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "curso_id", nullable = false)
   private Curso curso;
