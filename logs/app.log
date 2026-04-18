@@ -3537,3 +3537,181 @@ java.io.IOException: The server sockets created using the LocalRMIServerSocketFa
 2026-04-18T10:20:48.602-05:00  INFO 33778 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2026-04-18T10:20:48.603-05:00  INFO 33778 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2026-04-18T10:20:51.098-05:00  INFO 33778 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-04-18T10:41:32.011-05:00  WARN 47846 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=61802] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:41:32.019-05:00  WARN 47846 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=61802] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:41:32.031-05:00  INFO 47846 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Starting CajicaStreamApplication using Java 17.0.9 with PID 47846 (/Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream/build/classes/java/main started by arnmunoz in /Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream)
+2026-04-18T10:41:32.032-05:00  INFO 47846 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-04-18T10:41:32.684-05:00  INFO 47846 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-18T10:41:32.725-05:00  INFO 47846 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 16 JPA repository interfaces.
+2026-04-18T10:41:33.013-05:00  WARN 47846 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=61802] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:41:33.014-05:00  WARN 47846 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=61802] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:41:33.084-05:00  INFO 47846 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-04-18T10:41:33.095-05:00  INFO 47846 --- [cajica-stream] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-18T10:41:33.095-05:00  INFO 47846 --- [cajica-stream] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-04-18T10:41:33.127-05:00  INFO 47846 --- [cajica-stream] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-18T10:41:33.127-05:00  INFO 47846 --- [cajica-stream] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1061 ms
+2026-04-18T10:41:33.377-05:00  INFO 47846 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-18T10:41:33.570-05:00  INFO 47846 --- [cajica-stream] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@47c81e89
+2026-04-18T10:41:33.571-05:00  INFO 47846 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-18T10:41:33.619-05:00  INFO 47846 --- [cajica-stream] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/tic_cajica (MySQL 9.6)
+2026-04-18T10:41:33.647-05:00  WARN 47846 --- [cajica-stream] [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-04-18T10:41:33.680-05:00  INFO 47846 --- [cajica-stream] [main] o.f.core.internal.command.DbValidate     : Successfully validated 17 migrations (execution time 00:00.027s)
+2026-04-18T10:41:33.691-05:00  INFO 47846 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Current version of schema `tic_cajica`: 18
+2026-04-18T10:41:33.694-05:00  INFO 47846 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Schema `tic_cajica` is up to date. No migration necessary.
+2026-04-18T10:41:33.739-05:00  INFO 47846 --- [cajica-stream] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-18T10:41:33.768-05:00  INFO 47846 --- [cajica-stream] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2026-04-18T10:41:33.785-05:00  INFO 47846 --- [cajica-stream] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-04-18T10:41:33.939-05:00  INFO 47846 --- [cajica-stream] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-18T10:41:33.990-05:00  INFO 47846 --- [cajica-stream] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-18T10:41:34.622-05:00  INFO 47846 --- [cajica-stream] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-18T10:41:34.652-05:00  INFO 47846 --- [cajica-stream] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:41:34.825-05:00  INFO 47846 --- [cajica-stream] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-18T10:41:35.498-05:00  INFO 47846 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de imágenes inicializado en: /Users/arnmunoz/cajica-stream/uploads/images
+2026-04-18T10:41:35.498-05:00  INFO 47846 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de videos inicializado en: /Users/arnmunoz/cajica-stream/videos
+2026-04-18T10:41:35.683-05:00  INFO 47846 --- [cajica-stream] [main] c.cajica.stream.services.EmailService    : EmailService inicializado con baseUrl: http://localhost:8081
+2026-04-18T10:41:35.824-05:00  WARN 47846 --- [cajica-stream] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-18T10:41:36.051-05:00  INFO 47846 --- [cajica-stream] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-04-18T10:41:36.086-05:00  WARN 47846 --- [cajica-stream] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-18T10:41:36.403-05:00  INFO 47846 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-04-18T10:41:36.412-05:00  INFO 47846 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Started CajicaStreamApplication in 4.941 seconds (process running for 5.573)
+2026-04-18T10:41:36.417-05:00  INFO 47846 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicializando datos de la aplicación...
+2026-04-18T10:41:36.418-05:00  INFO 47846 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Verificando roles predeterminados...
+2026-04-18T10:41:36.420-05:00  INFO 47846 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicialización de roles completada
+2026-04-18T10:41:39.461-05:00  INFO 47846 --- [cajica-stream] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-18T10:41:39.462-05:00  INFO 47846 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-18T10:41:39.476-05:00  INFO 47846 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2026-04-18T10:41:44.981-05:00  WARN 47846 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=61802] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:42:00.592-05:00  INFO 47846 --- [cajica-stream] [http-nio-8081-exec-5] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-04-18T10:45:27.907-05:00  INFO 47846 --- [cajica-stream] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-18T10:45:27.913-05:00  INFO 47846 --- [cajica-stream] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-04-18T10:45:27.925-05:00  INFO 47846 --- [cajica-stream] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:45:27.927-05:00  INFO 47846 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-18T10:45:27.937-05:00  INFO 47846 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-04-18T10:45:31.530-05:00  INFO 50182 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Starting CajicaStreamApplication using Java 17.0.9 with PID 50182 (/Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream/build/classes/java/main started by arnmunoz in /Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream)
+2026-04-18T10:45:31.534-05:00  INFO 50182 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-04-18T10:45:31.554-05:00  WARN 50182 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=57150] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:45:31.560-05:00  WARN 50182 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=57150] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:45:32.352-05:00  INFO 50182 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-18T10:45:32.390-05:00  INFO 50182 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 16 JPA repository interfaces.
+2026-04-18T10:45:32.683-05:00  INFO 50182 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-04-18T10:45:32.691-05:00  INFO 50182 --- [cajica-stream] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-18T10:45:32.692-05:00  INFO 50182 --- [cajica-stream] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-04-18T10:45:32.721-05:00  INFO 50182 --- [cajica-stream] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-18T10:45:32.721-05:00  INFO 50182 --- [cajica-stream] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1160 ms
+2026-04-18T10:45:32.943-05:00  INFO 50182 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-18T10:45:33.139-05:00  INFO 50182 --- [cajica-stream] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f52a229
+2026-04-18T10:45:33.139-05:00  INFO 50182 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-18T10:45:33.177-05:00  INFO 50182 --- [cajica-stream] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/tic_cajica (MySQL 9.6)
+2026-04-18T10:45:33.198-05:00  WARN 50182 --- [cajica-stream] [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-04-18T10:45:33.233-05:00  INFO 50182 --- [cajica-stream] [main] o.f.core.internal.command.DbValidate     : Successfully validated 17 migrations (execution time 00:00.029s)
+2026-04-18T10:45:33.245-05:00  INFO 50182 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Current version of schema `tic_cajica`: 18
+2026-04-18T10:45:33.248-05:00  INFO 50182 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Schema `tic_cajica` is up to date. No migration necessary.
+2026-04-18T10:45:33.292-05:00  INFO 50182 --- [cajica-stream] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-18T10:45:33.317-05:00  INFO 50182 --- [cajica-stream] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2026-04-18T10:45:33.332-05:00  INFO 50182 --- [cajica-stream] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-04-18T10:45:33.503-05:00  INFO 50182 --- [cajica-stream] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-18T10:45:33.545-05:00  INFO 50182 --- [cajica-stream] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-18T10:45:34.116-05:00  INFO 50182 --- [cajica-stream] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-18T10:45:34.151-05:00  INFO 50182 --- [cajica-stream] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:45:34.313-05:00  INFO 50182 --- [cajica-stream] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-18T10:45:34.981-05:00  INFO 50182 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de imágenes inicializado en: /Users/arnmunoz/cajica-stream/uploads/images
+2026-04-18T10:45:34.981-05:00  INFO 50182 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de videos inicializado en: /Users/arnmunoz/cajica-stream/videos
+2026-04-18T10:45:35.147-05:00  INFO 50182 --- [cajica-stream] [main] c.cajica.stream.services.EmailService    : EmailService inicializado con baseUrl: http://localhost:8081
+2026-04-18T10:45:35.313-05:00  WARN 50182 --- [cajica-stream] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-18T10:45:35.570-05:00  INFO 50182 --- [cajica-stream] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-04-18T10:45:35.602-05:00  WARN 50182 --- [cajica-stream] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-18T10:45:35.886-05:00  INFO 50182 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-04-18T10:45:35.895-05:00  INFO 50182 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Started CajicaStreamApplication in 4.888 seconds (process running for 5.972)
+2026-04-18T10:45:35.900-05:00  INFO 50182 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicializando datos de la aplicación...
+2026-04-18T10:45:35.900-05:00  INFO 50182 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Verificando roles predeterminados...
+2026-04-18T10:45:35.903-05:00  INFO 50182 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicialización de roles completada
+2026-04-18T10:45:38.429-05:00  INFO 50182 --- [cajica-stream] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-18T10:45:38.431-05:00  INFO 50182 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-18T10:45:38.435-05:00  INFO 50182 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-04-18T10:45:48.336-05:00  INFO 50182 --- [cajica-stream] [http-nio-8081-exec-7] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-04-18T10:46:34.585-05:00  WARN 50182 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=57150] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:47:38.600-05:00  WARN 50182 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=57150] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2026-04-18T10:47:38.605-05:00  WARN 50182 --- [cajica-stream] [RMI TCP Accept-0] sun.rmi.transport.tcp                    : RMI TCP Accept-0: accept loop for ServerSocket[addr=0.0.0.0/0.0.0.0,localport=57150] throws
+
+java.io.IOException: The server sockets created using the LocalRMIServerSocketFactory only accept connections from clients running on the host where the RMI remote objects have been exported.
+	at jdk.management.agent/sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:114) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:413) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
