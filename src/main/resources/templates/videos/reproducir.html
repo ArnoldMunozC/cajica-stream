@@ -5,6 +5,9 @@
 <head>
     <title th:text="${video.titulo} + ' - Cajica Stream'">Reproducir Video</title>
     <style>
+        /* Página de video usa ancho completo */
+        .container { max-width: 100% !important; padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+
         .player-wrapper {
             background: #0d1117;
             border-radius: 12px 12px 0 0;
@@ -96,7 +99,7 @@
             </ol>
         </nav>
 
-        <div class="row g-4">
+        <div class="row g-2">
             <!-- ── Columna principal ── -->
             <div class="col-lg-8">
 
@@ -411,31 +414,57 @@
             </div>
         </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script th:inline="javascript">
-        // Tracking de completado para YouTube via postMessage
+        var ytPlayer = null;
         var ytCompletadoEnviado = false;
-        window.addEventListener('message', function(event) {
-            if (event.origin !== 'https://www.youtube.com') return;
-            try {
-                const data = JSON.parse(event.data);
-                // PlayerState 0 = ended
-                if (data.event === 'onStateChange' && data.info === 0 && !ytCompletadoEnviado) {
-                    ytCompletadoEnviado = true;
-                    const iframe = document.getElementById('youtubePlayer');
-                    if (iframe) {
-                        const cursoId = iframe.dataset.cursoId;
-                        const videoId = iframe.dataset.videoId;
-                        if (cursoId && videoId) {
-                            fetch(`/cursos/${cursoId}/videos/${videoId}/completado`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                credentials: 'same-origin'
-                            }).catch(e => console.warn('ytCompletado error', e));
+
+        function onYouTubeIframeAPIReady() {
+            const iframe = document.getElementById('youtubePlayer');
+            if (!iframe) return;
+
+            // Envuelve el iframe existente — no lo reemplaza
+            ytPlayer = new YT.Player(iframe, {
+                events: {
+                    'onReady': function() {
+                        // Verificar progreso cada 5 segundos
+                        setInterval(function() {
+                            if (!ytPlayer || ytCompletadoEnviado) return;
+                            try {
+                                const duracion = ytPlayer.getDuration();
+                                const actual = ytPlayer.getCurrentTime();
+                                if (duracion > 0 && actual / duracion >= 0.95) {
+                                    ytCompletadoEnviado = true;
+                                    marcarYTCompletado();
+                                }
+                            } catch(e) {}
+                        }, 5000);
+                    },
+                    'onStateChange': function(event) {
+                        // YT.PlayerState.ENDED = 0
+                        if (event.data === 0 && !ytCompletadoEnviado) {
+                            ytCompletadoEnviado = true;
+                            marcarYTCompletado();
                         }
                     }
                 }
-            } catch(e) {}
-        });
+            });
+        }
+
+        async function marcarYTCompletado() {
+            const iframe = document.getElementById('youtubePlayer');
+            if (!iframe) return;
+            const cursoId = iframe.dataset.cursoId;
+            const videoId = iframe.dataset.videoId;
+            if (!cursoId || !videoId) return;
+            try {
+                await fetch(`/cursos/${cursoId}/videos/${videoId}/completado`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    credentials: 'same-origin'
+                });
+            } catch(e) { console.warn('marcarYTCompletado error', e); }
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             const videoPlayers = document.querySelectorAll('video');

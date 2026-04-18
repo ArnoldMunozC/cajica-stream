@@ -3386,3 +3386,154 @@ java.io.IOException: The server sockets created using the LocalRMIServerSocketFa
 2026-04-17T21:14:30.778-05:00  INFO 90505 --- [cajica-stream] [http-nio-8081-exec-9] c.cajica.stream.services.UsuarioService  : Se encontraron 1 cursos inscritos para el usuario ID: 1
 2026-04-17T21:14:30.778-05:00  INFO 90505 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Cursos inscritos recuperados: 1
 2026-04-17T21:14:30.778-05:00  INFO 90505 --- [cajica-stream] [http-nio-8081-exec-9] c.c.s.controllers.CursoRestController    : Curso encontrado - ID: 1, Nombre: Curso Básico de Seguridad y Salud en el Trabajo
+2026-04-18T10:10:25.034-05:00  INFO 24482 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Starting CajicaStreamApplication using Java 17.0.9 with PID 24482 (/Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream/build/classes/java/main started by arnmunoz in /Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream)
+2026-04-18T10:10:25.037-05:00  INFO 24482 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-04-18T10:10:25.718-05:00  INFO 24482 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-18T10:10:25.785-05:00  INFO 24482 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 16 JPA repository interfaces.
+2026-04-18T10:10:26.113-05:00  INFO 24482 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-04-18T10:10:26.122-05:00  INFO 24482 --- [cajica-stream] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-18T10:10:26.122-05:00  INFO 24482 --- [cajica-stream] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-04-18T10:10:26.157-05:00  INFO 24482 --- [cajica-stream] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-18T10:10:26.157-05:00  INFO 24482 --- [cajica-stream] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1094 ms
+2026-04-18T10:10:26.367-05:00  INFO 24482 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-18T10:10:28.632-05:00  INFO 24482 --- [cajica-stream] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@720c8f80
+2026-04-18T10:10:28.633-05:00  INFO 24482 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-18T10:10:30.512-05:00  INFO 24482 --- [cajica-stream] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/tic_cajica (MySQL 9.6)
+2026-04-18T10:10:30.544-05:00  WARN 24482 --- [cajica-stream] [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-04-18T10:10:30.585-05:00  INFO 24482 --- [cajica-stream] [main] o.f.core.internal.command.DbValidate     : Successfully validated 17 migrations (execution time 00:00.033s)
+2026-04-18T10:10:30.617-05:00  INFO 24482 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Current version of schema `tic_cajica`: 18
+2026-04-18T10:10:30.625-05:00  INFO 24482 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Schema `tic_cajica` is up to date. No migration necessary.
+2026-04-18T10:10:30.672-05:00  INFO 24482 --- [cajica-stream] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-18T10:10:30.699-05:00  INFO 24482 --- [cajica-stream] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2026-04-18T10:10:30.715-05:00  INFO 24482 --- [cajica-stream] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-04-18T10:10:30.864-05:00  INFO 24482 --- [cajica-stream] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-18T10:10:30.911-05:00  INFO 24482 --- [cajica-stream] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-18T10:10:31.667-05:00  INFO 24482 --- [cajica-stream] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-18T10:10:32.757-05:00  INFO 24482 --- [cajica-stream] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:10:37.780-05:00  INFO 24482 --- [cajica-stream] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-18T10:10:43.082-05:00  INFO 24482 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de imágenes inicializado en: /Users/arnmunoz/cajica-stream/uploads/images
+2026-04-18T10:10:43.085-05:00  INFO 24482 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de videos inicializado en: /Users/arnmunoz/cajica-stream/videos
+2026-04-18T10:10:43.829-05:00  INFO 24482 --- [cajica-stream] [main] c.cajica.stream.services.EmailService    : EmailService inicializado con baseUrl: http://localhost:8081
+2026-04-18T10:10:44.387-05:00  WARN 24482 --- [cajica-stream] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-18T10:10:44.984-05:00  INFO 24482 --- [cajica-stream] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-04-18T10:10:45.056-05:00  WARN 24482 --- [cajica-stream] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-18T10:10:45.606-05:00  INFO 24482 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-04-18T10:10:45.634-05:00  INFO 24482 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Started CajicaStreamApplication in 20.921 seconds (process running for 23.582)
+2026-04-18T10:10:45.659-05:00  INFO 24482 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicializando datos de la aplicación...
+2026-04-18T10:10:45.659-05:00  INFO 24482 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Verificando roles predeterminados...
+2026-04-18T10:10:45.716-05:00  INFO 24482 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicialización de roles completada
+2026-04-18T10:11:03.971-05:00  INFO 24482 --- [cajica-stream] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-18T10:11:03.973-05:00  INFO 24482 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-18T10:11:03.987-05:00  INFO 24482 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
+2026-04-18T10:11:06.196-05:00  INFO 24482 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-04-18T10:13:17.744-05:00  INFO 24482 --- [cajica-stream] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-18T10:13:17.752-05:00  INFO 24482 --- [cajica-stream] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-04-18T10:13:17.774-05:00  INFO 24482 --- [cajica-stream] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:13:17.782-05:00  INFO 24482 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-18T10:13:17.795-05:00  INFO 24482 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-04-18T10:13:21.303-05:00  INFO 26695 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Starting CajicaStreamApplication using Java 17.0.9 with PID 26695 (/Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream/build/classes/java/main started by arnmunoz in /Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream)
+2026-04-18T10:13:21.304-05:00  INFO 26695 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-04-18T10:13:22.223-05:00  INFO 26695 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-18T10:13:22.262-05:00  INFO 26695 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 16 JPA repository interfaces.
+2026-04-18T10:13:22.537-05:00  INFO 26695 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-04-18T10:13:22.543-05:00  INFO 26695 --- [cajica-stream] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-18T10:13:22.543-05:00  INFO 26695 --- [cajica-stream] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-04-18T10:13:22.567-05:00  INFO 26695 --- [cajica-stream] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-18T10:13:22.568-05:00  INFO 26695 --- [cajica-stream] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1220 ms
+2026-04-18T10:13:22.757-05:00  INFO 26695 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-18T10:13:23.079-05:00  INFO 26695 --- [cajica-stream] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@68c4db77
+2026-04-18T10:13:23.080-05:00  INFO 26695 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-18T10:13:23.108-05:00  INFO 26695 --- [cajica-stream] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/tic_cajica (MySQL 9.6)
+2026-04-18T10:13:23.127-05:00  WARN 26695 --- [cajica-stream] [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-04-18T10:13:23.173-05:00  INFO 26695 --- [cajica-stream] [main] o.f.core.internal.command.DbValidate     : Successfully validated 17 migrations (execution time 00:00.039s)
+2026-04-18T10:13:23.186-05:00  INFO 26695 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Current version of schema `tic_cajica`: 18
+2026-04-18T10:13:23.189-05:00  INFO 26695 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Schema `tic_cajica` is up to date. No migration necessary.
+2026-04-18T10:13:23.229-05:00  INFO 26695 --- [cajica-stream] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-18T10:13:23.259-05:00  INFO 26695 --- [cajica-stream] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2026-04-18T10:13:23.286-05:00  INFO 26695 --- [cajica-stream] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-04-18T10:13:23.463-05:00  INFO 26695 --- [cajica-stream] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-18T10:13:23.508-05:00  INFO 26695 --- [cajica-stream] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-18T10:13:24.097-05:00  INFO 26695 --- [cajica-stream] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-18T10:13:24.128-05:00  INFO 26695 --- [cajica-stream] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:13:24.288-05:00  INFO 26695 --- [cajica-stream] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-18T10:13:24.906-05:00  INFO 26695 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de imágenes inicializado en: /Users/arnmunoz/cajica-stream/uploads/images
+2026-04-18T10:13:24.906-05:00  INFO 26695 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de videos inicializado en: /Users/arnmunoz/cajica-stream/videos
+2026-04-18T10:13:25.077-05:00  INFO 26695 --- [cajica-stream] [main] c.cajica.stream.services.EmailService    : EmailService inicializado con baseUrl: http://localhost:8081
+2026-04-18T10:13:25.222-05:00  WARN 26695 --- [cajica-stream] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-18T10:13:25.433-05:00  INFO 26695 --- [cajica-stream] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-04-18T10:13:25.464-05:00  WARN 26695 --- [cajica-stream] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-18T10:13:25.740-05:00  INFO 26695 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-04-18T10:13:25.750-05:00  INFO 26695 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Started CajicaStreamApplication in 4.873 seconds (process running for 6.329)
+2026-04-18T10:13:25.754-05:00  INFO 26695 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicializando datos de la aplicación...
+2026-04-18T10:13:25.755-05:00  INFO 26695 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Verificando roles predeterminados...
+2026-04-18T10:13:25.757-05:00  INFO 26695 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicialización de roles completada
+2026-04-18T10:13:29.679-05:00  INFO 26695 --- [cajica-stream] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-18T10:13:29.680-05:00  INFO 26695 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-18T10:13:29.683-05:00  INFO 26695 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-04-18T10:13:31.683-05:00  INFO 26695 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
+2026-04-18T10:20:39.491-05:00  INFO 26695 --- [cajica-stream] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-18T10:20:39.498-05:00  INFO 26695 --- [cajica-stream] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-04-18T10:20:39.511-05:00  INFO 26695 --- [cajica-stream] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:20:39.517-05:00  INFO 26695 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-18T10:20:39.529-05:00  INFO 26695 --- [cajica-stream] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-04-18T10:20:42.301-05:00  INFO 33778 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Starting CajicaStreamApplication using Java 17.0.9 with PID 33778 (/Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream/build/classes/java/main started by arnmunoz in /Users/arnmunoz/Documents/Documentos - CO000JF60XTW0KG/Learning/tic-cajica/cajica-stream)
+2026-04-18T10:20:42.302-05:00  INFO 33778 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-04-18T10:20:43.355-05:00  INFO 33778 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-18T10:20:43.435-05:00  INFO 33778 --- [cajica-stream] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 74 ms. Found 16 JPA repository interfaces.
+2026-04-18T10:20:43.854-05:00  INFO 33778 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-04-18T10:20:43.864-05:00  INFO 33778 --- [cajica-stream] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-18T10:20:43.864-05:00  INFO 33778 --- [cajica-stream] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-04-18T10:20:43.906-05:00  INFO 33778 --- [cajica-stream] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-18T10:20:43.906-05:00  INFO 33778 --- [cajica-stream] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1570 ms
+2026-04-18T10:20:44.270-05:00  INFO 33778 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-18T10:20:44.610-05:00  INFO 33778 --- [cajica-stream] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2d459bda
+2026-04-18T10:20:44.611-05:00  INFO 33778 --- [cajica-stream] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-18T10:20:44.653-05:00  INFO 33778 --- [cajica-stream] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/tic_cajica (MySQL 9.6)
+2026-04-18T10:20:44.678-05:00  WARN 33778 --- [cajica-stream] [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-04-18T10:20:44.716-05:00  INFO 33778 --- [cajica-stream] [main] o.f.core.internal.command.DbValidate     : Successfully validated 17 migrations (execution time 00:00.032s)
+2026-04-18T10:20:44.728-05:00  INFO 33778 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Current version of schema `tic_cajica`: 18
+2026-04-18T10:20:44.732-05:00  INFO 33778 --- [cajica-stream] [main] o.f.core.internal.command.DbMigrate      : Schema `tic_cajica` is up to date. No migration necessary.
+2026-04-18T10:20:44.786-05:00  INFO 33778 --- [cajica-stream] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-18T10:20:44.815-05:00  INFO 33778 --- [cajica-stream] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2026-04-18T10:20:44.838-05:00  INFO 33778 --- [cajica-stream] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-04-18T10:20:45.016-05:00  INFO 33778 --- [cajica-stream] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-18T10:20:45.072-05:00  INFO 33778 --- [cajica-stream] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-18T10:20:45.954-05:00  INFO 33778 --- [cajica-stream] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-18T10:20:45.980-05:00  INFO 33778 --- [cajica-stream] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-18T10:20:46.182-05:00  INFO 33778 --- [cajica-stream] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-18T10:20:46.878-05:00  INFO 33778 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de imágenes inicializado en: /Users/arnmunoz/cajica-stream/uploads/images
+2026-04-18T10:20:46.878-05:00  INFO 33778 --- [cajica-stream] [main] c.c.stream.services.FileStorageService   : Directorio de almacenamiento de videos inicializado en: /Users/arnmunoz/cajica-stream/videos
+2026-04-18T10:20:47.057-05:00  INFO 33778 --- [cajica-stream] [main] c.cajica.stream.services.EmailService    : EmailService inicializado con baseUrl: http://localhost:8081
+2026-04-18T10:20:47.216-05:00  WARN 33778 --- [cajica-stream] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-18T10:20:47.453-05:00  INFO 33778 --- [cajica-stream] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-04-18T10:20:47.490-05:00  WARN 33778 --- [cajica-stream] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-18T10:20:47.811-05:00  INFO 33778 --- [cajica-stream] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-04-18T10:20:47.821-05:00  INFO 33778 --- [cajica-stream] [main] c.cajica.stream.CajicaStreamApplication  : Started CajicaStreamApplication in 5.809 seconds (process running for 6.443)
+2026-04-18T10:20:47.827-05:00  INFO 33778 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicializando datos de la aplicación...
+2026-04-18T10:20:47.827-05:00  INFO 33778 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Verificando roles predeterminados...
+2026-04-18T10:20:47.831-05:00  INFO 33778 --- [cajica-stream] [main] c.cajica.stream.config.DataInitializer   : Inicialización de roles completada
+2026-04-18T10:20:48.602-05:00  INFO 33778 --- [cajica-stream] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-18T10:20:48.602-05:00  INFO 33778 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-18T10:20:48.603-05:00  INFO 33778 --- [cajica-stream] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-04-18T10:20:51.098-05:00  INFO 33778 --- [cajica-stream] [http-nio-8081-exec-4] c.c.s.services.UsuarioDetailsService     : Usuario cargado para autenticación. username=arnold, rolesCount=1
