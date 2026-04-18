@@ -37,9 +37,16 @@
                     <div class="form-text">Obligatorio. Debe coincidir con el nombre de la sección/módulo del curso.</div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="maxIntentos" class="form-label">Máximo de intentos</label>
-                    <input type="number" class="form-control" id="maxIntentos" name="maxIntentos" min="1" value="1" required>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="maxIntentos" class="form-label">Máximo de intentos por ciclo</label>
+                        <input type="number" class="form-control" id="maxIntentos" name="maxIntentos" min="1" value="1" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="diasEspera" class="form-label">Días de espera para reintentar</label>
+                        <input type="number" class="form-control" id="diasEspera" name="diasEspera" min="1" placeholder="Dejar vacío = sin reintentos">
+                        <div class="form-text">Días que debe esperar el usuario después de agotar los intentos.</div>
+                    </div>
                 </div>
 
                 <div class="form-check mb-3">
@@ -71,9 +78,16 @@
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label for="maxIntentosEdit" class="form-label">Máximo de intentos</label>
-                    <input type="number" class="form-control" id="maxIntentosEdit" name="maxIntentos" min="1" th:value="${quiz.maxIntentos}" required>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="maxIntentosEdit" class="form-label">Máximo de intentos por ciclo</label>
+                        <input type="number" class="form-control" id="maxIntentosEdit" name="maxIntentos" min="1" th:value="${quiz.maxIntentos}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="diasEsperaEdit" class="form-label">Días de espera para reintentar</label>
+                        <input type="number" class="form-control" id="diasEsperaEdit" name="diasEspera" min="1" th:value="${quiz.diasEspera}" placeholder="Dejar vacío = sin reintentos">
+                        <div class="form-text">Días que debe esperar el usuario después de agotar los intentos.</div>
+                    </div>
                 </div>
 
                 <div class="form-check mb-3">

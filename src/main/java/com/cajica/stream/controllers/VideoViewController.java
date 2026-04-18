@@ -7,7 +7,9 @@ import com.cajica.stream.entities.QuizIntento;
 import com.cajica.stream.entities.QuizPregunta;
 import com.cajica.stream.entities.QuizRespuesta;
 import com.cajica.stream.entities.Video;
+import com.cajica.stream.repositories.QuizIntentoRepository;
 import com.cajica.stream.services.CertificadoService;
+import com.cajica.stream.services.ContenidoProgresoService;
 import com.cajica.stream.services.CursoService;
 import com.cajica.stream.services.MaterialPdfService;
 import com.cajica.stream.services.QuizService;
@@ -126,6 +128,8 @@ public class VideoViewController {
   private final VideoProgresoService videoProgresoService;
   private final VideoQAService videoQAService;
   private final CertificadoService certificadoService;
+  private final ContenidoProgresoService contenidoProgresoService;
+  private final QuizIntentoRepository quizIntentoRepository;
 
   @Autowired
   public VideoViewController(
@@ -136,7 +140,9 @@ public class VideoViewController {
       UsuarioService usuarioService,
       VideoProgresoService videoProgresoService,
       VideoQAService videoQAService,
-      CertificadoService certificadoService) {
+      CertificadoService certificadoService,
+      ContenidoProgresoService contenidoProgresoService,
+      QuizIntentoRepository quizIntentoRepository) {
     this.videoService = videoService;
     this.cursoService = cursoService;
     this.materialPdfService = materialPdfService;
@@ -145,6 +151,9 @@ public class VideoViewController {
     this.videoProgresoService = videoProgresoService;
     this.videoQAService = videoQAService;
     this.certificadoService = certificadoService;
+    this.contenidoProgresoService = contenidoProgresoService;
+    this.quizIntentoRepository = quizIntentoRepository;
+    // quizService ya está disponible desde el campo declarado arriba
   }
 
   @GetMapping("/{id}/preguntas")
@@ -258,7 +267,7 @@ public class VideoViewController {
       return;
     }
     videoProgresoService.marcarCompletado(auth.getName(), cursoId, id);
-    
+
     // Intentar generar certificado automáticamente si cumple todos los requisitos
     certificadoService.intentarGenerarAutomaticamente(auth.getName(), cursoId);
   }
@@ -327,6 +336,12 @@ public class VideoViewController {
           intento.getTotalPreguntas() == 0
               ? 0
               : (int) Math.round((intento.getPuntaje() * 100.0) / intento.getTotalPreguntas());
+
+      // Marcar quiz como completado al enviarlo
+      usuarioService
+          .findByUsername(username)
+          .ifPresent(
+              u -> contenidoProgresoService.marcarQuizCompletado(u.getId(), cursoId, quizId));
 
       // Intentar generar certificado automáticamente si cumple todos los requisitos
       certificadoService.intentarGenerarAutomaticamente(username, cursoId);
@@ -546,6 +561,41 @@ public class VideoViewController {
                 .map(p -> p.getVideo().getId())
                 .collect(java.util.stream.Collectors.toSet());
         model.addAttribute("videosCompletadosIds", videosCompletadosIds);
+
+        Long usuarioId =
+            usuarioService.findByUsername(auth.getName()).map(u -> u.getId()).orElse(null);
+
+        if (usuarioId != null) {
+          // Marcar PDF como completado al abrirlo
+          if (pdfSeleccionado != null) {
+            contenidoProgresoService.marcarPdfCompletado(
+                usuarioId, cursoId, pdfSeleccionado.getId());
+          }
+          model.addAttribute(
+              "pdfsCompletadosIds",
+              contenidoProgresoService.getPdfsCompletadosIds(usuarioId, cursoId));
+          model.addAttribute(
+              "quizzesCompletadosIds",
+              quizIntentoRepository.findQuizIdsIntentatosByUsuarioIdAndCursoId(usuarioId, cursoId));
+          model.addAttribute(
+              "quizzesAprobadosIds",
+              quizIntentoRepository.findQuizIdsAprobadosByUsuarioIdAndCursoId(usuarioId, cursoId));
+
+          // Fechas de reintento disponibles por quiz
+          java.util.Map<Long, String> quizFechaDisponibleMap = new java.util.HashMap<>();
+          java.time.format.DateTimeFormatter fmtFecha =
+              java.time.format.DateTimeFormatter.ofPattern(
+                  "dd/MM/yyyy", new java.util.Locale("es", "ES"));
+          quizIntentoRepository
+              .findQuizIdsIntentatosByUsuarioIdAndCursoId(usuarioId, cursoId)
+              .forEach(
+                  qId ->
+                      quizService
+                          .getFechaDisponibleReintento(qId, usuarioId)
+                          .ifPresent(
+                              fecha -> quizFechaDisponibleMap.put(qId, fecha.format(fmtFecha))));
+          model.addAttribute("quizFechaDisponibleMap", quizFechaDisponibleMap);
+        }
       }
 
       if (isLogged && quizSeleccionado == null && pdfSeleccionado == null) {

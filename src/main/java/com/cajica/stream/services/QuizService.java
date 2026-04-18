@@ -11,6 +11,8 @@ import com.cajica.stream.repositories.QuizIntentoRepository;
 import com.cajica.stream.repositories.QuizRepository;
 import com.cajica.stream.repositories.QuizRespuestaRepository;
 import com.cajica.stream.repositories.UsuarioRepository;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,16 +67,34 @@ public class QuizService {
 
     quiz.getPreguntas().forEach(p -> p.getOpciones().size());
 
-    Integer maxIntentos = quiz.getMaxIntentos() == null ? 1 : quiz.getMaxIntentos();
+    int maxIntentos = quiz.getMaxIntentos() == null ? 1 : quiz.getMaxIntentos();
+    Integer diasEspera = quiz.getDiasEspera();
 
-    Long intentosRealizados =
-        quizIntentoRepository.countByQuizIdAndUsuarioId(quizId, usuario.getId());
-    if (intentosRealizados != null && intentosRealizados.intValue() >= maxIntentos) {
-      throw new IllegalStateException(
-          "Has alcanzado el número máximo de intentos para este cuestionario");
+    List<QuizIntento> todosIntentos =
+        quizIntentoRepository.findByQuizIdAndUsuarioIdOrderByFechaCreacionAsc(
+            quizId, usuario.getId());
+
+    // Calcular ciclo actual: cada ciclo tiene maxIntentos intentos
+    int cicloInicio = 0;
+    while (cicloInicio + maxIntentos <= todosIntentos.size()) {
+      QuizIntento ultimoDelCiclo = todosIntentos.get(cicloInicio + maxIntentos - 1);
+      if (diasEspera == null) {
+        throw new IllegalStateException(
+            "Has alcanzado el número máximo de intentos para este cuestionario");
+      }
+      LocalDateTime disponibleDesde = ultimoDelCiclo.getFechaCreacion().plusDays(diasEspera);
+      if (LocalDateTime.now().isBefore(disponibleDesde)) {
+        DateTimeFormatter fmt =
+            DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy", new java.util.Locale("es", "ES"));
+        throw new IllegalStateException(
+            "Has alcanzado el número máximo de intentos. Podrás reintentar el "
+                + disponibleDesde.format(fmt));
+      }
+      cicloInicio += maxIntentos;
     }
 
-    int numeroIntento = intentosRealizados == null ? 1 : intentosRealizados.intValue() + 1;
+    int intentosEnCicloActual = todosIntentos.size() - cicloInicio;
+    int numeroIntento = intentosEnCicloActual + 1;
 
     int totalPreguntas = quiz.getPreguntas().size();
     int correctas = 0;
@@ -174,5 +194,28 @@ public class QuizService {
 
   public int getUmbralAprobacionPorcentaje() {
     return UMBRAL_APROBACION_PORCENTAJE;
+  }
+
+  @Transactional(readOnly = true)
+  public Optional<LocalDateTime> getFechaDisponibleReintento(Long quizId, Long usuarioId) {
+    Optional<Quiz> quizOpt = quizRepository.findById(quizId);
+    if (quizOpt.isEmpty() || quizOpt.get().getDiasEspera() == null) return Optional.empty();
+
+    Quiz quiz = quizOpt.get();
+    int maxIntentos = quiz.getMaxIntentos() == null ? 1 : quiz.getMaxIntentos();
+    List<QuizIntento> intentos =
+        quizIntentoRepository.findByQuizIdAndUsuarioIdOrderByFechaCreacionAsc(quizId, usuarioId);
+
+    int cicloInicio = 0;
+    while (cicloInicio + maxIntentos <= intentos.size()) {
+      QuizIntento ultimoDelCiclo = intentos.get(cicloInicio + maxIntentos - 1);
+      LocalDateTime disponibleDesde =
+          ultimoDelCiclo.getFechaCreacion().plusDays(quiz.getDiasEspera());
+      if (LocalDateTime.now().isBefore(disponibleDesde)) {
+        return Optional.of(disponibleDesde);
+      }
+      cicloInicio += maxIntentos;
+    }
+    return Optional.empty();
   }
 }

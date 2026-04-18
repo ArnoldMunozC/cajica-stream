@@ -33,11 +33,6 @@
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label for="orden" class="form-label">Orden</label>
-                    <input type="number" class="form-control" id="orden" name="orden" min="1">
-                </div>
-
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-save"></i> Guardar
@@ -56,11 +51,6 @@
                     <select class="form-select" id="tipoEdit" name="tipo" required>
                         <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}" th:selected="${t} == ${pregunta.tipo}">UNICA</option>
                     </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="ordenEdit" class="form-label">Orden</label>
-                    <input type="number" class="form-control" id="ordenEdit" name="orden" min="1" th:value="${pregunta.orden}">
                 </div>
 
                 <div class="d-grid gap-2">

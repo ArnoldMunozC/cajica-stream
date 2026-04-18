@@ -7,177 +7,162 @@
 </head>
 <body>
     <section>
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 th:text="${curso.nombre}">Nombre del Curso</h1>
-            <div>
-                <a th:href="@{/cursos}" class="btn btn-outline-secondary me-2">
-                    <i class="bi bi-arrow-left"></i> Volver
-                </a>
-                <a th:href="@{/cursos/editar/{id}(id=${curso.id})}" class="btn btn-primary" sec:authorize="hasRole('ADMIN')">
-                    <i class="bi bi-pencil"></i> Editar
-                </a>
-            </div>
-        </div>
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb small">
+                <li class="breadcrumb-item"><a th:href="@{/cursos}" class="text-decoration-none">Cursos</a></li>
+                <li class="breadcrumb-item active" th:text="${curso.nombre}"></li>
+            </ol>
+        </nav>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img th:if="${curso.imagenPath}" th:src="@{'/api/cursos/images/' + ${curso.imagenPath}}"
-                         class="card-img-top" alt="Imagen del curso" style="max-height: 300px; object-fit: cover;">
-                    <img th:unless="${curso.imagenPath}" src="https://via.placeholder.com/400x300?text=Sin+Imagen"
-                         class="card-img-top" alt="Sin imagen">
+        <div class="row g-4">
+            <!-- Columna izquierda: imagen + acciones -->
+            <div class="col-lg-4">
+                <div class="card overflow-hidden">
+                    <img th:if="${curso.imagenPath}"
+                         th:src="@{'/api/cursos/images/' + ${curso.imagenPath}}"
+                         class="w-100" alt="Imagen del curso"
+                         style="height:240px;object-fit:cover;">
+                    <div th:unless="${curso.imagenPath}"
+                         class="w-100 d-flex align-items-center justify-content-center"
+                         style="height:240px;background:linear-gradient(135deg,#003366,#0b63a8);">
+                        <i class="bi bi-book-half text-white" style="font-size:5rem;opacity:0.4;"></i>
+                    </div>
 
-                    <!-- Botones de inscripción para usuarios autenticados -->
-                    <div class="card-body" sec:authorize="isAuthenticated()">
-                        <!-- Botón para cancelar inscripción (si está inscrito) -->
-                        <div th:if="${inscrito == true}">
-                            <a th:href="@{/certificados/curso/{id}/estado(id=${curso.id})}" class="btn btn-warning btn-block w-100 mb-2">
-                                <i class="bi bi-award"></i> Ver Certificación
-                            </a>
-                            <form th:action="@{/cursos/{id}/cancelar(id=${curso.id})}" method="post">
-                                <button type="submit" class="btn btn-outline-danger btn-block w-100">
-                                    <i class="bi bi-x-circle"></i> Cancelar Inscripción
-                                </button>
-                            </form>
-                        </div>
+                    <div class="card-body">
+                        <span class="badge-categoria d-inline-block mb-3" th:text="${curso.categoria}"></span>
 
-                        <!-- Botón para inscribirse (si no está inscrito) -->
-                        <div th:if="${inscrito == false}">
-                            <div th:if="${inscripcionesAbiertas == true}">
-                                <form th:action="@{/cursos/{id}/inscribir(id=${curso.id})}" method="post">
-                                    <button type="submit" class="btn btn-success btn-block w-100">
-                                        <i class="bi bi-check-circle"></i> Inscribirse en este Curso
+                        <!-- Usuario autenticado -->
+                        <div sec:authorize="isAuthenticated()">
+                            <!-- Inscrito -->
+                            <div th:if="${inscrito == true}" class="d-grid gap-2">
+                                <a th:href="@{/certificados/curso/{id}/estado(id=${curso.id})}"
+                                   class="btn btn-warning fw-semibold">
+                                    <i class="bi bi-award me-1"></i>Ver Certificación
+                                </a>
+                                <form th:action="@{/cursos/{id}/cancelar(id=${curso.id})}" method="post">
+                                    <button type="submit" class="btn btn-outline-danger w-100">
+                                        <i class="bi bi-x-circle me-1"></i>Cancelar Inscripción
                                     </button>
                                 </form>
                             </div>
-                            <div th:if="${inscripcionesAbiertas == false}">
-                                <button type="button" class="btn btn-secondary btn-block w-100" disabled>
-                                    <i class="bi bi-lock"></i> Inscripciones deshabilitadas
-                                </button>
+
+                            <!-- No inscrito -->
+                            <div th:if="${inscrito == false}" class="d-grid">
+                                <div th:if="${inscripcionesAbiertas == true}">
+                                    <form th:action="@{/cursos/{id}/inscribir(id=${curso.id})}" method="post">
+                                        <button type="submit" class="btn btn-success w-100 fw-semibold py-2">
+                                            <i class="bi bi-check-circle me-1"></i>Inscribirse gratis
+                                        </button>
+                                    </form>
+                                </div>
+                                <div th:if="${inscripcionesAbiertas == false}">
+                                    <button class="btn btn-secondary w-100" disabled>
+                                        <i class="bi bi-lock me-1"></i>Inscripciones cerradas
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Control admin inscripciones -->
+                            <div class="mt-3" sec:authorize="hasRole('ADMIN')">
+                                <form th:if="${inscripcionesAbiertas == true}"
+                                      th:action="@{/cursos/{id}/inscripciones/deshabilitar(id=${curso.id})}" method="post">
+                                    <button type="submit" class="btn btn-outline-secondary w-100 btn-sm">
+                                        <i class="bi bi-lock me-1"></i>Cerrar inscripciones
+                                    </button>
+                                </form>
+                                <form th:if="${inscripcionesAbiertas == false}"
+                                      th:action="@{/cursos/{id}/inscripciones/habilitar(id=${curso.id})}" method="post">
+                                    <button type="submit" class="btn btn-outline-success w-100 btn-sm">
+                                        <i class="bi bi-unlock me-1"></i>Abrir inscripciones
+                                    </button>
+                                </form>
                             </div>
                         </div>
 
-                        <div class="mt-3" sec:authorize="hasRole('ADMIN')">
-                            <form th:if="${inscripcionesAbiertas == true}"
-                                  th:action="@{/cursos/{id}/inscripciones/deshabilitar(id=${curso.id})}" method="post">
-                                <button type="submit" class="btn btn-outline-secondary btn-block w-100">
-                                    <i class="bi bi-lock"></i> Deshabilitar inscripciones
-                                </button>
-                            </form>
-                            <form th:if="${inscripcionesAbiertas == false}"
-                                  th:action="@{/cursos/{id}/inscripciones/habilitar(id=${curso.id})}" method="post">
-                                <button type="submit" class="btn btn-outline-success btn-block w-100">
-                                    <i class="bi bi-unlock"></i> Habilitar inscripciones
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Mensaje para usuarios no autenticados -->
-                    <div class="card-body" sec:authorize="!isAuthenticated()">
-                        <div class="alert alert-info mb-0">
-                            <p class="mb-2">Para inscribirte en este curso, necesitas iniciar sesión.</p>
-                            <a th:href="@{/login}" class="btn btn-primary btn-sm">
-                                <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
-                            </a>
-                            <a th:href="@{/registro}" class="btn btn-outline-primary btn-sm">
-                                <i class="bi bi-person-plus"></i> Registrarse
-                            </a>
+                        <!-- No autenticado -->
+                        <div sec:authorize="!isAuthenticated()">
+                            <p class="text-muted small mb-3">Inicia sesión para inscribirte en este curso.</p>
+                            <div class="d-grid gap-2">
+                                <a th:href="@{/login}" class="btn btn-primary fw-semibold">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión
+                                </a>
+                                <a th:href="@{/registro}" class="btn btn-outline-primary">
+                                    <i class="bi bi-person-plus me-1"></i>Registrarse
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card">
+
+                <!-- Acciones admin -->
+                <div class="card mt-3" sec:authorize="hasRole('ADMIN')">
                     <div class="card-body">
-                        <h5 class="card-title">Detalles del Curso</h5>
-                        <div class="mb-3">
-                            <span class="badge bg-info text-dark" th:text="${curso.categoria}">Categoría</span>
-                        </div>
-                        <h6 class="card-subtitle mb-2 text-muted">Descripción</h6>
-                        <p class="card-text" th:text="${curso.descripcion}">Descripción del curso</p>
-
-                        <div class="mt-4" sec:authorize="hasRole('ADMIN')">
-                            <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}" class="btn btn-danger"
-                               onclick="return confirm('¿Estás seguro de eliminar este curso?')">
-                                <i class="bi bi-trash"></i> Eliminar Curso
+                        <p class="small fw-semibold text-muted mb-2">Administrar curso</p>
+                        <div class="d-grid gap-2">
+                            <a th:href="@{/cursos/editar/{id}(id=${curso.id})}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-pencil me-1"></i>Editar curso
+                            </a>
+                            <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}"
+                               class="btn btn-outline-danger btn-sm"
+                               onclick="return confirm('¿Deshabilitar este curso?')">
+                                <i class="bi bi-slash-circle me-1"></i>Deshabilitar curso
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Sección de Videos -->
-        <div class="mt-5">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2>Videos del Curso</h2>
-                <div class="btn-group" sec:authorize="hasRole('ADMIN')">
-                    <a th:href="@{/cursos/{id}/videos/nuevo(id=${curso.id})}" class="btn btn-success">
-                        <i class="bi bi-plus-circle"></i> Añadir Video
+            <!-- Columna derecha: info + videos -->
+            <div class="col-lg-8">
+                <h1 class="fw-bold mb-1" style="color:#003366;" th:text="${curso.nombre}"></h1>
+                <p class="text-muted mb-4" th:text="${curso.descripcion}"></p>
+
+                <!-- Botones admin -->
+                <div class="d-flex gap-2 mb-4" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/cursos/{id}/videos/nuevo(id=${curso.id})}" class="btn btn-success btn-sm">
+                        <i class="bi bi-play-circle me-1"></i>Añadir Video
                     </a>
-                    <a th:href="@{/cursos/{id}/pdfs/nuevo(id=${curso.id})}" class="btn btn-info">
-                        <i class="bi bi-file-earmark-pdf"></i> Añadir PDF
+                    <a th:href="@{/cursos/{id}/pdfs/nuevo(id=${curso.id})}" class="btn btn-info btn-sm text-white">
+                        <i class="bi bi-file-earmark-pdf me-1"></i>PDF
                     </a>
-                    <a th:href="@{/cursos/{id}/quizzes/nuevo(id=${curso.id})}" class="btn btn-warning">
-                        <i class="bi bi-question-circle"></i> Añadir Quiz
+                    <a th:href="@{/cursos/{id}/quizzes/nuevo(id=${curso.id})}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-question-circle me-1"></i>Quiz
                     </a>
                 </div>
-            </div>
 
-            <!-- Mensaje para usuarios no inscritos -->
-            <div class="alert alert-warning" id="not-enrolled-warning" style="display: none;" sec:authorize="isAuthenticated()">
-                <i class="bi bi-exclamation-triangle"></i> Necesitas inscribirte en este curso para poder ver sus videos.
-            </div>
-
-            <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${!#lists.isEmpty(curso.videos)}">
-                <div th:each="video : ${curso.videos}" class="col">
-                    <div class="card h-100">
-                        <img th:if="${video.thumbnailPath}" th:src="@{'/api/cursos/images/' + ${video.thumbnailPath}}"
-                             class="card-img-top" alt="Miniatura del video" style="height: 180px; object-fit: cover;">
-                        <img th:unless="${video.thumbnailPath}" src="https://via.placeholder.com/300x180?text=Video"
-                             class="card-img-top" alt="Sin miniatura" style="height: 180px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${video.titulo}">Título del Video</h5>
-                            <p class="card-text" th:text="${#strings.abbreviate(video.descripcion, 100)}">Descripción</p>
-                            <p class="card-text" th:if="${video.duracion}">
-                                <small class="text-muted">
-                                    <i class="bi bi-clock"></i>
-                                    <span th:text="${video.duracion / 60 + ' min ' + video.duracion % 60 + ' seg'}">Duración</span>
-                                </small>
-                            </p>
-                        </div>
-                        <div class="card-footer bg-transparent border-top-0">
-                            <div class="d-flex justify-content-between">
-                                <a th:href="@{/cursos/{cursoId}/videos/{id}(cursoId=${curso.id},id=${video.id})}"
-                                   class="btn btn-sm btn-primary video-play-button">
-                                    <i class="bi bi-play-circle"></i> Reproducir
-                                </a>
-                                <a th:href="@{/cursos/{cursoId}/videos/{id}/editar(cursoId=${curso.id},id=${video.id})}"
-                                   class="btn btn-sm btn-outline-secondary"
-                                   sec:authorize="hasRole('ADMIN')">
-                                    <i class="bi bi-pencil"></i> Editar
-                                </a>
-                                <a th:href="@{/cursos/{cursoId}/videos/{id}/eliminar(cursoId=${curso.id},id=${video.id})}"
-                                   class="btn btn-sm btn-outline-danger"
-                                   onclick="return confirm('¿Estás seguro de eliminar este video?')"
-                                   sec:authorize="hasRole('ADMIN')">
-                                    <i class="bi bi-trash"></i>
-                                </a>
+                <!-- CTA — ir al contenido -->
+                <div th:if="${!#lists.isEmpty(curso.videos)}">
+                    <a th:href="@{/cursos/{cursoId}/videos/{id}(cursoId=${curso.id},id=${curso.videos[0].id})}"
+                       style="display:block;background:linear-gradient(135deg,#003366,#0b63a8);border-radius:14px;padding:2rem 2.5rem;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;"
+                       onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 32px rgba(0,51,102,0.35)'"
+                       onmouseout="this.style.transform='';this.style.boxShadow=''">
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+                            <div>
+                                <div style="color:rgba(255,255,255,0.75);font-size:0.8rem;font-weight:500;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">
+                                    <i class="bi bi-collection-play me-1"></i>
+                                    <span th:text="${#lists.size(curso.videos)} + ' videos en este curso'"></span>
+                                </div>
+                                <div style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.2;">
+                                    Comenzar el curso
+                                </div>
+                                <div style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:6px;">
+                                    Empieza desde el primer video y avanza a tu ritmo
+                                </div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.15);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <i class="bi bi-play-fill text-white" style="font-size:1.8rem;margin-left:4px;"></i>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
 
-            <div class="alert alert-info" th:if="${#lists.isEmpty(curso.videos)}">
-                <div class="d-flex align-items-center">
-                    <div>
-                        <i class="bi bi-info-circle me-2"></i>
-                        Este curso aún no tiene videos.
-                    </div>
-                    <a th:href="@{/cursos/{id}/videos/nuevo(id=${curso.id})}" class="btn btn-primary ms-3" sec:authorize="hasRole('ADMIN')">
-                        <i class="bi bi-plus-circle"></i> Añadir el primer video
+                <div th:if="${#lists.isEmpty(curso.videos)}" class="text-center py-5 bg-light rounded-3">
+                    <i class="bi bi-camera-video-off" style="font-size:3rem;color:#cbd5e0;"></i>
+                    <p class="text-muted mt-3 mb-0">Este curso aún no tiene videos.</p>
+                    <a th:href="@{/cursos/{id}/videos/nuevo(id=${curso.id})}"
+                       class="btn btn-primary btn-sm mt-3" sec:authorize="hasRole('ADMIN')">
+                        <i class="bi bi-plus-circle me-1"></i>Añadir el primer video
                     </a>
                 </div>
             </div>

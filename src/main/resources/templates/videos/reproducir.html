@@ -4,298 +4,405 @@
       th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
 <head>
     <title th:text="${video.titulo} + ' - Cajica Stream'">Reproducir Video</title>
+    <style>
+        .player-wrapper {
+            background: #0d1117;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+        }
+        .player-wrapper video,
+        .player-wrapper iframe,
+        .player-wrapper .ratio {
+            display: block;
+            width: 100%;
+        }
+        .video-info-card { border-radius: 0 0 12px 12px; border-top: none; }
+
+        /* Sidebar estilo Udemy */
+        .sidebar-card { max-height: 680px; overflow: hidden; display: flex; flex-direction: column; border-radius: 10px; }
+        .sidebar-scroll { overflow-y: auto; flex: 1; }
+        .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+
+        .seccion-header {
+            background: #1e293b;
+            padding: 12px 16px;
+            border-bottom: 1px solid #334155;
+            cursor: pointer;
+            user-select: none;
+        }
+        .seccion-header:hover { background: #263548; }
+        .seccion-titulo { font-weight: 700; font-size: 0.875rem; color: #f1f5f9; line-height: 1.3; }
+        .seccion-meta { font-size: 0.7rem; color: #94a3b8; margin-top: 3px; }
+        .seccion-chevron { transition: transform 0.2s; color: #94a3b8; }
+        .seccion-chevron.collapsed { transform: rotate(-90deg); }
+
+        .ci {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f2f5;
+            text-decoration: none !important;
+            color: #1a202c !important;
+            background: #fff;
+            transition: background 0.15s;
+        }
+        .ci:hover { background: #f7f8ff !important; }
+        .ci.ci-active { background: #eef2ff !important; border-left: 3px solid #003366; padding-left: 13px; }
+        .ci-check { flex-shrink: 0; margin-top: 2px; font-size: 1rem; line-height: 1; }
+        .ci-check-done  { color: #6d28d9; }
+        .ci-check-pending { color: #d1d5db; }
+        .ci-body { flex: 1 !important; min-width: 0; display: block !important; }
+        .ci-title { display: block !important; font-size: 0.83rem; font-weight: 500; line-height: 1.4; color: #1a202c; }
+        .ci-active .ci-title { color: #003366; font-weight: 600; }
+        .ci-meta { display: flex !important; align-items: center; gap: 5px; margin-top: 4px; font-size: 0.7rem; color: #9ca3af; }
+        .ci-badge { font-size: 0.62rem; padding: 1px 7px; border-radius: 20px; font-weight: 600; }
+        .ci-badge-pdf  { background: #fde8e8; color: #c81e1e; }
+        .ci-badge-quiz { background: #fef3c7; color: #92400e; }
+
+        /* Quiz */
+        .quiz-opcion {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .quiz-opcion:has(input:checked) {
+            border-color: #003366;
+            background: #f0f4ff;
+        }
+        .quiz-opcion label { cursor: pointer; margin: 0; width: 100%; }
+        .quiz-opcion input { display: none; }
+    </style>
 </head>
 <body>
     <section>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-                <h3 th:text="${video.titulo}">Título del Video</h3>
-                <p class="text-muted">
-                    <a th:href="@{/cursos/{id}(id=${curso.id})}" th:text="${curso.nombre}" class="text-decoration-none">Nombre del Curso</a>
-                </p>
-            </div>
-            <div>
-                <a th:href="@{/cursos/{id}(id=${curso.id})}" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left"></i> Volver al curso
-                </a>
-            </div>
-        </div>
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb small">
+                <li class="breadcrumb-item">
+                    <a th:href="@{/cursos}" class="text-decoration-none">Cursos</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a th:href="@{/cursos/{id}(id=${curso.id})}"
+                       th:text="${curso.nombre}" class="text-decoration-none"></a>
+                </li>
+                <li class="breadcrumb-item active" th:text="${video.titulo}"></li>
+            </ol>
+        </nav>
 
-        <!-- Estructura simplificada con Bootstrap -->
-        <div class="row">
-            <!-- Columna del reproductor (8 columnas en pantallas grandes, 12 en pequeñas) -->
-            <div class="col-lg-8 mb-4">
-                <!-- Reproductor de Video -->
-                <div class="card">
-                    <div class="card-body">
-                        <div style="width: 100%; max-width: 780px; margin: 0 auto;">
-                            <div th:if="${quizSeleccionado != null}">
-                                <div class="mb-3">
-                                    <h5 th:text="${quizSeleccionado.titulo}">Quiz</h5>
-                                    <div class="text-muted small">
-                                        Aprobación: 80% | Intentos máximos: <span th:text="${quizSeleccionado.maxIntentos}">1</span>
-                                    </div>
-                                    <div class="mt-2" sec:authorize="hasRole('ADMIN')">
-                                        <a class="btn btn-sm btn-outline-primary me-2"
-                                           th:href="@{/cursos/{cursoId}/quizzes/{quizId}/editar(cursoId=${curso.id},quizId=${quizSeleccionado.id})}">
-                                            <i class="bi bi-pencil"></i> Editar Quiz
-                                        </a>
-                                        <a class="btn btn-sm btn-outline-secondary"
-                                           th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas(cursoId=${curso.id},quizId=${quizSeleccionado.id})}">
-                                            <i class="bi bi-list-check"></i> Preguntas
-                                        </a>
-                                    </div>
-                                </div>
+        <div class="row g-4">
+            <!-- ── Columna principal ── -->
+            <div class="col-lg-8">
 
-                                <div class="alert" th:if="${quizIntento != null}"
-                                     th:classappend="${quizIntento.aprobado} ? ' alert-success' : ' alert-danger'">
-                                    <div class="fw-bold">
-                                        <span th:text="${quizIntento.aprobado} ? 'Aprobado' : 'No aprobado'">Resultado</span>
-                                    </div>
-                                    <div>
-                                        Puntaje: <span th:text="${quizIntento.puntaje}">0</span>/<span th:text="${quizIntento.totalPreguntas}">0</span>
-                                    </div>
-                                    <div>
-                                        Porcentaje:
-                                        <span th:text="${quizIntento.totalPreguntas == 0 ? 0 : T(java.lang.Math).round((quizIntento.puntaje * 100.0) / quizIntento.totalPreguntas)}">0</span>%
-                                    </div>
-                                </div>
-
-                                <form th:action="@{/cursos/{cursoId}/videos/{id}/quiz/{quizId}/submit(cursoId=${curso.id},id=${video.id},quizId=${quizSeleccionado.id})}" method="post">
-                                    <div class="mb-4" th:each="p, pStat : ${quizSeleccionado.preguntas}">
-                                        <div class="fw-bold mb-2" th:text="${pStat.count} + '. ' + ${p.enunciado}">Pregunta</div>
-
-                                        <div th:if="${quizIntento != null}" class="mb-2">
-                                            <span class="badge" th:classappend="${quizPreguntaCorrecta[p.id]} ? ' bg-success' : ' bg-danger'"
-                                                  th:text="${quizPreguntaCorrecta[p.id]} ? 'Correcta' : 'Incorrecta'">Correcta</span>
-                                        </div>
-
-                                        <div th:if="${p.tipo.name() == 'UNICA'}">
-                                            <div class="form-check" th:each="o, oStat : ${p.opciones}">
-                                                <input class="form-check-input" type="radio"
-                                                       th:id="'q_' + ${p.id} + '_' + ${o.id}"
-                                                       th:name="'q_' + ${p.id}"
-                                                       th:value="${o.id}">
-                                                <label class="form-check-label" th:for="'q_' + ${p.id} + '_' + ${o.id}" th:text="${o.texto}">Opción</label>
-                                            </div>
-                                        </div>
-
-                                        <div th:if="${p.tipo.name() == 'MULTIPLE'}">
-                                            <div class="form-check" th:each="o, oStat : ${p.opciones}">
-                                                <input class="form-check-input" type="checkbox"
-                                                       th:id="'q_' + ${p.id} + '_' + ${o.id}"
-                                                       th:name="'q_' + ${p.id}"
-                                                       th:value="${o.id}">
-                                                <label class="form-check-label" th:for="'q_' + ${p.id} + '_' + ${o.id}" th:text="${o.texto}">Opción</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="bi bi-send"></i> Enviar Quiz
-                                        </button>
-                                    </div>
-                                </form>
+                <!-- Reproductor / Quiz / PDF -->
+                <div class="player-wrapper">
+                    <!-- QUIZ -->
+                    <div th:if="${quizSeleccionado != null}" class="p-4" style="background:#fff;">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="fw-bold mb-1" th:text="${quizSeleccionado.titulo}">Quiz</h5>
+                                <span class="badge bg-warning text-dark">
+                                    Aprobación 80% · Intentos máx: <span th:text="${quizSeleccionado.maxIntentos}"></span>
+                                </span>
                             </div>
+                            <div sec:authorize="hasRole('ADMIN')" class="d-flex gap-2">
+                                <a class="btn btn-sm btn-outline-primary"
+                                   th:href="@{/cursos/{cursoId}/quizzes/{quizId}/editar(cursoId=${curso.id},quizId=${quizSeleccionado.id})}">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   th:href="@{/cursos/{cursoId}/quizzes/{quizId}/preguntas(cursoId=${curso.id},quizId=${quizSeleccionado.id})}">
+                                    <i class="bi bi-list-check"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-danger"
+                                   th:href="@{/cursos/{cursoId}/quizzes/{quizId}/eliminar(cursoId=${curso.id},quizId=${quizSeleccionado.id})}"
+                                   onclick="return confirm('¿Eliminar este quiz y todos sus intentos?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </div>
 
-                            <div th:if="${quizSeleccionado == null and pdfSeleccionado != null}">
-                                <div class="mb-3">
-                                    <h5 th:text="${pdfSeleccionado.titulo}">PDF</h5>
-                                    <div class="text-muted small" th:if="${pdfSeleccionado.seccion}">
-                                        Sección: <span th:text="${pdfSeleccionado.seccion}">Sección</span>
+                        <!-- Resultado previo -->
+                        <div th:if="${quizIntento != null}" class="alert mb-4"
+                             th:classappend="${quizIntento.aprobado} ? 'alert-success' : 'alert-danger'">
+                            <div class="d-flex align-items-center gap-3">
+                                <i th:classappend="${quizIntento.aprobado} ? 'bi bi-check-circle-fill fs-3' : 'bi bi-x-circle-fill fs-3'"></i>
+                                <div>
+                                    <div class="fw-bold" th:text="${quizIntento.aprobado} ? 'Aprobado' : 'No aprobado'"></div>
+                                    <div class="small">
+                                        Puntaje: <strong th:text="${quizIntento.puntaje} + '/' + ${quizIntento.totalPreguntas}"></strong>
+                                        · <strong th:text="${quizIntento.totalPreguntas == 0 ? 0 : T(java.lang.Math).round((quizIntento.puntaje * 100.0) / quizIntento.totalPreguntas)} + '%'"></strong>
                                     </div>
-                                    <div class="mt-2" sec:authorize="hasRole('ADMIN')">
-                                        <a class="btn btn-sm btn-outline-primary me-2"
-                                           th:href="@{/cursos/{cursoId}/pdfs/{pdfId}/editar(cursoId=${curso.id},pdfId=${pdfSeleccionado.id})}">
-                                            <i class="bi bi-pencil"></i> Editar PDF
-                                        </a>
-                                        <a class="btn btn-sm btn-outline-danger"
-                                           th:href="@{/cursos/{cursoId}/pdfs/{pdfId}/eliminar(cursoId=${curso.id},pdfId=${pdfSeleccionado.id})}"
-                                           onclick="return confirm('¿Estás seguro de eliminar este PDF?')">
-                                            <i class="bi bi-trash"></i> Eliminar PDF
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="ratio ratio-16x9">
-                                    <iframe th:src="@{'/api/cursos/pdfs/' + ${pdfSeleccionado.pdfFilePath}}"
-                                            style="width:100%; height:100%; border:0;"
-                                            title="PDF"></iframe>
                                 </div>
                             </div>
+                        </div>
 
-                            <div th:if="${quizSeleccionado == null and pdfSeleccionado == null}">
-                                <!-- Video externo (YouTube) - usando IFrame Player API -->
-                                <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and (video.videoUrl.contains('youtube.com') or video.videoUrl.contains('youtu.be'))}" class="ratio ratio-16x9">
-                                    <div id="youtubePlayer"
-                                         th:data-video-id="${video.videoUrl.contains('youtu.be') ?
-                                             video.videoUrl.substring(video.videoUrl.lastIndexOf('/') + 1) :
-                                             (video.videoUrl.contains('watch?v=') ?
-                                                 #strings.substringBefore(video.videoUrl.substring(video.videoUrl.indexOf('v=') + 2), '&') :
-                                                 '')}"
-                                         th:data-curso-id="${curso.id}"
-                                         th:data-local-video-id="${video.id}">
+                        <form th:action="@{/cursos/{cursoId}/videos/{id}/quiz/{quizId}/submit(cursoId=${curso.id},id=${video.id},quizId=${quizSeleccionado.id})}" method="post">
+                            <div class="mb-4" th:each="p, pStat : ${quizSeleccionado.preguntas}">
+                                <p class="fw-semibold mb-2">
+                                    <span th:text="${pStat.count} + '. ' + ${p.enunciado}"></span>
+                                </p>
+                                <div th:if="${quizIntento != null}" class="mb-2">
+                                    <span class="badge rounded-pill"
+                                          th:classappend="${quizPreguntaCorrecta[p.id]} ? 'bg-success' : 'bg-danger'"
+                                          th:text="${quizPreguntaCorrecta[p.id]} ? 'Correcta ✓' : 'Incorrecta ✗'"></span>
+                                </div>
+                                <div th:if="${p.tipo.name() == 'UNICA'}">
+                                    <div class="quiz-opcion" th:each="o : ${p.opciones}">
+                                        <label>
+                                            <input type="radio"
+                                                   th:id="'q_' + ${p.id} + '_' + ${o.id}"
+                                                   th:name="'q_' + ${p.id}"
+                                                   th:value="${o.id}">
+                                            <span th:text="${o.texto}"></span>
+                                        </label>
                                     </div>
                                 </div>
-
-                                <!-- Video externo (Vimeo) -->
-                                <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and video.videoUrl.contains('vimeo.com')}" class="ratio ratio-16x9">
-                                    <iframe th:src="${'https://player.vimeo.com/video/' + video.videoUrl.replaceAll('.*vimeo.com/', '')}"
-                                            frameborder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowfullscreen>
-                                    </iframe>
-                                </div>
-
-                                <!-- Video externo (URL directa a archivo) -->
-                                <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and !video.videoUrl.contains('youtube.com') and !video.videoUrl.contains('youtu.be') and !video.videoUrl.contains('vimeo.com')}" class="ratio ratio-16x9">
-                                    <video id="videoPlayer"
-                                           th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
-                                           controls
-                                           preload="metadata">
-                                        <source th:src="${video.videoUrl}" type="video/mp4">
-                                        Tu navegador no soporta la reproducción de videos.
-                                    </video>
-                                </div>
-
-                                <!-- Video local (subido al servidor) -->
-                                <div th:if="${(video.videoUrl == null or video.videoUrl.isEmpty()) and video.videoFilePath != null}" class="ratio ratio-16x9">
-                                    <video id="videoPlayer"
-                                           th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
-                                           controls
-                                           controlsList="nodownload"
-                                           preload="metadata"
-                                           oncontextmenu="return false;">
-                                        <source th:src="@{'/api/cursos/videos/' + ${video.videoFilePath}}" type="video/mp4">
-                                        Tu navegador no soporta la reproducción de videos.
-                                    </video>
+                                <div th:if="${p.tipo.name() == 'MULTIPLE'}">
+                                    <div class="quiz-opcion" th:each="o : ${p.opciones}">
+                                        <label>
+                                            <input type="checkbox"
+                                                   th:id="'q_' + ${p.id} + '_' + ${o.id}"
+                                                   th:name="'q_' + ${p.id}"
+                                                   th:value="${o.id}">
+                                            <span th:text="${o.texto}"></span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary fw-semibold px-4">
+                                <i class="bi bi-send me-2"></i>Enviar respuestas
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- PDF -->
+                    <div th:if="${quizSeleccionado == null and pdfSeleccionado != null}">
+                        <div class="p-3 d-flex justify-content-between align-items-center"
+                             style="background:#fff;border-bottom:1px solid #f0f0f0;">
+                            <div>
+                                <h6 class="fw-bold mb-0" th:text="${pdfSeleccionado.titulo}"></h6>
+                                <small class="text-muted" th:if="${pdfSeleccionado.seccion}"
+                                       th:text="'Sección: ' + ${pdfSeleccionado.seccion}"></small>
+                            </div>
+                            <div sec:authorize="hasRole('ADMIN')" class="d-flex gap-2">
+                                <a class="btn btn-sm btn-outline-primary"
+                                   th:href="@{/cursos/{cursoId}/pdfs/{pdfId}/editar(cursoId=${curso.id},pdfId=${pdfSeleccionado.id})}">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-danger"
+                                   th:href="@{/cursos/{cursoId}/pdfs/{pdfId}/eliminar(cursoId=${curso.id},pdfId=${pdfSeleccionado.id})}"
+                                   onclick="return confirm('¿Eliminar este PDF?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ratio ratio-16x9">
+                            <iframe th:src="@{'/api/cursos/pdfs/' + ${pdfSeleccionado.pdfFilePath}}"
+                                    style="width:100%;height:100%;border:0;" title="PDF"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- VIDEO -->
+                    <div th:if="${quizSeleccionado == null and pdfSeleccionado == null}">
+                        <!-- YouTube -->
+                        <!-- YouTube -->
+                        <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and (video.videoUrl.contains('youtube.com') or video.videoUrl.contains('youtu.be'))}"
+                             class="ratio ratio-16x9">
+                            <iframe th:src="${'https://www.youtube.com/embed/' +
+                                (video.videoUrl.contains('youtu.be') ?
+                                    #strings.substringBefore(video.videoUrl.substring(video.videoUrl.lastIndexOf('/') + 1), '?') :
+                                    (video.videoUrl.contains('watch?v=') ?
+                                        #strings.substringBefore(video.videoUrl.substring(video.videoUrl.indexOf('v=') + 2), '&') :
+                                        '')) +
+                                '?rel=0&modestbranding=1&enablejsapi=1'}"
+                                    th:data-curso-id="${curso.id}"
+                                    th:data-video-id="${video.id}"
+                                    id="youtubePlayer"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                    style="border:0;">
+                            </iframe>
+                        </div>
+                        <!-- Vimeo -->
+                        <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and video.videoUrl.contains('vimeo.com')}"
+                             class="ratio ratio-16x9">
+                            <iframe th:src="${'https://player.vimeo.com/video/' + video.videoUrl.replaceAll('.*vimeo.com/', '')}"
+                                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <!-- URL directa -->
+                        <div th:if="${video.videoUrl != null and !video.videoUrl.isEmpty() and !video.videoUrl.contains('youtube.com') and !video.videoUrl.contains('youtu.be') and !video.videoUrl.contains('vimeo.com')}"
+                             class="ratio ratio-16x9">
+                            <video id="videoPlayer"
+                                   th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
+                                   controls preload="metadata">
+                                <source th:src="${video.videoUrl}" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Local -->
+                        <div th:if="${(video.videoUrl == null or video.videoUrl.isEmpty()) and video.videoFilePath != null}"
+                             class="ratio ratio-16x9">
+                            <video id="videoPlayer"
+                                   th:attr="data-curso-id=${curso.id},data-video-id=${video.id}"
+                                   controls controlsList="nodownload" preload="metadata"
+                                   oncontextmenu="return false;">
+                                <source th:src="@{'/api/cursos/videos/' + ${video.videoFilePath}}" type="video/mp4">
+                            </video>
                         </div>
                     </div>
                 </div>
 
-                <!-- Información del Video -->
-                <div class="card mt-4">
+                <!-- Info del video — solo cuando se está viendo el video -->
+                <div th:if="${quizSeleccionado == null and pdfSeleccionado == null}"
+                     class="card video-info-card mt-0">
                     <div class="card-body">
-                        <h4 th:text="${video.titulo}">Título del Video</h4>
-                        <p th:if="${video.duracion}" class="text-muted">
-                            <i class="bi bi-clock"></i>
-                            <span th:text="${video.duracion / 60 + ' min ' + video.duracion % 60 + ' seg'}">Duración</span>
-                        </p>
-                        <hr>
-                        <p th:text="${video.descripcion}">Descripción del video</p>
-
-                        <div class="mt-3" th:if="${quizSeleccionado == null and pdfSeleccionado == null}">
-                            <a class="btn btn-outline-secondary"
-                               th:href="@{/cursos/{cursoId}/videos/{id}/preguntas(cursoId=${curso.id},id=${video.id})}">
-                                <i class="bi bi-chat-dots"></i> Preguntas y respuestas
-                            </a>
+                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                            <div>
+                                <h4 class="fw-bold mb-1" th:text="${video.titulo}"></h4>
+                                <span th:if="${video.duracion}" class="text-muted small">
+                                    <i class="bi bi-clock me-1"></i>
+                                    <span th:text="${video.duracion / 60 + ' min ' + video.duracion % 60 + ' seg'}"></span>
+                                </span>
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <a th:if="${quizSeleccionado == null and pdfSeleccionado == null}"
+                                   class="btn btn-outline-secondary btn-sm"
+                                   th:href="@{/cursos/{cursoId}/videos/{id}/preguntas(cursoId=${curso.id},id=${video.id})}">
+                                    <i class="bi bi-chat-dots me-1"></i>Preguntas
+                                </a>
+                                <div sec:authorize="hasRole('ADMIN')" class="d-flex gap-2">
+                                    <a th:href="@{/cursos/{cursoId}/videos/{id}/editar(cursoId=${curso.id},id=${video.id})}"
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-pencil me-1"></i>Editar
+                                    </a>
+                                    <a th:href="@{/cursos/{cursoId}/videos/{id}/eliminar(cursoId=${curso.id},id=${video.id})}"
+                                       class="btn btn-outline-danger btn-sm"
+                                       onclick="return confirm('¿Eliminar este video?')">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="mt-3" sec:authorize="hasRole('ADMIN')">
-                            <a th:href="@{/cursos/{cursoId}/videos/{id}/editar(cursoId=${curso.id},id=${video.id})}"
-                               class="btn btn-outline-primary me-2">
-                                <i class="bi bi-pencil"></i> Editar Video
-                            </a>
-                            <a th:href="@{/cursos/{cursoId}/videos/{id}/eliminar(cursoId=${curso.id},id=${video.id})}"
-                               class="btn btn-outline-danger"
-                               onclick="return confirm('¿Estás seguro de eliminar este video?')">
-                                <i class="bi bi-trash"></i> Eliminar Video
-                            </a>
-                        </div>
+                        <hr class="my-3">
+                        <p class="text-muted mb-0" th:text="${video.descripcion}"></p>
                     </div>
                 </div>
             </div>
 
-            <!-- Columna de la lista de videos (4 columnas en pantallas grandes, 12 en pequeñas) -->
+            <!-- ── Sidebar: contenido del curso ── -->
             <div class="col-lg-4">
-                <!-- Lista de Videos Relacionados -->
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Videos del Curso</h5>
+                <div class="card sidebar-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span class="fw-bold small">
+                            <i class="bi bi-collection-play me-1"></i>Contenido del curso
+                        </span>
+                        <a th:href="@{/cursos/{id}(id=${curso.id})}"
+                           class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left me-1"></i>Volver
+                        </a>
                     </div>
-                    <div class="card-body p-0">
-                        <div class="accordion" id="videosAccordion" style="max-height: 500px; overflow-y: auto;">
-                            <div class="accordion-item" th:each="entry, secStat : ${contenidoPorSeccion}">
-                                <h2 class="accordion-header" th:id="'heading-' + ${secStat.index}">
-                                    <button class="accordion-button" type="button"
-                                            data-bs-toggle="collapse"
-                                            th:attr="data-bs-target='#collapse-' + ${secStat.index}"
-                                            th:aria-controls="'collapse-' + ${secStat.index}"
-                                            th:classappend="${entry.key == seccionActual} ? '' : 'collapsed'">
-                                        <span th:text="${entry.key}">Sección</span>
-                                        <span class="badge bg-light text-dark ms-2" th:text="${#lists.size(entry.value)}">0</span>
-                                    </button>
-                                </h2>
-                                <div class="accordion-collapse collapse"
-                                     th:id="'collapse-' + ${secStat.index}"
-                                     th:classappend="${entry.key == seccionActual} ? ' show' : ''"
-                                     th:attr="aria-labelledby='heading-' + ${secStat.index}"
-                                     data-bs-parent="#videosAccordion">
-                                    <div class="list-group list-group-flush">
-                                        <div th:each="item : ${entry.value}">
-                                            <a th:if="${item.tipo == 'VIDEO'}"
-                                               th:href="@{/cursos/{cursoId}/videos/{id}(cursoId=${curso.id},id=${item.video.id})}"
-                                               class="list-group-item list-group-item-action"
-                                               th:classappend="${item.video.id == video.id ? 'active' : ''}">
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <img th:if="${item.video.thumbnailPath}"
-                                                             th:src="@{'/api/cursos/images/' + ${item.video.thumbnailPath}}"
-                                                             style="width: 120px; height: 68px; object-fit: cover;" alt="Miniatura">
-                                                        <img th:unless="${item.video.thumbnailPath}"
-                                                             src="https://via.placeholder.com/120x68?text=Video"
-                                                             style="width: 120px; height: 68px; object-fit: cover;" alt="Sin miniatura">
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h6 class="mb-1">
-                                                            <span th:text="${item.video.titulo}">Título del Video</span>
-                                                            <i class="bi bi-check-circle-fill text-success ms-1"
-                                                               th:if="${videosCompletadosIds != null and videosCompletadosIds.contains(item.video.id)}"></i>
-                                                        </h6>
-                                                        <p th:if="${item.video.duracion}" class="small text-muted mb-0">
-                                                            <i class="bi bi-clock"></i>
-                                                            <span th:text="${item.video.duracion / 60 + ' min ' + item.video.duracion % 60 + ' seg'}">Duración</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
+                    <div class="sidebar-scroll">
+                        <div th:each="entry, secStat : ${contenidoPorSeccion}">
 
-                                            <a th:if="${item.tipo == 'PDF'}"
-                                               th:href="@{/cursos/{cursoId}/videos/{id}/secure(cursoId=${curso.id},id=${video.id},pdfId=${item.pdf.id})}"
-                                               class="list-group-item list-group-item-action"
-                                               th:classappend="${pdfSeleccionado != null and item.pdf.id == pdfSeleccionado.id ? 'active' : ''}">
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <div style="width: 120px; height: 68px; display:flex; align-items:center; justify-content:center; background:#f8f9fa; border:1px solid #dee2e6;">
-                                                            <span class="text-muted">PDF</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h6 class="mb-1" th:text="${item.pdf.titulo}">PDF</h6>
-                                                    </div>
-                                                </div>
-                                            </a>
+                            <!-- Encabezado de sección -->
+                            <div style="background:#1e293b;padding:12px 16px;border-bottom:1px solid #334155;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;"
+                                 th:attr="data-bs-toggle='collapse', data-bs-target='#sec-' + ${secStat.index}">
+                                <div>
+                                    <div style="font-weight:700;font-size:0.875rem;color:#f1f5f9;line-height:1.3;" th:text="${entry.key}"></div>
+                                    <div style="font-size:0.7rem;color:#94a3b8;margin-top:3px;" th:text="${#lists.size(entry.value)} + ' contenidos'"></div>
+                                </div>
+                                <i class="bi bi-chevron-up" style="color:#94a3b8;transition:transform 0.2s;margin-top:2px;"
+                                   th:classappend="${entry.key != seccionActual and !secStat.first} ? ' collapsed' : ''"></i>
+                            </div>
 
-                                            <a th:if="${item.tipo == 'QUIZ'}"
-                                               th:href="@{/cursos/{cursoId}/videos/{id}/secure(cursoId=${curso.id},id=${video.id},quizId=${item.quiz.id})}"
-                                               class="list-group-item list-group-item-action"
-                                               th:classappend="${quizSeleccionado != null and item.quiz.id == quizSeleccionado.id ? 'active' : ''}">
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <div style="width: 120px; height: 68px; display:flex; align-items:center; justify-content:center; background:#fff3cd; border:1px solid #ffeeba;">
-                                                            <span class="text-muted">QUIZ</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h6 class="mb-1" th:text="${item.quiz.titulo}">Quiz</h6>
-                                                        <div class="small text-muted" th:text="'Aprobación: 80% | Intentos: ' + ${item.quiz.maxIntentos}">Info</div>
-                                                    </div>
-                                                </div>
-                                            </a>
+                            <!-- Items de la sección -->
+                            <div class="collapse"
+                                 th:id="'sec-' + ${secStat.index}"
+                                 th:classappend="${entry.key == seccionActual or secStat.first} ? ' show' : ''">
+
+                                <div th:each="item, itemStat : ${entry.value}">
+
+                                    <!-- VIDEO -->
+                                    <!-- VIDEO -->
+                                    <a th:if="${item.tipo == 'VIDEO'}"
+                                       th:href="@{/cursos/{cursoId}/videos/{id}(cursoId=${curso.id},id=${item.video.id})}"
+                                       th:style="${item.video.id == video.id} ? 'display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-bottom:1px solid #f0f2f5;text-decoration:none;background:#eef2ff;border-left:3px solid #003366;padding-left:13px;' : 'display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-bottom:1px solid #f0f2f5;text-decoration:none;background:#fff;'">
+                                        <div style="flex-shrink:0;margin-top:2px;font-size:1rem;line-height:1;"
+                                             th:style="${videosCompletadosIds != null and videosCompletadosIds.contains(item.video.id)} ? 'color:#6d28d9;flex-shrink:0;margin-top:2px;font-size:1rem;' : 'color:#d1d5db;flex-shrink:0;margin-top:2px;font-size:1rem;'">
+                                            <i th:class="${videosCompletadosIds != null and videosCompletadosIds.contains(item.video.id)} ? 'bi bi-check-square-fill' : 'bi bi-square'"></i>
                                         </div>
-                                    </div>
+                                        <div style="flex:1;min-width:0;">
+                                            <div style="font-size:0.83rem;font-weight:500;line-height:1.4;color:#1a202c;"
+                                                 th:text="${itemStat.count} + '. ' + ${item.video.titulo}"></div>
+                                            <div style="display:flex;align-items:center;gap:5px;margin-top:4px;font-size:0.7rem;color:#9ca3af;">
+                                                <i class="bi bi-play-circle-fill" style="color:#6d28d9;font-size:0.7rem;"></i>
+                                                <span th:if="${item.video.duracion}" th:text="${item.video.duracion / 60} + ' min'"></span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!-- PDF -->
+                                    <a th:if="${item.tipo == 'PDF'}"
+                                       th:href="@{/cursos/{cursoId}/videos/{id}/secure(cursoId=${curso.id},id=${video.id},pdfId=${item.pdf.id})}"
+                                       th:style="${pdfSeleccionado != null and item.pdf.id == pdfSeleccionado.id} ? 'display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-bottom:1px solid #f0f2f5;text-decoration:none;background:#eef2ff;border-left:3px solid #003366;padding-left:13px;' : 'display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-bottom:1px solid #f0f2f5;text-decoration:none;background:#fff;'">
+                                        <div style="flex-shrink:0;margin-top:2px;font-size:1rem;"
+                                             th:style="${pdfsCompletadosIds != null and pdfsCompletadosIds.contains(item.pdf.id)} ? 'color:#6d28d9;flex-shrink:0;margin-top:2px;font-size:1rem;' : 'color:#d1d5db;flex-shrink:0;margin-top:2px;font-size:1rem;'">
+                                            <i th:class="${pdfsCompletadosIds != null and pdfsCompletadosIds.contains(item.pdf.id)} ? 'bi bi-check-square-fill' : 'bi bi-square'"></i>
+                                        </div>
+                                        <div style="flex:1;min-width:0;">
+                                            <div style="font-size:0.83rem;font-weight:500;line-height:1.4;color:#1a202c;"
+                                                 th:text="${itemStat.count} + '. ' + ${item.pdf.titulo}"></div>
+                                            <div style="display:flex;align-items:center;gap:5px;margin-top:4px;">
+                                                <span style="font-size:0.62rem;padding:1px 7px;border-radius:20px;font-weight:600;background:#fde8e8;color:#c81e1e;">PDF</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!-- QUIZ -->
+                                    <a th:if="${item.tipo == 'QUIZ'}"
+                                       th:href="@{/cursos/{cursoId}/videos/{id}/secure(cursoId=${curso.id},id=${video.id},quizId=${item.quiz.id})}"
+                                       th:style="${quizSeleccionado != null and item.quiz.id == quizSeleccionado.id} ? 'display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-bottom:1px solid #f0f2f5;text-decoration:none;background:#eef2ff;border-left:3px solid #003366;padding-left:13px;' : 'display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-bottom:1px solid #f0f2f5;text-decoration:none;background:#fff;'">
+                                        <!-- Aprobado -->
+                                        <div th:if="${quizzesAprobadosIds != null and quizzesAprobadosIds.contains(item.quiz.id)}"
+                                             style="flex-shrink:0;margin-top:2px;font-size:1rem;color:#16a34a;">
+                                            <i class="bi bi-check-square-fill"></i>
+                                        </div>
+                                        <!-- Enviado pero no aprobado -->
+                                        <div th:if="${quizzesCompletadosIds != null and quizzesCompletadosIds.contains(item.quiz.id) and (quizzesAprobadosIds == null or !quizzesAprobadosIds.contains(item.quiz.id))}"
+                                             th:style="${quizFechaDisponibleMap != null and quizFechaDisponibleMap.containsKey(item.quiz.id)} ? 'flex-shrink:0;margin-top:2px;font-size:1rem;color:#d97706;' : 'flex-shrink:0;margin-top:2px;font-size:1rem;color:#dc2626;'">
+                                            <i th:class="${quizFechaDisponibleMap != null and quizFechaDisponibleMap.containsKey(item.quiz.id)} ? 'bi bi-clock-fill' : 'bi bi-x-square-fill'"></i>
+                                        </div>
+                                        <!-- No intentado -->
+                                        <div th:if="${quizzesCompletadosIds == null or !quizzesCompletadosIds.contains(item.quiz.id)}"
+                                             style="flex-shrink:0;margin-top:2px;font-size:1rem;color:#d1d5db;">
+                                            <i class="bi bi-square"></i>
+                                        </div>
+                                        <div style="flex:1;min-width:0;">
+                                            <div style="font-size:0.83rem;font-weight:500;line-height:1.4;color:#1a202c;"
+                                                 th:text="${itemStat.count} + '. ' + ${item.quiz.titulo}"></div>
+                                            <div style="display:flex;align-items:center;gap:5px;margin-top:4px;">
+                                                <span th:if="${quizzesAprobadosIds != null and quizzesAprobadosIds.contains(item.quiz.id)}"
+                                                      style="font-size:0.62rem;padding:1px 7px;border-radius:20px;font-weight:600;background:#dcfce7;color:#15803d;">Aprobado</span>
+                                                <!-- No aprobado con reintento disponible próximamente -->
+                                                <span th:if="${quizzesCompletadosIds != null and quizzesCompletadosIds.contains(item.quiz.id) and (quizzesAprobadosIds == null or !quizzesAprobadosIds.contains(item.quiz.id)) and quizFechaDisponibleMap != null and quizFechaDisponibleMap.containsKey(item.quiz.id)}"
+                                                      style="font-size:0.62rem;padding:1px 7px;border-radius:20px;font-weight:600;background:#fef3c7;color:#92400e;"
+                                                      th:text="'Desde ' + ${quizFechaDisponibleMap.get(item.quiz.id)}"></span>
+                                                <!-- No aprobado sin reintento -->
+                                                <span th:if="${quizzesCompletadosIds != null and quizzesCompletadosIds.contains(item.quiz.id) and (quizzesAprobadosIds == null or !quizzesAprobadosIds.contains(item.quiz.id)) and (quizFechaDisponibleMap == null or !quizFechaDisponibleMap.containsKey(item.quiz.id))}"
+                                                      style="font-size:0.62rem;padding:1px 7px;border-radius:20px;font-weight:600;background:#fee2e2;color:#dc2626;">No aprobado</span>
+                                                <span th:if="${quizzesCompletadosIds == null or !quizzesCompletadosIds.contains(item.quiz.id)}"
+                                                      style="font-size:0.62rem;padding:1px 7px;border-radius:20px;font-weight:600;background:#fef3c7;color:#92400e;">Quiz</span>
+                                                <span style="font-size:0.7rem;color:#9ca3af;" th:text="${item.quiz.maxIntentos} + ' intento(s)'"></span>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -303,72 +410,41 @@
                 </div>
             </div>
         </div>
-    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script th:inline="javascript">
-        // YouTube IFrame Player API
-        var ytPlayer = null;
+        // Tracking de completado para YouTube via postMessage
         var ytCompletadoEnviado = false;
-
-        function onYouTubeIframeAPIReady() {
-            const ytContainer = document.getElementById('youtubePlayer');
-            if (!ytContainer) return;
-
-            const ytVideoId = ytContainer.dataset.videoId;
-            const cursoId = ytContainer.dataset.cursoId;
-            const localVideoId = ytContainer.dataset.localVideoId;
-
-            if (!ytVideoId) return;
-
-            ytPlayer = new YT.Player('youtubePlayer', {
-                videoId: ytVideoId,
-                playerVars: {
-                    'rel': 0,
-                    'modestbranding': 1,
-                    'enablejsapi': 1
-                },
-                events: {
-                    'onStateChange': function(event) {
-                        // YT.PlayerState.ENDED === 0
-                        if (event.data === 0 && !ytCompletadoEnviado) {
-                            ytCompletadoEnviado = true;
-                            marcarYoutubeCompletado(cursoId, localVideoId);
+        window.addEventListener('message', function(event) {
+            if (event.origin !== 'https://www.youtube.com') return;
+            try {
+                const data = JSON.parse(event.data);
+                // PlayerState 0 = ended
+                if (data.event === 'onStateChange' && data.info === 0 && !ytCompletadoEnviado) {
+                    ytCompletadoEnviado = true;
+                    const iframe = document.getElementById('youtubePlayer');
+                    if (iframe) {
+                        const cursoId = iframe.dataset.cursoId;
+                        const videoId = iframe.dataset.videoId;
+                        if (cursoId && videoId) {
+                            fetch(`/cursos/${cursoId}/videos/${videoId}/completado`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                credentials: 'same-origin'
+                            }).catch(e => console.warn('ytCompletado error', e));
                         }
                     }
                 }
-            });
-        }
+            } catch(e) {}
+        });
 
-        async function marcarYoutubeCompletado(cursoId, videoId) {
-            if (!cursoId || !videoId) return;
-            try {
-                const r = await fetch(`/cursos/${cursoId}/videos/${videoId}/completado`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    credentials: 'same-origin'
-                });
-                if (!r.ok) {
-                    console.warn('marcarYoutubeCompletado failed', r.status);
-                } else {
-                    console.log('YouTube video marcado como completado');
-                }
-            } catch (e) {
-                console.warn('marcarYoutubeCompletado error', e);
-            }
-        }
-
-        // Script para eliminar cualquier reproductor de video duplicado
         document.addEventListener('DOMContentLoaded', function() {
-            // Obtener todos los reproductores de video
             const videoPlayers = document.querySelectorAll('video');
-
-            // Si hay más de un reproductor, eliminar los adicionales
             if (videoPlayers.length > 1) {
                 for (let i = 1; i < videoPlayers.length; i++) {
                     videoPlayers[i].parentNode.removeChild(videoPlayers[i]);
                 }
             }
 
-            // Reforzar la protección contra descargas
             const videoPlayer = document.getElementById('videoPlayer');
             if (videoPlayer) {
                 const cursoIdFromTpl = /*[[${curso.id}]]*/ 0;
@@ -376,30 +452,12 @@
                 const cursoId = Number(videoPlayer.dataset.cursoId) || cursoIdFromTpl;
                 const videoId = Number(videoPlayer.dataset.videoId) || videoIdFromTpl;
                 const progresoSegundos = /*[[${progresoSegundos}]]*/ 0;
-
-                if (!cursoId || !videoId) {
-                    console.warn('progreso init: cursoId/videoId inválidos', { cursoIdFromTpl, videoIdFromTpl, dataset: videoPlayer.dataset });
-                } else {
-                    console.log('progreso init', { cursoId, videoId, progresoSegundos });
-                }
-
                 const sessionKey = `videoTime:${cursoId}:${videoId}`;
 
-                // Asegurarse de que controlsList tenga nodownload
-                if ('controlsList' in videoPlayer) {
-                    videoPlayer.controlsList.add('nodownload');
-                }
+                if ('controlsList' in videoPlayer) videoPlayer.controlsList.add('nodownload');
+                videoPlayer.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
 
-                // Prevenir el menú contextual
-                videoPlayer.addEventListener('contextmenu', function(e) {
-                    e.preventDefault();
-                    return false;
-                });
-
-                let maxAllowed = 0;
-                let initialized = false;
-                let isSeeking = false;
-                let timeBeforeSeek = 0;
+                let maxAllowed = 0, initialized = false, isSeeking = false, timeBeforeSeek = 0;
                 const EPS = 0.75;
 
                 function guardarTiempoAntesDeSalir() {
@@ -408,26 +466,16 @@
                         const t = videoPlayer.currentTime;
                         if (t == null || !Number.isFinite(t) || t < 0) return;
                         sessionStorage.setItem(sessionKey, String(t));
-                        fetch(`/cursos/${cursoId}/videos/${videoId}/progreso?segundo=${encodeURIComponent(t)}` , {
+                        fetch(`/cursos/${cursoId}/videos/${videoId}/progreso?segundo=${encodeURIComponent(t)}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            credentials: 'same-origin',
-                            keepalive: true
-                        }).then(function(r) {
-                            if (!r.ok) {
-                                console.warn('guardarProgreso failed', r.status, r.url);
-                            }
-                        }).catch(function(e) {
-                            console.warn('guardarProgreso error', e);
-                        });
-                    } catch (e) {
-                    }
+                            credentials: 'same-origin', keepalive: true
+                        }).catch(e => console.warn('guardarProgreso error', e));
+                    } catch(e) {}
                 }
 
-                document.querySelectorAll('form[data-save-video-time="true"]').forEach(function(f) {
-                    f.addEventListener('submit', function() {
-                        guardarTiempoAntesDeSalir();
-                    });
+                document.querySelectorAll('form[data-save-video-time="true"]').forEach(f => {
+                    f.addEventListener('submit', guardarTiempoAntesDeSalir);
                 });
 
                 const sessionTimeRaw = sessionStorage.getItem(sessionKey);
@@ -436,20 +484,14 @@
                 if (progresoSegundos && progresoSegundos > 0) {
                     videoPlayer.addEventListener('loadedmetadata', function() {
                         try {
-                            const preferred =
-                                (sessionTime != null && Number.isFinite(sessionTime) && sessionTime > 0)
-                                    ? sessionTime
-                                    : progresoSegundos;
+                            const preferred = (sessionTime != null && Number.isFinite(sessionTime) && sessionTime > 0) ? sessionTime : progresoSegundos;
                             if (Number.isFinite(preferred) && preferred < videoPlayer.duration) {
                                 videoPlayer.currentTime = preferred;
                                 maxAllowed = preferred;
                                 initialized = true;
-                                if (preferred === sessionTime) {
-                                    sessionStorage.removeItem(sessionKey);
-                                }
+                                if (preferred === sessionTime) sessionStorage.removeItem(sessionKey);
                             }
-                        } catch (e) {
-                        }
+                        } catch(e) {}
                     }, { once: true });
                 } else if (sessionTime != null && Number.isFinite(sessionTime) && sessionTime > 0) {
                     videoPlayer.addEventListener('loadedmetadata', function() {
@@ -459,10 +501,7 @@
                                 maxAllowed = sessionTime;
                                 initialized = true;
                             }
-                        } catch (e) {
-                        } finally {
-                            sessionStorage.removeItem(sessionKey);
-                        }
+                        } catch(e) {} finally { sessionStorage.removeItem(sessionKey); }
                     }, { once: true });
                 }
 
@@ -473,30 +512,15 @@
                 }, { once: true });
 
                 videoPlayer.addEventListener('timeupdate', function() {
-                    if (!initialized) {
-                        maxAllowed = videoPlayer.currentTime || 0;
-                        initialized = true;
-                    }
-
+                    if (!initialized) { maxAllowed = videoPlayer.currentTime || 0; initialized = true; }
                     if (isSeeking) return;
-
-                    if (videoPlayer.currentTime > maxAllowed + EPS) {
-                        videoPlayer.currentTime = maxAllowed;
-                        return;
-                    }
-
-                    if (videoPlayer.currentTime > maxAllowed) {
-                        maxAllowed = videoPlayer.currentTime;
-                    }
-
+                    if (videoPlayer.currentTime > maxAllowed + EPS) { videoPlayer.currentTime = maxAllowed; return; }
+                    if (videoPlayer.currentTime > maxAllowed) maxAllowed = videoPlayer.currentTime;
                     try {
                         if (!completadoEnviado && Number.isFinite(videoPlayer.duration) && videoPlayer.duration > 0) {
-                            if (videoPlayer.currentTime / videoPlayer.duration >= 0.95) {
-                                marcarCompletado();
-                            }
+                            if (videoPlayer.currentTime / videoPlayer.duration >= 0.95) marcarCompletado();
                         }
-                    } catch (e) {
-                    }
+                    } catch(e) {}
                 });
 
                 videoPlayer.addEventListener('seeking', function() {
@@ -506,11 +530,7 @@
                     if (videoPlayer.currentTime > maxAllowed + EPS) {
                         const target = maxAllowed;
                         videoPlayer.currentTime = target;
-                        setTimeout(function() {
-                            if (videoPlayer.currentTime > target + EPS) {
-                                videoPlayer.currentTime = target;
-                            }
-                        }, 0);
+                        setTimeout(() => { if (videoPlayer.currentTime > target + EPS) videoPlayer.currentTime = target; }, 0);
                     }
                 });
 
@@ -520,79 +540,39 @@
                     if (videoPlayer.currentTime > maxAllowed + EPS) {
                         const target = timeBeforeSeek;
                         videoPlayer.currentTime = target;
-                        setTimeout(function() {
-                            if (videoPlayer.currentTime > target + EPS) {
-                                videoPlayer.currentTime = target;
-                            }
-                        }, 0);
+                        setTimeout(() => { if (videoPlayer.currentTime > target + EPS) videoPlayer.currentTime = target; }, 0);
                     }
                 });
 
-                let lastSent = 0;
-                let lastSentAt = 0;
-                let completadoEnviado = false;
+                let lastSent = 0, lastSentAt = 0, completadoEnviado = false;
 
                 async function marcarCompletado() {
-                    if (completadoEnviado) return;
-                    if (!cursoId || !videoId) return;
+                    if (completadoEnviado || !cursoId || !videoId) return;
                     completadoEnviado = true;
                     try {
                         const r = await fetch(`/cursos/${cursoId}/videos/${videoId}/completado`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            credentials: 'same-origin'
+                            method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, credentials: 'same-origin'
                         });
-                        if (!r.ok) {
-                            console.warn('marcarCompletado failed', r.status, r.url);
-                        }
-                    } catch (e) {
-                        console.warn('marcarCompletado error', e);
-                    }
+                        if (!r.ok) console.warn('marcarCompletado failed', r.status);
+                    } catch(e) { console.warn('marcarCompletado error', e); }
                 }
 
                 async function enviarProgreso(segundo) {
-                    if (!cursoId || !videoId) return;
-                    if (segundo == null || !Number.isFinite(segundo) || segundo < 0) return;
-
-                    // debug: confirmar que se está invocando
-                    // (no logueamos siempre para no llenar consola)
-
+                    if (!cursoId || !videoId || segundo == null || !Number.isFinite(segundo) || segundo < 0) return;
                     const now = Date.now();
-                    if (now - lastSentAt < 4000 && Math.abs(segundo - lastSent) < 2) {
-                        return;
-                    }
-
-                    lastSentAt = now;
-                    lastSent = segundo;
-
+                    if (now - lastSentAt < 4000 && Math.abs(segundo - lastSent) < 2) return;
+                    lastSentAt = now; lastSent = segundo;
                     try {
-                        const r = await fetch(`/cursos/${cursoId}/videos/${videoId}/progreso?segundo=${encodeURIComponent(segundo)}` , {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            credentials: 'same-origin'
+                        const r = await fetch(`/cursos/${cursoId}/videos/${videoId}/progreso?segundo=${encodeURIComponent(segundo)}`, {
+                            method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, credentials: 'same-origin'
                         });
-                        if (!r.ok) {
-                            console.warn('enviarProgreso failed', r.status, r.url);
-                        }
-                    } catch (e) {
-                        console.warn('enviarProgreso error', e);
-                    }
+                        if (!r.ok) console.warn('enviarProgreso failed', r.status);
+                    } catch(e) { console.warn('enviarProgreso error', e); }
                 }
 
-                videoPlayer.addEventListener('pause', function() {
-                    enviarProgreso(videoPlayer.currentTime);
-                });
-
-                videoPlayer.addEventListener('ended', function() {
-                    enviarProgreso(videoPlayer.currentTime);
-                    marcarCompletado();
-                });
-
-                setInterval(function() {
-                    if (!videoPlayer.paused && !videoPlayer.ended) {
-                        enviarProgreso(videoPlayer.currentTime);
-                    }
-                }, 5000);
+                videoPlayer.addEventListener('pause', () => enviarProgreso(videoPlayer.currentTime));
+                videoPlayer.addEventListener('ended', () => { enviarProgreso(videoPlayer.currentTime); marcarCompletado(); });
+                setInterval(() => { if (!videoPlayer.paused && !videoPlayer.ended) enviarProgreso(videoPlayer.currentTime); }, 5000);
             }
         });
     </script>

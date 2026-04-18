@@ -31,7 +31,16 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(
             AbstractHttpConfigurer::disable) // Desactivar CSRF temporalmente para facilitar pruebas
-        .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+        .headers(
+            headers ->
+                headers
+                    .frameOptions(frame -> frame.sameOrigin())
+                    .referrerPolicy(
+                        referrer ->
+                            referrer.policy(
+                                org.springframework.security.web.header.writers
+                                    .ReferrerPolicyHeaderWriter.ReferrerPolicy
+                                    .STRICT_ORIGIN_WHEN_CROSS_ORIGIN)))
         .authorizeHttpRequests(
             authz ->
                 authz
