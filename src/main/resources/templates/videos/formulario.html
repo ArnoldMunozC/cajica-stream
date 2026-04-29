@@ -57,18 +57,6 @@
                         <div id="duracionStatus" class="mt-1 small"></div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="videoFile" class="form-label">Archivo de Video (experimental)</label>
-                        <input type="file" class="form-control" id="videoFile" name="videoFile" accept="video/*">
-                        <div class="form-text">
-                            <strong>Nota:</strong> La carga de archivos está limitada a videos pequeños (menos de 1MB).
-                            Para videos más grandes, por favor utiliza la opción de URL.
-                        </div>
-                        <div th:if="${video.videoFilePath}" class="mt-2">
-                            <p>Video actual: <span th:text="${video.videoFilePath}"></span></p>
-                            <p class="text-muted small">Sube un nuevo archivo para reemplazar el actual</p>
-                        </div>
-                    </div>
 
                     <input type="hidden" id="duracion" name="duracion" th:value="${video.duracion}">
                     <div class="mb-3">
