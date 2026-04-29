@@ -1,0 +1,47 @@
+src/main/java/com/cajica/stream/services/CertificadoService.java
+  a20b804e50e661ae 5-6,78-81,104,106,112-137,139-140,162,164-175,177
+src/main/resources/templates/auth/registro.html
+  a20b804e50e661ae 30,194
+src/main/java/com/cajica/stream/repositories/VideoProgresoRepository.java
+  a20b804e50e661ae 18-19
+src/main/resources/templates/admin/manual.html
+  a20b804e50e661ae 1-365
+src/main/java/com/cajica/stream/services/CursoService.java
+  a20b804e50e661ae 4-5,7-8,15,23-25,28-33,36-47
+src/main/java/com/cajica/stream/repositories/QuizIntentoRepository.java
+  a20b804e50e661ae 25-28
+src/main/java/com/cajica/stream/controllers/CursoViewController.java
+  a20b804e50e661ae 3,6,10-11,35,38-39,44-45,49,83-99,127-137,140-149,172-206
+src/main/java/com/cajica/stream/controllers/AdminConfiguracionController.java
+  a20b804e50e661ae 26-30
+src/main/resources/templates/layout/base.html
+  a20b804e50e661ae 193-197
+src/main/resources/templates/cursos/detalle.html
+  a20b804e50e661ae 39-80,94-114,117,121-148,150,191
+src/main/java/com/cajica/stream/repositories/ContenidoProgresoRepository.java
+  a20b804e50e661ae 17-18
+src/main/java/com/cajica/stream/controllers/AuthController.java
+  a20b804e50e661ae 55-58
+src/main/resources/templates/auth/reset-password.html
+  a20b804e50e661ae 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "3847666ee9d0005245593e8a3c7ae868bf083073",
+  "prompts": {
+    "a20b804e50e661ae": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cea1ebf5-3c00-4eb7-8129-a0945f109b52",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "arnmunoz_meli",
+      "messages": [],
+      "total_additions": 641,
+      "total_deletions": 52,
+      "accepted_lines": 639,
+      "overriden_lines": 2
+    }
+  }
+}
