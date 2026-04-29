@@ -281,11 +281,12 @@ public class UsuarioService {
   public Set<Curso> getCursosInscritosDirecto(Long usuarioId) {
     logger.info("Obteniendo cursos inscritos para el usuario ID: {}", usuarioId);
     try {
-      // Consulta SQL para obtener los cursos activos a los que el usuario está inscrito
+      // Consulta SQL para obtener todos los cursos a los que el usuario está inscrito
+      // (incluyendo deshabilitados, para que puedan continuar su progreso)
       String sql =
           "SELECT c.* FROM curso c "
               + "JOIN inscripciones i ON c.id = i.curso_id "
-              + "WHERE i.usuario_id = ? AND c.activo = true";
+              + "WHERE i.usuario_id = ?";
 
       logger.info("Ejecutando consulta SQL: {}", sql);
       logger.info("Parámetro usuarioId: {}", usuarioId);
@@ -354,7 +355,7 @@ public class UsuarioService {
           "SELECT c.id, c.nombre, c.descripcion, c.categoria, c.imagen_path "
               + "FROM curso c "
               + "JOIN inscripciones i ON c.id = i.curso_id "
-              + "WHERE i.usuario_id = ? AND c.activo = true";
+              + "WHERE i.usuario_id = ?";
 
       logger.info("Ejecutando consulta SQL: {}", sql);
 
