@@ -1,0 +1,27 @@
+src/main/resources/templates/layout/base.html
+  a20b804e50e661ae 271
+src/main/resources/templates/certificados/verificar-form.html
+  a20b804e50e661ae 1-44
+src/main/java/com/cajica/stream/controllers/CertificadoController.java
+  a20b804e50e661ae 12-13,106-107,127,141-151,182-183,198-207,218-220
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "03d4d0bb982abeb73ed562b250480e6ecdfae5b5",
+  "prompts": {
+    "a20b804e50e661ae": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cea1ebf5-3c00-4eb7-8129-a0945f109b52",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "arnmunoz_meli",
+      "messages": [],
+      "total_additions": 76,
+      "total_deletions": 9,
+      "accepted_lines": 76,
+      "overriden_lines": 0
+    }
+  }
+}
