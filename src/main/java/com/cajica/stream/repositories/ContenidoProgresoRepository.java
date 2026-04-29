@@ -14,6 +14,8 @@ public interface ContenidoProgresoRepository extends JpaRepository<ContenidoProg
 
   void deleteByTipoAndContenidoId(String tipo, Long contenidoId);
 
+  void deleteByUsuarioIdAndCursoId(Long usuarioId, Long cursoId);
+
   @Query(
       "SELECT c.contenidoId FROM ContenidoProgreso c WHERE c.usuarioId = :usuarioId AND c.cursoId ="
           + " :cursoId AND c.tipo = :tipo")

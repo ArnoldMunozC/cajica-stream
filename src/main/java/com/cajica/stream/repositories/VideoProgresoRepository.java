@@ -15,4 +15,6 @@ public interface VideoProgresoRepository extends JpaRepository<VideoProgreso, Lo
       Long usuarioId, Long cursoId);
 
   List<VideoProgreso> findByUsuarioIdAndCursoIdAndCompletadoTrue(Long usuarioId, Long cursoId);
+
+  void deleteByUsuarioIdAndCursoId(Long usuarioId, Long cursoId);
 }

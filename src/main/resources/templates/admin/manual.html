@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Manual de Administración - Cajicá Stream</title>
+</head>
+<body>
+<section>
+    <style>
+        .manual-sidebar {
+            position: sticky;
+            top: 1rem;
+            max-height: calc(100vh - 2rem);
+            overflow-y: auto;
+        }
+        .manual-sidebar .nav-link {
+            color: #2d3748;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+        }
+        .manual-sidebar .nav-link:hover {
+            background: #f4f6f9;
+            color: var(--cajica-azul);
+        }
+        .manual-sidebar .nav-link.section-header {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--cajica-azul);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            pointer-events: none;
+            padding-top: 0.75rem;
+        }
+        .manual-content h2 {
+            font-weight: 700;
+            color: var(--cajica-azul);
+            border-left: 4px solid var(--cajica-dorado);
+            padding-left: 0.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            scroll-margin-top: 1.5rem;
+        }
+        .manual-content h3 {
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            scroll-margin-top: 1.5rem;
+        }
+        .manual-content p, .manual-content li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #4a5568;
+        }
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--cajica-azul);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-item {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            margin-bottom: 0.6rem;
+        }
+        .tip-box {
+            background: #f0f7ff;
+            border-left: 4px solid var(--cajica-azul-medio);
+            border-radius: 0 8px 8px 0;
+            padding: 0.85rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+        .warn-box {
+            background: #fff8f0;
+            border-left: 4px solid #e6820a;
+            border-radius: 0 8px 8px 0;
+            padding: 0.85rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+        .feature-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            background: #fff;
+        }
+        .feature-card h5 {
+            font-weight: 600;
+            color: var(--cajica-azul);
+            margin-bottom: 0.4rem;
+        }
+    </style>
+
+    <div class="row">
+        <!-- Sidebar de navegación -->
+        <div class="col-lg-3 d-none d-lg-block">
+            <div class="manual-sidebar card p-3">
+                <div class="fw-700 mb-2" style="font-weight:700;color:var(--cajica-azul);font-size:0.9rem;">
+                    <i class="bi bi-book me-1"></i> Contenido
+                </div>
+                <nav class="nav flex-column">
+                    <span class="nav-link section-header">Cursos</span>
+                    <a class="nav-link" href="#crear-curso">Crear un curso</a>
+                    <a class="nav-link" href="#editar-curso">Editar un curso</a>
+                    <a class="nav-link" href="#habilitar-curso">Habilitar / deshabilitar</a>
+                    <a class="nav-link" href="#fechas-inscripcion">Fechas de inscripción</a>
+
+                    <span class="nav-link section-header">Videos</span>
+                    <a class="nav-link" href="#agregar-video">Agregar un video</a>
+                    <a class="nav-link" href="#editar-video">Editar / eliminar</a>
+                    <a class="nav-link" href="#duracion-video">Duración automática</a>
+                    <a class="nav-link" href="#secciones-video">Secciones / módulos</a>
+
+                    <span class="nav-link section-header">Materiales PDF</span>
+                    <a class="nav-link" href="#agregar-pdf">Agregar un PDF</a>
+
+                    <span class="nav-link section-header">Quizzes</span>
+                    <a class="nav-link" href="#crear-quiz">Crear un quiz</a>
+                    <a class="nav-link" href="#preguntas-quiz">Agregar preguntas</a>
+                    <a class="nav-link" href="#configurar-quiz">Configurar reintentos</a>
+
+                    <span class="nav-link section-header">Usuarios</span>
+                    <a class="nav-link" href="#ver-usuarios">Ver usuarios</a>
+                    <a class="nav-link" href="#roles-usuarios">Cambiar rol</a>
+
+                    <span class="nav-link section-header">Certificados</span>
+                    <a class="nav-link" href="#configurar-diploma">Configurar diploma</a>
+                    <a class="nav-link" href="#verificar-certificado">Verificar certificado</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="col-lg-9 manual-content">
+
+            <!-- Encabezado -->
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div>
+                    <h1 class="mb-0" style="font-weight:700;color:var(--cajica-azul);">Manual de Administración</h1>
+                    <p class="text-muted mb-0">Cajicá Stream — Secretaría de Salud</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <i class="bi bi-info-circle me-1"></i>
+                Este manual está dirigido a los administradores del sistema. Para acceder a las funciones de administración
+                usa el menú <strong>Administrar</strong> en la barra de navegación superior.
+            </div>
+
+            <!-- ══════════ CURSOS ══════════ -->
+            <h2 id="cursos"><i class="bi bi-grid me-2"></i>Cursos</h2>
+
+            <h3 id="crear-curso">Crear un curso</h3>
+            <div class="step-item"><span class="step-badge">1</span><span>Haz clic en <strong>Administrar → Nuevo Curso</strong> en el menú superior.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Completa los campos: <strong>Nombre</strong>, <strong>Descripción</strong> y <strong>Categoría</strong>.</span></div>
+            <div class="step-item"><span class="step-badge">3</span><span>Sube una imagen de portada (opcional pero recomendada).</span></div>
+            <div class="step-item"><span class="step-badge">4</span><span>Define las <strong>Fechas de inscripción</strong> si quieres restringir el período de matrícula.</span></div>
+            <div class="step-item"><span class="step-badge">5</span><span>Haz clic en <strong>Crear Curso</strong>. El curso quedará activo y visible para los usuarios.</span></div>
+
+            <h3 id="editar-curso">Editar un curso</h3>
+            <div class="step-item"><span class="step-badge">1</span><span>Ve a <strong>Cursos</strong> y abre el detalle del curso que quieres modificar.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Haz clic en el botón <strong>Editar</strong> (ícono de lápiz).</span></div>
+            <div class="step-item"><span class="step-badge">3</span><span>Modifica los campos necesarios y guarda los cambios.</span></div>
+
+            <h3 id="habilitar-curso">Habilitar / deshabilitar un curso</h3>
+            <p>
+                Un curso deshabilitado no aparece en el catálogo y los usuarios no pueden inscribirse en él.
+                Los estudiantes que ya estaban inscritos mantienen su progreso.
+            </p>
+            <div class="step-item"><span class="step-badge">1</span><span>En el detalle del curso, usa el botón <strong>Deshabilitar</strong> o <strong>Habilitar</strong>.</span></div>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb me-1"></i>
+                También puedes deshabilitar un curso temporalmente mientras lo estás configurando, y habilitarlo cuando esté listo.
+            </div>
+
+            <h3 id="fechas-inscripcion">Fechas de inscripción</h3>
+            <p>
+                Puedes restringir las inscripciones a un rango de fechas específico. Fuera de ese período,
+                los usuarios verán el curso pero no podrán inscribirse.
+            </p>
+            <div class="feature-card">
+                <h5><i class="bi bi-calendar-range me-1"></i> Fecha de inicio de inscripción</h5>
+                <p class="mb-0">Los usuarios no podrán inscribirse antes de esta fecha. Si se deja vacía, la inscripción está disponible desde el principio.</p>
+            </div>
+            <div class="feature-card">
+                <h5><i class="bi bi-calendar-x me-1"></i> Fecha de cierre de inscripción</h5>
+                <p class="mb-0">Los usuarios no podrán inscribirse después de esta fecha. Si se deja vacía, no hay fecha límite.</p>
+            </div>
+            <div class="warn-box">
+                <i class="bi bi-exclamation-triangle me-1"></i>
+                Las fechas de inscripción solo afectan <strong>nuevas inscripciones</strong>. Los estudiantes ya inscritos pueden continuar su progreso.
+            </div>
+
+            <!-- ══════════ VIDEOS ══════════ -->
+            <h2 id="videos"><i class="bi bi-play-circle me-2"></i>Videos</h2>
+
+            <h3 id="agregar-video">Agregar un video</h3>
+            <div class="step-item"><span class="step-badge">1</span><span>Abre el detalle del curso y haz clic en <strong>Agregar Video</strong>.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Escribe el <strong>Título</strong> y la <strong>Descripción</strong> del video.</span></div>
+            <div class="step-item"><span class="step-badge">3</span><span>Pega la <strong>URL de YouTube</strong> del video (admite formatos <code>watch?v=</code> y <code>youtu.be/</code>).</span></div>
+            <div class="step-item"><span class="step-badge">4</span><span>Al salir del campo URL, el sistema detecta automáticamente la duración del video.</span></div>
+            <div class="step-item"><span class="step-badge">5</span><span>Selecciona la <strong>Sección/Módulo</strong> si quieres agruparlo (opcional).</span></div>
+            <div class="step-item"><span class="step-badge">6</span><span>El campo <strong>Orden</strong> se asigna automáticamente si se deja vacío.</span></div>
+            <div class="step-item"><span class="step-badge">7</span><span>Haz clic en <strong>Crear Video</strong>.</span></div>
+
+            <div class="warn-box">
+                <i class="bi bi-exclamation-triangle me-1"></i>
+                Asegúrate de que el video de YouTube tenga activada la opción <strong>"Permitir incorporación"</strong>.
+                Los videos con incorporación restringida no podrán reproducirse dentro de la plataforma.
+            </div>
+
+            <h3 id="editar-video">Editar / eliminar un video</h3>
+            <div class="step-item"><span class="step-badge">1</span><span>En la lista de videos del curso, usa el ícono de <strong>lápiz</strong> para editar o el de <strong>papelera</strong> para eliminar.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Al eliminar un video se borra permanentemente junto con el progreso de los estudiantes en ese video.</span></div>
+
+            <h3 id="duracion-video">Duración automática</h3>
+            <p>
+                El sistema detecta la duración del video de YouTube automáticamente al pegar la URL en el formulario.
+                El resultado se muestra en formato <strong>HH:MM:SS</strong> en el campo "Duración detectada" (solo lectura).
+            </p>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb me-1"></i>
+                Si la duración no se detecta (por ejemplo, si el video tiene incorporación desactivada), el campo quedará vacío.
+                Puedes intentar con otro video que sí permita incorporación.
+            </div>
+
+            <h3 id="secciones-video">Secciones / módulos</h3>
+            <p>
+                Las secciones permiten agrupar los videos y PDFs en módulos temáticos. En la vista del estudiante
+                se muestran como acordeones desplegables.
+            </p>
+            <div class="step-item"><span class="step-badge">1</span><span>Al crear o editar un video, selecciona una sección existente del listado desplegable.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Si el video no pertenece a ningún módulo, selecciona <strong>"Sin sección"</strong>.</span></div>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb me-1"></i>
+                El orden de los contenidos dentro de una sección es compartido entre videos y PDFs.
+                Si un video tiene orden 4 en el módulo 1, el siguiente PDF de ese módulo tomará el orden 5 automáticamente.
+            </div>
+
+            <!-- ══════════ MATERIALES PDF ══════════ -->
+            <h2 id="pdfs"><i class="bi bi-file-earmark-pdf me-2"></i>Materiales PDF</h2>
+
+            <h3 id="agregar-pdf">Agregar un material PDF</h3>
+            <div class="step-item"><span class="step-badge">1</span><span>Abre el detalle del curso y haz clic en <strong>Agregar Material PDF</strong>.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Escribe el título y sube el archivo PDF desde tu computador.</span></div>
+            <div class="step-item"><span class="step-badge">3</span><span>Selecciona la sección si aplica y guarda.</span></div>
+            <p>
+                El PDF se almacena en el servidor y los estudiantes pueden abrirlo directamente desde la vista del curso.
+                El sistema registra automáticamente cuando el estudiante abre el PDF por primera vez.
+            </p>
+
+            <!-- ══════════ QUIZZES ══════════ -->
+            <h2 id="quizzes"><i class="bi bi-question-circle me-2"></i>Quizzes</h2>
+
+            <h3 id="crear-quiz">Crear un quiz</h3>
+            <div class="step-item"><span class="step-badge">1</span><span>En el detalle del curso, haz clic en <strong>Agregar Quiz</strong>.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Define el <strong>Título</strong> del quiz.</span></div>
+            <div class="step-item"><span class="step-badge">3</span><span>Configura la <strong>Nota mínima para aprobar</strong> (porcentaje).</span></div>
+            <div class="step-item"><span class="step-badge">4</span><span>Define el <strong>Número máximo de intentos</strong> por ciclo y los <strong>Días de espera</strong> entre ciclos.</span></div>
+            <div class="step-item"><span class="step-badge">5</span><span>Selecciona la sección si aplica y guarda.</span></div>
+
+            <h3 id="preguntas-quiz">Agregar preguntas</h3>
+            <div class="step-item"><span class="step-badge">1</span><span>Ve a <strong>Administrar → Preguntas</strong> o accede desde el detalle del quiz.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Crea una nueva pregunta y escribe el enunciado.</span></div>
+            <div class="step-item"><span class="step-badge">3</span><span>Agrega las opciones de respuesta y marca cuál es la correcta.</span></div>
+            <div class="warn-box">
+                <i class="bi bi-exclamation-triangle me-1"></i>
+                Cada opción de respuesta debe tener un orden único dentro de la pregunta. No pueden existir dos opciones con el mismo número de orden.
+            </div>
+
+            <h3 id="configurar-quiz">Configurar reintentos</h3>
+            <div class="feature-card">
+                <h5><i class="bi bi-arrow-repeat me-1"></i> Intentos por ciclo</h5>
+                <p class="mb-0">Número de veces que el estudiante puede intentar el quiz antes de tener que esperar. Por ejemplo, si son 3 intentos por ciclo, después del tercer intento fallido debe esperar los días definidos para intentarlo de nuevo.</p>
+            </div>
+            <div class="feature-card">
+                <h5><i class="bi bi-clock me-1"></i> Días de espera entre ciclos</h5>
+                <p class="mb-0">Número de días que el estudiante debe esperar antes de iniciar un nuevo ciclo de intentos. En la barra lateral del curso se muestra la fecha exacta en que podrá reintentarlo.</p>
+            </div>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb me-1"></i>
+                Si pones 0 días de espera, el estudiante puede reintentar sin restricción de tiempo una vez agote los intentos del ciclo.
+            </div>
+
+            <!-- ══════════ USUARIOS ══════════ -->
+            <h2 id="usuarios"><i class="bi bi-people me-2"></i>Usuarios</h2>
+
+            <h3 id="ver-usuarios">Ver usuarios</h3>
+            <p>
+                Ve a <strong>Administrar → Usuarios</strong> para ver el listado completo de cuentas registradas
+                en la plataforma, incluyendo su nombre, correo, número de identificación y rol.
+            </p>
+
+            <h3 id="roles-usuarios">Cambiar rol de un usuario</h3>
+            <p>
+                Hay dos roles en el sistema:
+            </p>
+            <div class="feature-card">
+                <h5><i class="bi bi-person me-1"></i> Usuario (estudiante)</h5>
+                <p class="mb-0">Puede ver cursos, inscribirse, ver videos, hacer quizzes y descargar su certificado.</p>
+            </div>
+            <div class="feature-card">
+                <h5><i class="bi bi-shield-check me-1"></i> Administrador</h5>
+                <p class="mb-0">Tiene acceso completo a todas las funciones de gestión del sistema además de las de estudiante.</p>
+            </div>
+            <div class="warn-box">
+                <i class="bi bi-exclamation-triangle me-1"></i>
+                Asigna el rol de administrador únicamente a personas de confianza, ya que tendrán acceso a la gestión de todos los usuarios, cursos y configuraciones del sistema.
+            </div>
+
+            <!-- ══════════ CERTIFICADOS ══════════ -->
+            <h2 id="certificados"><i class="bi bi-award me-2"></i>Certificados</h2>
+
+            <h3 id="configurar-diploma">Configurar el diploma</h3>
+            <p>
+                El diploma se genera en PDF usando una plantilla de imagen base. Puedes configurar quién aparece
+                como firmante del certificado.
+            </p>
+            <div class="step-item"><span class="step-badge">1</span><span>Ve a <strong>Administrar → Configurar Diploma</strong>.</span></div>
+            <div class="step-item"><span class="step-badge">2</span><span>Escribe el <strong>nombre completo</strong> de la persona que firma los diplomas.</span></div>
+            <div class="step-item"><span class="step-badge">3</span><span>Escribe el <strong>cargo</strong> de esa persona (ej: Secretaria de Salud Municipal).</span></div>
+            <div class="step-item"><span class="step-badge">4</span><span>Guarda los cambios. Todos los diplomas generados desde ese momento usarán la nueva configuración.</span></div>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb me-1"></i>
+                Los diplomas ya emitidos no se regeneran. Solo los nuevos diplomas usarán la configuración actualizada.
+            </div>
+
+            <h3 id="verificar-certificado">Verificar la autenticidad de un certificado</h3>
+            <p>
+                Cualquier persona puede verificar si un certificado es auténtico ingresando su código de verificación
+                en la URL pública del sistema: <code>/certificados/verificar</code>.
+            </p>
+            <p>
+                El código de verificación aparece impreso en el diploma del estudiante (formato <code>CERT-XXXXXXXX</code>).
+            </p>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb me-1"></i>
+                Esta función es pública: no requiere iniciar sesión. Está diseñada para que empleadores o entidades externas
+                puedan comprobar la validez del certificado.
+            </div>
+
+            <!-- Pie -->
+            <hr class="mt-5">
+            <p class="text-muted small text-center mb-4">
+                <i class="bi bi-building me-1"></i>
+                Alcaldía Municipal de Cajicá — Secretaría de Salud &nbsp;·&nbsp; Cajicá Stream
+            </p>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -2,6 +2,8 @@ package com.cajica.stream.services;
 
 import com.cajica.stream.entities.*;
 import com.cajica.stream.repositories.CertificadoRepository;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,9 +75,10 @@ public class CertificadoService {
         // Encontrar el mejor puntaje entre todos los intentos
         double mejorNota = 0;
         for (QuizIntento intento : intentos) {
-          double notaIntento = intento.getTotalPreguntas() > 0
-              ? (intento.getPuntaje() * 100.0 / intento.getTotalPreguntas())
-              : 0;
+          double notaIntento =
+              intento.getTotalPreguntas() > 0
+                  ? (intento.getPuntaje() * 100.0 / intento.getTotalPreguntas())
+                  : 0;
           if (notaIntento > mejorNota) {
             mejorNota = notaIntento;
           }
@@ -98,31 +101,48 @@ public class CertificadoService {
     return elegibilidad;
   }
 
-  public Certificado generarCertificado(Usuario usuario, Curso curso) {
-    // Verificar si ya tiene certificado
-    if (yaTieneCertificado(usuario.getId(), curso.getId())) {
-      return certificadoRepository
-          .findByUsuarioIdAndCursoId(usuario.getId(), curso.getId())
-          .orElse(null);
-    }
+  private static final int DIAS_VENTANA_RENOVACION = 30;
 
-    // Verificar elegibilidad
+  public Certificado generarCertificado(Usuario usuario, Curso curso) {
     ElegibilidadCertificado elegibilidad = verificarElegibilidad(usuario, curso);
     if (!elegibilidad.isElegible()) {
       return null;
     }
 
-    // Generar código único de verificación
-    String codigoVerificacion = generarCodigoVerificacion();
+    Optional<Certificado> existente =
+        certificadoRepository.findByUsuarioIdAndCursoId(usuario.getId(), curso.getId());
 
-    // Crear certificado
-    Certificado certificado = new Certificado(usuario, curso, codigoVerificacion);
+    if (existente.isPresent()) {
+      Certificado cert = existente.get();
+      LocalDateTime vigencia = cert.getFechaVigencia();
+      boolean expirado = vigencia == null || !vigencia.isAfter(LocalDateTime.now());
+      boolean proximoVencer =
+          !expirado
+              && ChronoUnit.DAYS.between(LocalDateTime.now(), vigencia) <= DIAS_VENTANA_RENOVACION;
+
+      if (expirado || proximoVencer) {
+        // Renovar: nueva fecha de emisión, nuevo código, estadísticas actualizadas
+        cert.setFechaEmision(LocalDateTime.now());
+        cert.setCodigoVerificacion(generarCodigoVerificacion());
+        cert.setNotaPromedio(elegibilidad.getNotaPromedio());
+        cert.setVideosCompletados(elegibilidad.getVideosCompletados());
+        cert.setTotalVideos(elegibilidad.getTotalVideos());
+        cert.setQuizzesAprobados(elegibilidad.getQuizzesAprobados());
+        cert.setTotalQuizzes(elegibilidad.getTotalQuizzes());
+        return certificadoRepository.save(cert);
+      }
+
+      // Certificado aún vigente y fuera de ventana: devolver el existente sin cambios
+      return cert;
+    }
+
+    // Primer certificado
+    Certificado certificado = new Certificado(usuario, curso, generarCodigoVerificacion());
     certificado.setNotaPromedio(elegibilidad.getNotaPromedio());
     certificado.setVideosCompletados(elegibilidad.getVideosCompletados());
     certificado.setTotalVideos(elegibilidad.getTotalVideos());
     certificado.setQuizzesAprobados(elegibilidad.getQuizzesAprobados());
     certificado.setTotalQuizzes(elegibilidad.getTotalQuizzes());
-
     return certificadoRepository.save(certificado);
   }
 
@@ -139,27 +159,35 @@ public class CertificadoService {
     if (usuarioOpt.isEmpty()) {
       return null;
     }
-    
+
     Usuario usuario = usuarioOpt.get();
-    
-    // Si ya tiene certificado, no hacer nada
-    if (yaTieneCertificado(usuario.getId(), cursoId)) {
-      return null;
+
+    // Si tiene certificado vigente fuera de la ventana de renovación, no hacer nada
+    Optional<Certificado> certExistente =
+        certificadoRepository.findByUsuarioIdAndCursoId(usuario.getId(), cursoId);
+    if (certExistente.isPresent()) {
+      LocalDateTime vigencia = certExistente.get().getFechaVigencia();
+      if (vigencia != null && vigencia.isAfter(LocalDateTime.now())) {
+        long diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), vigencia);
+        if (diasRestantes > DIAS_VENTANA_RENOVACION) {
+          return null;
+        }
+      }
     }
-    
+
     // Obtener el curso
     List<Video> videos = videoService.findByCursoId(cursoId);
     if (videos.isEmpty()) {
       return null;
     }
     Curso curso = videos.get(0).getCurso();
-    
+
     // Verificar elegibilidad y generar si cumple
     ElegibilidadCertificado elegibilidad = verificarElegibilidad(usuario, curso);
     if (elegibilidad.isElegible()) {
       return generarCertificado(usuario, curso);
     }
-    
+
     return null;
   }
 

@@ -1,10 +1,14 @@
 package com.cajica.stream.controllers;
 
+import com.cajica.stream.entities.Certificado;
 import com.cajica.stream.entities.Curso;
 import com.cajica.stream.entities.Usuario;
+import com.cajica.stream.services.CertificadoService;
 import com.cajica.stream.services.CursoService;
 import com.cajica.stream.services.FileStorageService;
 import com.cajica.stream.services.UsuarioService;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,16 +32,21 @@ public class CursoViewController {
   private final CursoService cursoService;
   private final FileStorageService fileStorageService;
   private final UsuarioService usuarioService;
+  private final CertificadoService certificadoService;
   private static final Logger logger = LoggerFactory.getLogger(CursoViewController.class);
+
+  private static final int DIAS_PROXIMO_VENCER = 30;
 
   @Autowired
   public CursoViewController(
       CursoService cursoService,
       FileStorageService fileStorageService,
-      UsuarioService usuarioService) {
+      UsuarioService usuarioService,
+      CertificadoService certificadoService) {
     this.cursoService = cursoService;
     this.fileStorageService = fileStorageService;
     this.usuarioService = usuarioService;
+    this.certificadoService = certificadoService;
   }
 
   @GetMapping
@@ -66,12 +75,27 @@ public class CursoViewController {
           Usuario usuario = usuarioOpt.get();
 
           try {
-            // Usar el método seguro para verificar inscripción
             boolean inscrito = usuarioService.verificarInscripcionSegura(username, id);
             model.addAttribute("inscrito", inscrito);
           } catch (Exception e) {
-            // En caso de error, asumir que no está inscrito
             model.addAttribute("inscrito", false);
+          }
+
+          // Verificar si tiene certificado para este curso (vigente o vencido)
+          Optional<Certificado> certOpt =
+              certificadoService.findByUsuarioAndCurso(usuario.getId(), id);
+          if (certOpt.isPresent()) {
+            Certificado cert = certOpt.get();
+            LocalDateTime ahora = LocalDateTime.now();
+            LocalDateTime vigencia = cert.getFechaVigencia();
+            if (vigencia != null && vigencia.isAfter(ahora)) {
+              long diasRestantes = ChronoUnit.DAYS.between(ahora, vigencia);
+              model.addAttribute("certificadoVigente", cert);
+              model.addAttribute("diasVigencia", diasRestantes);
+              model.addAttribute("proximoVencer", diasRestantes <= DIAS_PROXIMO_VENCER);
+            } else {
+              model.addAttribute("certificadoVencido", cert);
+            }
           }
         }
       }
@@ -100,6 +124,29 @@ public class CursoViewController {
       String username = auth.getName();
       Optional<Usuario> usuarioOpt = usuarioService.findByUsername(username);
 
+      // Bloquear reinscripción si tiene certificado vigente con más de 30 días de vigencia
+      if (usuarioOpt.isPresent()) {
+        Optional<Certificado> certOpt =
+            certificadoService.findByUsuarioAndCurso(usuarioOpt.get().getId(), id);
+        if (certOpt.isPresent()) {
+          LocalDateTime vigencia = certOpt.get().getFechaVigencia();
+          if (vigencia != null && vigencia.isAfter(LocalDateTime.now())) {
+            long diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), vigencia);
+            if (diasRestantes > DIAS_PROXIMO_VENCER) {
+              redirectAttributes.addFlashAttribute(
+                  "error",
+                  "Ya tienes un certificado vigente para este curso. Podrás inscribirte de nuevo"
+                      + " cuando falten 30 días o menos para su vencimiento (vence el "
+                      + vigencia
+                          .toLocalDate()
+                          .format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                      + ").");
+              return "redirect:/cursos/" + id;
+            }
+          }
+        }
+      }
+
       if (usuarioOpt.isPresent()) {
         Usuario usuario = usuarioOpt.get();
         try {
@@ -119,6 +166,41 @@ public class CursoViewController {
       return "redirect:/login";
     }
 
+    return "redirect:/cursos/" + id;
+  }
+
+  @PostMapping("/{id}/reiniciar")
+  public String reiniciarCurso(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated() || auth.getName().equals("anonymousUser")) {
+      return "redirect:/login";
+    }
+
+    Optional<Usuario> usuarioOpt = usuarioService.findByUsername(auth.getName());
+    if (usuarioOpt.isEmpty()) {
+      return "redirect:/cursos/" + id;
+    }
+
+    Usuario usuario = usuarioOpt.get();
+    Optional<Certificado> certOpt = certificadoService.findByUsuarioAndCurso(usuario.getId(), id);
+
+    if (certOpt.isPresent()) {
+      LocalDateTime vigencia = certOpt.get().getFechaVigencia();
+      boolean expirado = vigencia == null || !vigencia.isAfter(LocalDateTime.now());
+      boolean proximoVencer =
+          !expirado
+              && ChronoUnit.DAYS.between(LocalDateTime.now(), vigencia) <= DIAS_PROXIMO_VENCER;
+
+      if (!expirado && !proximoVencer) {
+        redirectAttributes.addFlashAttribute(
+            "error", "No puedes reiniciar el curso mientras tu certificado esté vigente.");
+        return "redirect:/cursos/" + id;
+      }
+    }
+
+    cursoService.reiniciarProgreso(usuario.getId(), id);
+    redirectAttributes.addFlashAttribute(
+        "mensaje", "Tu progreso ha sido reiniciado. ¡Puedes comenzar el curso de nuevo!");
     return "redirect:/cursos/" + id;
   }
 

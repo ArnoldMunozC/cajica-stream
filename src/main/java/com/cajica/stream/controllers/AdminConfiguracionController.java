@@ -23,6 +23,11 @@ public class AdminConfiguracionController {
     this.configuracionService = configuracionService;
   }
 
+  @GetMapping("/manual")
+  public String verManual() {
+    return "admin/manual";
+  }
+
   @GetMapping("/diploma")
   public String verConfiguracionDiploma(Model model) {
     model.addAttribute("emisorNombre", configuracionService.getEmisorNombre());

@@ -52,6 +52,10 @@ public class AuthController {
         usuario.getUsername(),
         usuario.getEmail());
 
+    if (usuario.getNombreCompleto() != null) {
+      usuario.setNombreCompleto(usuario.getNombreCompleto().toUpperCase());
+    }
+
     // Validar que el número de identificación contenga solo dígitos
     String docRaw = usuario.getNumeroIdentificacion();
     if (docRaw != null && !docRaw.trim().isEmpty() && !docRaw.trim().matches("[0-9]+")) {

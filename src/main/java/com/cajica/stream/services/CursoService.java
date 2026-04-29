@@ -1,13 +1,18 @@
 package com.cajica.stream.services;
 
 import com.cajica.stream.entities.Curso;
+import com.cajica.stream.entities.QuizIntento;
+import com.cajica.stream.repositories.ContenidoProgresoRepository;
 import com.cajica.stream.repositories.CursoRepository;
+import com.cajica.stream.repositories.QuizIntentoRepository;
+import com.cajica.stream.repositories.VideoProgresoRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -15,11 +20,31 @@ public class CursoService {
 
   private final CursoRepository cursoRepository;
   private final FileStorageService fileStorageService;
+  private final VideoProgresoRepository videoProgresoRepository;
+  private final QuizIntentoRepository quizIntentoRepository;
+  private final ContenidoProgresoRepository contenidoProgresoRepository;
 
   @Autowired
-  public CursoService(CursoRepository cursoRepository, FileStorageService fileStorageService) {
+  public CursoService(
+      CursoRepository cursoRepository,
+      FileStorageService fileStorageService,
+      VideoProgresoRepository videoProgresoRepository,
+      QuizIntentoRepository quizIntentoRepository,
+      ContenidoProgresoRepository contenidoProgresoRepository) {
     this.cursoRepository = cursoRepository;
     this.fileStorageService = fileStorageService;
+    this.videoProgresoRepository = videoProgresoRepository;
+    this.quizIntentoRepository = quizIntentoRepository;
+    this.contenidoProgresoRepository = contenidoProgresoRepository;
+  }
+
+  @Transactional
+  public void reiniciarProgreso(Long usuarioId, Long cursoId) {
+    videoProgresoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
+    List<QuizIntento> intentos =
+        quizIntentoRepository.findByUsuarioIdAndCursoId(usuarioId, cursoId);
+    quizIntentoRepository.deleteAll(intentos);
+    contenidoProgresoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
   }
 
   public List<Curso> findAll() {

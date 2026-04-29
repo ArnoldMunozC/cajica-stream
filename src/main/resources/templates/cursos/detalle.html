@@ -36,6 +36,48 @@
                         <div sec:authorize="isAuthenticated()">
                             <!-- Inscrito -->
                             <div th:if="${inscrito == true}" class="d-grid gap-2">
+
+                                <!-- Certificado vigente y sin vencer pronto: solo informar -->
+                                <div th:if="${certificadoVigente != null and !proximoVencer}">
+                                    <div class="alert alert-info p-2 mb-2 text-center small">
+                                        <i class="bi bi-patch-check-fill me-1"></i>
+                                        <strong>Certificado vigente</strong><br>
+                                        Vence el <strong th:text="${#temporals.format(certificadoVigente.fechaVigencia, 'dd/MM/yyyy')}"></strong>
+                                        (<span th:text="${diasVigencia}"></span> días restantes)
+                                    </div>
+                                </div>
+
+                                <!-- Certificado vencido: mostrar opción de reinicio -->
+                                <div th:if="${certificadoVigente == null and certificadoVencido != null}">
+                                    <div class="alert alert-warning p-2 mb-2 text-center small">
+                                        <i class="bi bi-exclamation-triangle me-1"></i>
+                                        Tu certificado venció el
+                                        <strong th:text="${#temporals.format(certificadoVencido.fechaVigencia, 'dd/MM/yyyy')}"></strong>.
+                                        Reinicia el curso para obtener uno nuevo.
+                                    </div>
+                                    <form th:action="@{/cursos/{id}/reiniciar(id=${curso.id})}" method="post"
+                                          onsubmit="return confirm('¿Reiniciar tu progreso en este curso? Esta acción no se puede deshacer.')">
+                                        <button type="submit" class="btn btn-warning w-100 fw-semibold">
+                                            <i class="bi bi-arrow-counterclockwise me-1"></i>Reiniciar curso
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Certificado próximo a vencer (≤30 días): permitir reinicio anticipado -->
+                                <div th:if="${certificadoVigente != null and proximoVencer}">
+                                    <div class="alert alert-warning p-2 mb-2 text-center small">
+                                        <i class="bi bi-exclamation-triangle me-1"></i>
+                                        Tu certificado vence en <strong th:text="${diasVigencia}"></strong> días.
+                                        Puedes reiniciar el curso para renovarlo.
+                                    </div>
+                                    <form th:action="@{/cursos/{id}/reiniciar(id=${curso.id})}" method="post"
+                                          onsubmit="return confirm('¿Reiniciar tu progreso en este curso? Esta acción no se puede deshacer.')">
+                                        <button type="submit" class="btn btn-warning w-100 fw-semibold">
+                                            <i class="bi bi-arrow-counterclockwise me-1"></i>Reiniciar curso
+                                        </button>
+                                    </form>
+                                </div>
+
                                 <a th:href="@{/certificados/curso/{id}/estado(id=${curso.id})}"
                                    class="btn btn-warning fw-semibold">
                                     <i class="bi bi-award me-1"></i>Ver Certificación
@@ -49,31 +91,63 @@
 
                             <!-- No inscrito -->
                             <div th:if="${inscrito == false}" class="d-grid">
-                                <!-- Disponible hoy -->
-                                <div th:if="${curso.inscripcionDisponibleHoy}">
+
+                                <!-- Certificado vigente y NO próximo a vencer: bloquear -->
+                                <div th:if="${certificadoVigente != null and !proximoVencer}">
+                                    <div class="alert alert-info p-2 mb-2 text-center small">
+                                        <i class="bi bi-patch-check-fill me-1"></i>
+                                        <strong>Ya tienes un certificado vigente</strong><br>
+                                        Vence el <strong th:text="${#temporals.format(certificadoVigente.fechaVigencia, 'dd/MM/yyyy')}"></strong>
+                                        (<span th:text="${diasVigencia}"></span> días restantes)
+                                    </div>
+                                    <a th:href="@{/certificados/mis-certificados}" class="btn btn-outline-primary w-100 btn-sm">
+                                        <i class="bi bi-award me-1"></i>Ver mi certificado
+                                    </a>
+                                </div>
+
+                                <!-- Certificado próximo a vencer (≤30 días): permitir con aviso -->
+                                <div th:if="${certificadoVigente != null and proximoVencer}">
+                                    <div class="alert alert-warning p-2 mb-2 text-center small">
+                                        <i class="bi bi-exclamation-triangle me-1"></i>
+                                        Tu certificado vence en <strong th:text="${diasVigencia}"></strong> días.
+                                        Puedes inscribirte de nuevo.
+                                    </div>
                                     <form th:action="@{/cursos/{id}/inscribir(id=${curso.id})}" method="post">
                                         <button type="submit" class="btn btn-success w-100 fw-semibold py-2">
-                                            <i class="bi bi-check-circle me-1"></i>Inscribirse gratis
+                                            <i class="bi bi-arrow-repeat me-1"></i>Retomar curso
                                         </button>
                                     </form>
-                                    <div th:if="${curso.fechaFinInscripcion != null}" class="text-muted small text-center mt-1">
-                                        <i class="bi bi-calendar me-1"></i>Inscripciones abiertas hasta
-                                        <span th:text="${#temporals.format(curso.fechaFinInscripcion, 'dd/MM/yyyy')}"></span>
+                                </div>
+
+                                <!-- Sin certificado vigente: flujo normal -->
+                                <div th:if="${certificadoVigente == null}">
+                                    <!-- Disponible hoy -->
+                                    <div th:if="${curso.inscripcionDisponibleHoy}">
+                                        <form th:action="@{/cursos/{id}/inscribir(id=${curso.id})}" method="post">
+                                            <button type="submit" class="btn btn-success w-100 fw-semibold py-2">
+                                                <i class="bi bi-check-circle me-1"></i>Inscribirse gratis
+                                            </button>
+                                        </form>
+                                        <div th:if="${curso.fechaFinInscripcion != null}" class="text-muted small text-center mt-1">
+                                            <i class="bi bi-calendar me-1"></i>Inscripciones abiertas hasta
+                                            <span th:text="${#temporals.format(curso.fechaFinInscripcion, 'dd/MM/yyyy')}"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Aún no comienzan -->
+                                    <div th:if="${!curso.inscripcionDisponibleHoy and curso.fechaInicioInscripcion != null and #temporals.createNow().toLocalDate().isBefore(curso.fechaInicioInscripcion)}">
+                                        <button class="btn btn-warning w-100" disabled>
+                                            <i class="bi bi-clock me-1"></i>Inscripciones abren el
+                                            <span th:text="${#temporals.format(curso.fechaInicioInscripcion, 'dd/MM/yyyy')}"></span>
+                                        </button>
+                                    </div>
+                                    <!-- Cerradas -->
+                                    <div th:if="${!curso.inscripcionDisponibleHoy and (curso.fechaInicioInscripcion == null or !#temporals.createNow().toLocalDate().isBefore(curso.fechaInicioInscripcion))}">
+                                        <button class="btn btn-secondary w-100" disabled>
+                                            <i class="bi bi-lock me-1"></i>Inscripciones cerradas
+                                        </button>
                                     </div>
                                 </div>
-                                <!-- Aún no comienzan -->
-                                <div th:if="${!curso.inscripcionDisponibleHoy and curso.fechaInicioInscripcion != null and #temporals.createNow().toLocalDate().isBefore(curso.fechaInicioInscripcion)}">
-                                    <button class="btn btn-warning w-100" disabled>
-                                        <i class="bi bi-clock me-1"></i>Inscripciones abren el
-                                        <span th:text="${#temporals.format(curso.fechaInicioInscripcion, 'dd/MM/yyyy')}"></span>
-                                    </button>
-                                </div>
-                                <!-- Cerradas -->
-                                <div th:if="${!curso.inscripcionDisponibleHoy and (curso.fechaInicioInscripcion == null or !#temporals.createNow().toLocalDate().isBefore(curso.fechaInicioInscripcion))}">
-                                    <button class="btn btn-secondary w-100" disabled>
-                                        <i class="bi bi-lock me-1"></i>Inscripciones cerradas
-                                    </button>
-                                </div>
+
                             </div>
 
                         </div>
@@ -114,7 +188,7 @@
             <!-- Columna derecha: info + videos -->
             <div class="col-lg-8">
                 <h1 class="fw-bold mb-1" style="color:#003366;" th:text="${curso.nombre}"></h1>
-                <p class="text-muted mb-4" th:text="${curso.descripcion}"></p>
+                <p class="text-muted mb-4" style="text-align:justify;" th:text="${curso.descripcion}"></p>
 
                 <!-- Botones admin -->
                 <div class="d-flex gap-2 mb-4" sec:authorize="hasRole('ADMIN')">

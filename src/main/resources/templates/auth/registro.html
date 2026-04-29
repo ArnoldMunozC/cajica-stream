@@ -27,7 +27,7 @@
                                         <input class="form-control" id="nombreCompleto"
                                                th:field="*{nombreCompleto}" type="text"
                                                placeholder="Nombres y Apellidos" required
-                                               style="text-transform:lowercase;" />
+                                               style="text-transform:uppercase;" />
                                         <label for="nombreCompleto">Nombres y Apellidos</label>
                                     </div>
                                     <div class="text-danger small mt-1"
@@ -191,7 +191,7 @@
         <script>
             document.getElementById('nombreCompleto').addEventListener('input', function() {
                 const pos = this.selectionStart;
-                this.value = this.value.toLowerCase();
+                this.value = this.value.toUpperCase();
                 this.setSelectionRange(pos, pos);
             });
             const docInput = document.getElementById('numeroIdentificacion');

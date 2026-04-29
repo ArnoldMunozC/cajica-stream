@@ -20,6 +20,13 @@ public interface QuizIntentoRepository extends JpaRepository<QuizIntento, Long> 
   List<QuizIntento> findByQuizId(Long quizId);
 
   @org.springframework.data.jpa.repository.Query(
+      "SELECT qi FROM QuizIntento qi WHERE qi.usuario.id = :usuarioId AND qi.quiz.curso.id ="
+          + " :cursoId")
+  List<QuizIntento> findByUsuarioIdAndCursoId(
+      @org.springframework.data.repository.query.Param("usuarioId") Long usuarioId,
+      @org.springframework.data.repository.query.Param("cursoId") Long cursoId);
+
+  @org.springframework.data.jpa.repository.Query(
       "SELECT DISTINCT qi.quiz.id FROM QuizIntento qi WHERE qi.usuario.id = :usuarioId AND"
           + " qi.quiz.curso.id = :cursoId AND qi.aprobado = true")
   java.util.Set<Long> findQuizIdsAprobadosByUsuarioIdAndCursoId(
