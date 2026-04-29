@@ -9,6 +9,8 @@ import com.cajica.stream.services.CertificadoService.ElegibilidadCertificado;
 import com.cajica.stream.services.CursoService;
 import com.cajica.stream.services.UsuarioService;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,8 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/certificados")
@@ -103,7 +103,8 @@ public class CertificadoController {
   @ResponseBody
   public ResponseEntity<byte[]> descargarCertificado(@PathVariable("cursoId") Long cursoId) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    logger.info("Descarga de certificado solicitada. username={}, cursoId={}", auth.getName(), cursoId);
+    logger.info(
+        "Descarga de certificado solicitada. username={}, cursoId={}", auth.getName(), cursoId);
     Optional<Usuario> usuarioOpt = usuarioService.findByUsername(auth.getName());
 
     if (usuarioOpt.isEmpty()) {
@@ -123,8 +124,7 @@ public class CertificadoController {
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_PDF);
       headers.setContentDispositionFormData(
-          "attachment",
-          "certificado_" + certificadoOpt.get().getCodigoVerificacion() + ".pdf");
+          "attachment", "certificado_" + certificadoOpt.get().getCodigoVerificacion() + ".pdf");
 
       return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     } catch (Exception e) {
@@ -136,6 +136,17 @@ public class CertificadoController {
           e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+  }
+
+  @GetMapping("/verificar")
+  public String mostrarFormularioVerificacion() {
+    return "certificados/verificar-form";
+  }
+
+  @org.springframework.web.bind.annotation.PostMapping("/verificar")
+  public String buscarCertificado(
+      @org.springframework.web.bind.annotation.RequestParam("codigo") String codigo) {
+    return "redirect:/certificados/verificar/" + codigo.trim().toUpperCase();
   }
 
   @GetMapping("/verificar/{codigo}")
@@ -168,7 +179,8 @@ public class CertificadoController {
 
   @GetMapping("/debug/usuario/{usuarioId}/curso/{cursoId}")
   @ResponseBody
-  public ResponseEntity<String> debugElegibilidad(@PathVariable("usuarioId") Long usuarioId, @PathVariable("cursoId") Long cursoId) {
+  public ResponseEntity<String> debugElegibilidad(
+      @PathVariable("usuarioId") Long usuarioId, @PathVariable("cursoId") Long cursoId) {
     Optional<Usuario> usuarioOpt = usuarioService.findById(usuarioId);
     Optional<Curso> cursoOpt = cursoService.findById(cursoId);
 
@@ -183,8 +195,16 @@ public class CertificadoController {
 
     StringBuilder sb = new StringBuilder();
     sb.append("=== DEBUG ELEGIBILIDAD CERTIFICADO ===\n");
-    sb.append("Usuario: ").append(usuario.getUsername()).append(" (ID: ").append(usuario.getId()).append(")\n");
-    sb.append("Curso: ").append(curso.getNombre()).append(" (ID: ").append(curso.getId()).append(")\n\n");
+    sb.append("Usuario: ")
+        .append(usuario.getUsername())
+        .append(" (ID: ")
+        .append(usuario.getId())
+        .append(")\n");
+    sb.append("Curso: ")
+        .append(curso.getNombre())
+        .append(" (ID: ")
+        .append(curso.getId())
+        .append(")\n\n");
 
     sb.append("VIDEOS:\n");
     sb.append("  - Total videos: ").append(elegibilidad.getTotalVideos()).append("\n");
@@ -195,7 +215,9 @@ public class CertificadoController {
     sb.append("  - Total quizzes: ").append(elegibilidad.getTotalQuizzes()).append("\n");
     sb.append("  - Quizzes aprobados: ").append(elegibilidad.getQuizzesAprobados()).append("\n");
     sb.append("  - Quizzes completos: ").append(elegibilidad.isQuizzesCompletos()).append("\n");
-    sb.append("  - Nota promedio: ").append(String.format("%.2f%%", elegibilidad.getNotaPromedio())).append("\n\n");
+    sb.append("  - Nota promedio: ")
+        .append(String.format("%.2f%%", elegibilidad.getNotaPromedio()))
+        .append("\n\n");
 
     sb.append("ELEGIBLE: ").append(elegibilidad.isElegible() ? "SÍ ✓" : "NO ✗").append("\n");
 

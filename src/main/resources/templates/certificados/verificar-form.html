@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Verificar Certificado - Cajicá Stream</title>
+</head>
+<body>
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="card">
+                <div class="card-header text-white text-center py-3"
+                     style="background:linear-gradient(135deg,#003366,#0b63a8);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-patch-check me-2"></i>Verificar Autenticidad de Certificado
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted small text-center mb-4">
+                        Ingresa el código de verificación que aparece impreso en el certificado.
+                    </p>
+                    <form th:action="@{/certificados/verificar}" method="post">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-upc-scan"></i></span>
+                            <input type="text" class="form-control form-control-lg"
+                                   name="codigo"
+                                   placeholder="Ej: CERT-493D8A32"
+                                   style="text-transform:uppercase;letter-spacing:0.05em;"
+                                   required
+                                   autofocus>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg fw-semibold">
+                                <i class="bi bi-search me-2"></i>Verificar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
