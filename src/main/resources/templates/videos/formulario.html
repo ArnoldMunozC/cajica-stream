@@ -52,10 +52,9 @@
                     <div class="mb-3">
                         <label for="videoUrl" class="form-label">URL del Video (recomendado)</label>
                         <input type="text" class="form-control" id="videoUrl" name="videoUrl"
-                               th:value="${video.videoUrl}">
-                        <div class="form-text">
-                            Puedes usar URLs de YouTube, Vimeo o enlaces directos a archivos de video. <strong>Recomendado para videos de mayor tamaño.</strong>
-                        </div>
+                               th:value="${video.videoUrl}" placeholder="https://www.youtube.com/watch?v=...">
+                        <div class="form-text">Puedes usar URLs de YouTube. <strong>Recomendado para videos de mayor tamaño.</strong></div>
+                        <div id="duracionStatus" class="mt-1 small"></div>
                     </div>
 
                     <div class="mb-3">
@@ -71,14 +70,94 @@
                         </div>
                     </div>
 
+                    <input type="hidden" id="duracion" name="duracion" th:value="${video.duracion}">
                     <div class="mb-3">
-                        <label for="duracion" class="form-label">Duración (segundos)</label>
-                        <input type="number" class="form-control" id="duracion" name="duracion"
-                               th:value="${video.duracion}" min="1">
-                        <div class="form-text">
-                            Duración del video en segundos (opcional).
-                        </div>
+                        <label class="form-label">Duración detectada</label>
+                        <input type="text" class="form-control" id="duracionVisible" readonly
+                               style="background-color:#f8f9fc; cursor:default;"
+                               th:value="${video.duracion != null ? (#numbers.formatInteger(video.duracion / 3600, 2) + ':' + #numbers.formatInteger((video.duracion % 3600) / 60, 2) + ':' + #numbers.formatInteger(video.duracion % 60, 2)) : ''}"
+                               placeholder="Se detecta automáticamente">
                     </div>
+
+                    <!-- Player oculto para detectar duración de YouTube -->
+                    <div id="ytPlayerContainer" style="display:none;position:absolute;left:-9999px;">
+                        <div id="ytPlayerTemp"></div>
+                    </div>
+
+                    <script src="https://www.youtube.com/iframe_api"></script>
+                    <script>
+                        var ytTempPlayer = null;
+                        var duracionDetectada = false;
+
+                        function onYouTubeIframeAPIReady() {}
+
+                        // Detectar automáticamente al pegar o al salir del campo
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var urlInput = document.getElementById('videoUrl');
+                            urlInput.addEventListener('blur', function() {
+                                if (extraerYoutubeId(this.value)) detectarDuracionYoutube();
+                            });
+                            urlInput.addEventListener('paste', function() {
+                                setTimeout(function() {
+                                    if (extraerYoutubeId(urlInput.value)) detectarDuracionYoutube();
+                                }, 100);
+                            });
+                        });
+
+                        function extraerYoutubeId(url) {
+                            if (!url) return null;
+                            url = url.trim();
+                            if (url.includes('youtu.be/')) {
+                                var parte = url.split('youtu.be/')[1];
+                                return parte ? parte.split('?')[0] : null;
+                            }
+                            if (url.includes('watch?v=')) {
+                                var parte = url.split('v=')[1];
+                                return parte ? parte.split('&')[0] : null;
+                            }
+                            return null;
+                        }
+
+                        function detectarDuracionYoutube() {
+                            var url = document.getElementById('videoUrl').value;
+                            var videoId = extraerYoutubeId(url);
+                            var status = document.getElementById('duracionStatus');
+
+                            if (!videoId) return;
+
+                            status.innerHTML = '<span class="text-muted"><i class="bi bi-hourglass-split me-1"></i>Detectando duración...</span>';
+                            duracionDetectada = false;
+
+                            if (ytTempPlayer) { ytTempPlayer.destroy(); ytTempPlayer = null; }
+                            document.getElementById('ytPlayerContainer').style.display = 'block';
+
+                            ytTempPlayer = new YT.Player('ytPlayerTemp', {
+                                height: '1', width: '1',
+                                videoId: videoId,
+                                playerVars: { autoplay: 0 },
+                                events: {
+                                    'onReady': function(event) {
+                                        var dur = Math.round(event.target.getDuration());
+                                        if (dur > 0 && !duracionDetectada) {
+                                            duracionDetectada = true;
+                                            document.getElementById('duracion').value = dur;
+                                            var h = Math.floor(dur / 3600);
+                                            var m = Math.floor((dur % 3600) / 60);
+                                            var s = dur % 60;
+                                            var fmt = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+                                            document.getElementById('duracionVisible').value = fmt;
+                                            status.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i>Duración detectada: ' + fmt + '</span>';
+                                        }
+                                        document.getElementById('ytPlayerContainer').style.display = 'none';
+                                    },
+                                    'onError': function() {
+                                        status.innerHTML = '';
+                                        document.getElementById('ytPlayerContainer').style.display = 'none';
+                                    }
+                                }
+                            });
+                        }
+                    </script>
 
                     <div class="mb-3">
                         <label for="orden" class="form-label">Orden</label>
@@ -89,17 +168,6 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="thumbnail" class="form-label">Miniatura</label>
-                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
-
-                        <div th:if="${video.thumbnailPath}" class="mt-2">
-                            <p>Miniatura actual:</p>
-                            <img th:src="@{'/api/cursos/images/' + ${video.thumbnailPath}}"
-                                 alt="Miniatura actual" class="img-thumbnail" style="max-height: 150px;">
-                            <p class="text-muted small">Sube una nueva imagen para reemplazar la actual</p>
-                        </div>
-                    </div>
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary">
