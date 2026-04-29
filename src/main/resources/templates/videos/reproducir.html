@@ -346,7 +346,7 @@
                                                  th:text="${itemStat.count} + '. ' + ${item.video.titulo}"></div>
                                             <div style="display:flex;align-items:center;gap:5px;margin-top:4px;font-size:0.7rem;color:#9ca3af;">
                                                 <i class="bi bi-play-circle-fill" style="color:#6d28d9;font-size:0.7rem;"></i>
-                                                <span th:if="${item.video.duracion}" th:text="${item.video.duracion / 60} + ' min'"></span>
+                                                <span th:if="${item.video.duracion}" th:text="${item.video.duracion / 60} + ' min ' + ${item.video.duracion % 60} + ' seg'"></span>
                                             </div>
                                         </div>
                                     </a>

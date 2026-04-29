@@ -48,6 +48,25 @@
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Período de inscripción <span class="text-muted fw-normal small">(opcional)</span></label>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label for="fechaInicioInscripcion" class="form-label small">Desde</label>
+                                <input type="date" class="form-control" id="fechaInicioInscripcion"
+                                       name="fechaInicioInscripcion"
+                                       th:value="${curso.fechaInicioInscripcion}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fechaFinInscripcion" class="form-label small">Hasta</label>
+                                <input type="date" class="form-control" id="fechaFinInscripcion"
+                                       name="fechaFinInscripcion"
+                                       th:value="${curso.fechaFinInscripcion}">
+                            </div>
+                        </div>
+                        <div class="form-text">Si se configuran fechas, las inscripciones solo estarán disponibles durante ese período.</div>
+                    </div>
+
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary">
                             <i class="bi" th:classappend="${accion == 'crear' ? 'bi-plus-circle' : 'bi-check-circle'}"></i>

@@ -3,6 +3,7 @@ package com.cajica.stream.services;
 import com.cajica.stream.entities.Curso;
 import com.cajica.stream.entities.Video;
 import com.cajica.stream.repositories.CursoRepository;
+import com.cajica.stream.repositories.MaterialPdfRepository;
 import com.cajica.stream.repositories.VideoRepository;
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +17,27 @@ public class VideoService {
   private final VideoRepository videoRepository;
   private final CursoRepository cursoRepository;
   private final FileStorageService fileStorageService;
+  private final MaterialPdfRepository materialPdfRepository;
 
   @Autowired
   public VideoService(
       VideoRepository videoRepository,
       CursoRepository cursoRepository,
-      FileStorageService fileStorageService) {
+      FileStorageService fileStorageService,
+      MaterialPdfRepository materialPdfRepository) {
     this.videoRepository = videoRepository;
     this.cursoRepository = cursoRepository;
     this.fileStorageService = fileStorageService;
+    this.materialPdfRepository = materialPdfRepository;
+  }
+
+  private int calcularSiguienteOrden(Long cursoId, String seccion) {
+    Integer maxVideo = videoRepository.findMaxOrdenByCursoIdAndSeccion(cursoId, seccion);
+    Integer maxPdf = materialPdfRepository.findMaxOrdenByCursoIdAndSeccion(cursoId, seccion);
+    int max = 0;
+    if (maxVideo != null && maxVideo > max) max = maxVideo;
+    if (maxPdf != null && maxPdf > max) max = maxPdf;
+    return max + 1;
   }
 
   public List<Video> findAll() {
@@ -42,8 +55,7 @@ public class VideoService {
   public Video save(Video video) {
     // Si no se especifica un orden, asignar el siguiente número
     if (video.getOrden() == null) {
-      Long count = videoRepository.countByCursoId(video.getCurso().getId());
-      video.setOrden(count.intValue() + 1);
+      video.setOrden(calcularSiguienteOrden(video.getCurso().getId(), video.getSeccion()));
     }
     return videoRepository.save(video);
   }
@@ -57,8 +69,7 @@ public class VideoService {
 
     // Si no se especifica un orden, asignar el siguiente número
     if (video.getOrden() == null) {
-      Long count = videoRepository.countByCursoId(video.getCurso().getId());
-      video.setOrden(count.intValue() + 1);
+      video.setOrden(calcularSiguienteOrden(video.getCurso().getId(), video.getSeccion()));
     }
 
     return videoRepository.save(video);
@@ -79,8 +90,7 @@ public class VideoService {
 
     // Si no se especifica un orden, asignar el siguiente número
     if (video.getOrden() == null) {
-      Long count = videoRepository.countByCursoId(video.getCurso().getId());
-      video.setOrden(count.intValue() + 1);
+      video.setOrden(calcularSiguienteOrden(video.getCurso().getId(), video.getSeccion()));
     }
 
     return videoRepository.save(video);
@@ -100,8 +110,7 @@ public class VideoService {
 
       // Si no se especifica un orden, asignar el siguiente número
       if (video.getOrden() == null) {
-        Long count = videoRepository.countByCursoId(cursoId);
-        video.setOrden(count.intValue() + 1);
+        video.setOrden(calcularSiguienteOrden(cursoId, video.getSeccion()));
       }
 
       return videoRepository.save(video);
@@ -130,8 +139,7 @@ public class VideoService {
 
       // Si no se especifica un orden, asignar el siguiente número
       if (video.getOrden() == null) {
-        Long count = videoRepository.countByCursoId(cursoId);
-        video.setOrden(count.intValue() + 1);
+        video.setOrden(calcularSiguienteOrden(cursoId, video.getSeccion()));
       }
 
       return videoRepository.save(video);

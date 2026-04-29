@@ -1,6 +1,7 @@
 package com.cajica.stream.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,19 @@ public class Curso {
 
   @Column(name = "inscripciones_abiertas", nullable = false)
   private boolean inscripcionesAbiertas = true;
+
+  @Column(name = "fecha_inicio_inscripcion")
+  private LocalDate fechaInicioInscripcion;
+
+  @Column(name = "fecha_fin_inscripcion")
+  private LocalDate fechaFinInscripcion;
+
+  public boolean isInscripcionDisponibleHoy() {
+    LocalDate hoy = LocalDate.now();
+    if (fechaInicioInscripcion != null && hoy.isBefore(fechaInicioInscripcion)) return false;
+    if (fechaFinInscripcion != null && hoy.isAfter(fechaFinInscripcion)) return false;
+    return true;
+  }
 
   @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Video> videos = new ArrayList<>();
