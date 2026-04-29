@@ -85,7 +85,8 @@ public class QuizService {
       LocalDateTime disponibleDesde = ultimoDelCiclo.getFechaCreacion().plusDays(diasEspera);
       if (LocalDateTime.now().isBefore(disponibleDesde)) {
         DateTimeFormatter fmt =
-            DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy", new java.util.Locale("es", "ES"));
+            DateTimeFormatter.ofPattern(
+                "d 'de' MMMM 'de' yyyy 'a las' HH:mm", new java.util.Locale("es", "ES"));
         throw new IllegalStateException(
             "Has alcanzado el número máximo de intentos. Podrás reintentar el "
                 + disponibleDesde.format(fmt));

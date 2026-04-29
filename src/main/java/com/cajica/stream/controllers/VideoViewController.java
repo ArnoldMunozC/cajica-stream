@@ -585,7 +585,7 @@ public class VideoViewController {
           java.util.Map<Long, String> quizFechaDisponibleMap = new java.util.HashMap<>();
           java.time.format.DateTimeFormatter fmtFecha =
               java.time.format.DateTimeFormatter.ofPattern(
-                  "dd/MM/yyyy", new java.util.Locale("es", "ES"));
+                  "dd/MM/yyyy 'a las' HH:mm", new java.util.Locale("es", "ES"));
           quizIntentoRepository
               .findQuizIdsIntentatosByUsuarioIdAndCursoId(usuarioId, cursoId)
               .forEach(

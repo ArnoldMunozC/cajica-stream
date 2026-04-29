@@ -49,35 +49,33 @@
 
                             <!-- No inscrito -->
                             <div th:if="${inscrito == false}" class="d-grid">
-                                <div th:if="${inscripcionesAbiertas == true}">
+                                <!-- Disponible hoy -->
+                                <div th:if="${curso.inscripcionDisponibleHoy}">
                                     <form th:action="@{/cursos/{id}/inscribir(id=${curso.id})}" method="post">
                                         <button type="submit" class="btn btn-success w-100 fw-semibold py-2">
                                             <i class="bi bi-check-circle me-1"></i>Inscribirse gratis
                                         </button>
                                     </form>
+                                    <div th:if="${curso.fechaFinInscripcion != null}" class="text-muted small text-center mt-1">
+                                        <i class="bi bi-calendar me-1"></i>Inscripciones abiertas hasta
+                                        <span th:text="${#temporals.format(curso.fechaFinInscripcion, 'dd/MM/yyyy')}"></span>
+                                    </div>
                                 </div>
-                                <div th:if="${inscripcionesAbiertas == false}">
+                                <!-- Aún no comienzan -->
+                                <div th:if="${!curso.inscripcionDisponibleHoy and curso.fechaInicioInscripcion != null and #temporals.createNow().toLocalDate().isBefore(curso.fechaInicioInscripcion)}">
+                                    <button class="btn btn-warning w-100" disabled>
+                                        <i class="bi bi-clock me-1"></i>Inscripciones abren el
+                                        <span th:text="${#temporals.format(curso.fechaInicioInscripcion, 'dd/MM/yyyy')}"></span>
+                                    </button>
+                                </div>
+                                <!-- Cerradas -->
+                                <div th:if="${!curso.inscripcionDisponibleHoy and (curso.fechaInicioInscripcion == null or !#temporals.createNow().toLocalDate().isBefore(curso.fechaInicioInscripcion))}">
                                     <button class="btn btn-secondary w-100" disabled>
                                         <i class="bi bi-lock me-1"></i>Inscripciones cerradas
                                     </button>
                                 </div>
                             </div>
 
-                            <!-- Control admin inscripciones -->
-                            <div class="mt-3" sec:authorize="hasRole('ADMIN')">
-                                <form th:if="${inscripcionesAbiertas == true}"
-                                      th:action="@{/cursos/{id}/inscripciones/deshabilitar(id=${curso.id})}" method="post">
-                                    <button type="submit" class="btn btn-outline-secondary w-100 btn-sm">
-                                        <i class="bi bi-lock me-1"></i>Cerrar inscripciones
-                                    </button>
-                                </form>
-                                <form th:if="${inscripcionesAbiertas == false}"
-                                      th:action="@{/cursos/{id}/inscripciones/habilitar(id=${curso.id})}" method="post">
-                                    <button type="submit" class="btn btn-outline-success w-100 btn-sm">
-                                        <i class="bi bi-unlock me-1"></i>Abrir inscripciones
-                                    </button>
-                                </form>
-                            </div>
                         </div>
 
                         <!-- No autenticado -->

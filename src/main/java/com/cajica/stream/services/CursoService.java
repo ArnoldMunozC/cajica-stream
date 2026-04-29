@@ -140,8 +140,9 @@ public class CursoService {
       curso.setNombre(cursoDetails.getNombre());
       curso.setDescripcion(cursoDetails.getDescripcion());
       curso.setCategoria(cursoDetails.getCategoria());
+      curso.setFechaInicioInscripcion(cursoDetails.getFechaInicioInscripcion());
+      curso.setFechaFinInscripcion(cursoDetails.getFechaFinInscripcion());
 
-      // Actualizar la imagen si se proporciona una nueva
       if (imagen != null && !imagen.isEmpty()) {
         String imagenPath = fileStorageService.storeFile(imagen);
         curso.setImagenPath(imagenPath);

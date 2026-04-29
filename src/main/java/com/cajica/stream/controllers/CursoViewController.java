@@ -160,32 +160,6 @@ public class CursoViewController {
     return "redirect:/cursos/" + id;
   }
 
-  @PostMapping("/{id}/inscripciones/deshabilitar")
-  @PreAuthorize("hasRole('ADMIN')")
-  public String deshabilitarInscripciones(
-      @PathVariable Long id, RedirectAttributes redirectAttributes) {
-    boolean ok = cursoService.disableInscripciones(id);
-    if (ok) {
-      redirectAttributes.addFlashAttribute("mensaje", "Inscripciones deshabilitadas.");
-    } else {
-      redirectAttributes.addFlashAttribute("error", "Curso no encontrado.");
-    }
-    return "redirect:/cursos/" + id;
-  }
-
-  @PostMapping("/{id}/inscripciones/habilitar")
-  @PreAuthorize("hasRole('ADMIN')")
-  public String habilitarInscripciones(
-      @PathVariable Long id, RedirectAttributes redirectAttributes) {
-    boolean ok = cursoService.enableInscripciones(id);
-    if (ok) {
-      redirectAttributes.addFlashAttribute("mensaje", "Inscripciones habilitadas.");
-    } else {
-      redirectAttributes.addFlashAttribute("error", "Curso no encontrado.");
-    }
-    return "redirect:/cursos/" + id;
-  }
-
   @GetMapping("/nuevo")
   @PreAuthorize("hasRole('ADMIN')")
   public String mostrarFormularioNuevo(Model model) {
