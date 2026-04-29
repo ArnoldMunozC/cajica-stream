@@ -1,0 +1,27 @@
+src/main/java/com/cajica/stream/services/VideoService.java
+  a20b804e50e661ae 6,20,26-27,31-40,58,72,93,113,142
+src/main/resources/templates/videos/formulario.html
+  a20b804e50e661ae 55-57,73,75-79,82-160
+src/main/resources/templates/videos/reproducir.html
+  a20b804e50e661ae 349
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "bdb92509749dd8eabf2f1d60c89e254c6015fc3f",
+  "prompts": {
+    "a20b804e50e661ae": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cea1ebf5-3c00-4eb7-8129-a0945f109b52",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "arnmunoz_meli",
+      "messages": [],
+      "total_additions": 136,
+      "total_deletions": 60,
+      "accepted_lines": 112,
+      "overriden_lines": 0
+    }
+  }
+}
