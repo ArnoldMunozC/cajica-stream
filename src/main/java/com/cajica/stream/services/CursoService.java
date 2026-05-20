@@ -1,10 +1,10 @@
 package com.cajica.stream.services;
 
 import com.cajica.stream.entities.Curso;
-import com.cajica.stream.entities.QuizIntento;
 import com.cajica.stream.repositories.ContenidoProgresoRepository;
 import com.cajica.stream.repositories.CursoRepository;
 import com.cajica.stream.repositories.QuizIntentoRepository;
+import com.cajica.stream.repositories.QuizRespuestaRepository;
 import com.cajica.stream.repositories.VideoProgresoRepository;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +22,7 @@ public class CursoService {
   private final FileStorageService fileStorageService;
   private final VideoProgresoRepository videoProgresoRepository;
   private final QuizIntentoRepository quizIntentoRepository;
+  private final QuizRespuestaRepository quizRespuestaRepository;
   private final ContenidoProgresoRepository contenidoProgresoRepository;
 
   @Autowired
@@ -30,20 +31,21 @@ public class CursoService {
       FileStorageService fileStorageService,
       VideoProgresoRepository videoProgresoRepository,
       QuizIntentoRepository quizIntentoRepository,
+      QuizRespuestaRepository quizRespuestaRepository,
       ContenidoProgresoRepository contenidoProgresoRepository) {
     this.cursoRepository = cursoRepository;
     this.fileStorageService = fileStorageService;
     this.videoProgresoRepository = videoProgresoRepository;
     this.quizIntentoRepository = quizIntentoRepository;
+    this.quizRespuestaRepository = quizRespuestaRepository;
     this.contenidoProgresoRepository = contenidoProgresoRepository;
   }
 
   @Transactional
   public void reiniciarProgreso(Long usuarioId, Long cursoId) {
+    quizRespuestaRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
+    quizIntentoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
     videoProgresoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
-    List<QuizIntento> intentos =
-        quizIntentoRepository.findByUsuarioIdAndCursoId(usuarioId, cursoId);
-    quizIntentoRepository.deleteAll(intentos);
     contenidoProgresoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
   }
 

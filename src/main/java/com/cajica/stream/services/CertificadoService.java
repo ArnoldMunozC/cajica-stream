@@ -2,6 +2,10 @@ package com.cajica.stream.services;
 
 import com.cajica.stream.entities.*;
 import com.cajica.stream.repositories.CertificadoRepository;
+import com.cajica.stream.repositories.ContenidoProgresoRepository;
+import com.cajica.stream.repositories.QuizIntentoRepository;
+import com.cajica.stream.repositories.QuizRespuestaRepository;
+import com.cajica.stream.repositories.VideoProgresoRepository;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -9,6 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CertificadoService {
@@ -16,6 +21,10 @@ public class CertificadoService {
   private static final double NOTA_MINIMA_APROBACION = 70.0;
 
   @Autowired private CertificadoRepository certificadoRepository;
+  @Autowired private VideoProgresoRepository videoProgresoRepository;
+  @Autowired private QuizIntentoRepository quizIntentoRepository;
+  @Autowired private QuizRespuestaRepository quizRespuestaRepository;
+  @Autowired private ContenidoProgresoRepository contenidoProgresoRepository;
 
   @Autowired private VideoProgresoService videoProgresoService;
 
@@ -103,6 +112,7 @@ public class CertificadoService {
 
   private static final int DIAS_VENTANA_RENOVACION = 30;
 
+  @Transactional
   public Certificado generarCertificado(Usuario usuario, Curso curso) {
     ElegibilidadCertificado elegibilidad = verificarElegibilidad(usuario, curso);
     if (!elegibilidad.isElegible()) {
@@ -111,6 +121,8 @@ public class CertificadoService {
 
     Optional<Certificado> existente =
         certificadoRepository.findByUsuarioIdAndCursoId(usuario.getId(), curso.getId());
+
+    Certificado certificadoGuardado;
 
     if (existente.isPresent()) {
       Certificado cert = existente.get();
@@ -129,21 +141,40 @@ public class CertificadoService {
         cert.setTotalVideos(elegibilidad.getTotalVideos());
         cert.setQuizzesAprobados(elegibilidad.getQuizzesAprobados());
         cert.setTotalQuizzes(elegibilidad.getTotalQuizzes());
-        return certificadoRepository.save(cert);
+        certificadoGuardado = certificadoRepository.save(cert);
+      } else {
+        // Certificado aún vigente y fuera de ventana: devolver el existente sin cambios
+        return cert;
       }
-
-      // Certificado aún vigente y fuera de ventana: devolver el existente sin cambios
-      return cert;
+    } else {
+      // Primer certificado
+      Certificado certificado = new Certificado(usuario, curso, generarCodigoVerificacion());
+      certificado.setNotaPromedio(elegibilidad.getNotaPromedio());
+      certificado.setVideosCompletados(elegibilidad.getVideosCompletados());
+      certificado.setTotalVideos(elegibilidad.getTotalVideos());
+      certificado.setQuizzesAprobados(elegibilidad.getQuizzesAprobados());
+      certificado.setTotalQuizzes(elegibilidad.getTotalQuizzes());
+      certificadoGuardado = certificadoRepository.save(certificado);
     }
 
-    // Primer certificado
-    Certificado certificado = new Certificado(usuario, curso, generarCodigoVerificacion());
-    certificado.setNotaPromedio(elegibilidad.getNotaPromedio());
-    certificado.setVideosCompletados(elegibilidad.getVideosCompletados());
-    certificado.setTotalVideos(elegibilidad.getTotalVideos());
-    certificado.setQuizzesAprobados(elegibilidad.getQuizzesAprobados());
-    certificado.setTotalQuizzes(elegibilidad.getTotalQuizzes());
-    return certificadoRepository.save(certificado);
+    // Reiniciar progreso al emitir el certificado: el usuario debe completar
+    // el curso completo para renovarlo cuando venza.
+    reiniciarProgreso(usuario.getId(), curso.getId());
+
+    return certificadoGuardado;
+  }
+
+  public boolean estaExpirado(Certificado certificado) {
+    LocalDateTime vigencia = certificado.getFechaVigencia();
+    return vigencia == null || !vigencia.isAfter(LocalDateTime.now());
+  }
+
+  @Transactional
+  public void reiniciarProgreso(Long usuarioId, Long cursoId) {
+    quizRespuestaRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
+    quizIntentoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
+    videoProgresoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
+    contenidoProgresoRepository.deleteByUsuarioIdAndCursoId(usuarioId, cursoId);
   }
 
   private String generarCodigoVerificacion() {
@@ -154,6 +185,7 @@ public class CertificadoService {
    * Intenta generar automáticamente el certificado si el usuario cumple todos los requisitos.
    * Retorna el certificado si se generó, null si no cumple requisitos o ya lo tiene.
    */
+  @Transactional
   public Certificado intentarGenerarAutomaticamente(String username, Long cursoId) {
     Optional<Usuario> usuarioOpt = usuarioService.findByUsername(username);
     if (usuarioOpt.isEmpty()) {

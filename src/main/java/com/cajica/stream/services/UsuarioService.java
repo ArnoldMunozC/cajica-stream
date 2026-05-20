@@ -73,9 +73,17 @@ public class UsuarioService {
 
   @Transactional
   public Usuario registrarUsuario(Usuario usuario) {
-    // Normalizar nombre completo a minúsculas
+    // Capitalizar cada palabra del nombre completo
     if (usuario.getNombreCompleto() != null) {
-      usuario.setNombreCompleto(usuario.getNombreCompleto().trim().toLowerCase());
+      String[] palabras = usuario.getNombreCompleto().trim().toLowerCase().split("\\s+");
+      StringBuilder sb = new StringBuilder();
+      for (String palabra : palabras) {
+        if (!palabra.isEmpty()) {
+          if (sb.length() > 0) sb.append(" ");
+          sb.append(Character.toUpperCase(palabra.charAt(0))).append(palabra.substring(1));
+        }
+      }
+      usuario.setNombreCompleto(sb.toString());
     }
 
     // Formatear número de identificación con puntos (ej: 1234567 → 1.234.567)

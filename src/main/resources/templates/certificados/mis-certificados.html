@@ -31,14 +31,16 @@
             <div class="card h-100 overflow-hidden">
                 <!-- Header con gradiente -->
                 <div class="p-3 text-white"
-                     style="background:linear-gradient(135deg,#003366,#0b63a8);">
+                     th:style="${certificado.fechaVigencia != null and certificado.fechaVigencia.isBefore(#temporals.createNow()) ? 'background:linear-gradient(135deg,#6c757d,#495057)' : 'background:linear-gradient(135deg,#003366,#0b63a8)'}">
                     <div class="d-flex align-items-start gap-2">
                         <i class="bi bi-patch-check-fill fs-4 mt-1" style="color:#B89D66;"></i>
-                        <div>
+                        <div class="flex-grow-1">
                             <h6 class="mb-0 fw-semibold lh-sm"
                                 th:text="${certificado.curso.nombre}">Nombre del Curso</h6>
                             <small class="opacity-75">Certificado oficial</small>
                         </div>
+                        <span th:if="${certificado.fechaVigencia != null and certificado.fechaVigencia.isBefore(#temporals.createNow())}"
+                              class="badge bg-danger align-self-start">Vencido</span>
                     </div>
                 </div>
 

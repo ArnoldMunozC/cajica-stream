@@ -8,6 +8,7 @@ import com.cajica.stream.services.CertificadoService;
 import com.cajica.stream.services.CertificadoService.ElegibilidadCertificado;
 import com.cajica.stream.services.CursoService;
 import com.cajica.stream.services.UsuarioService;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,8 +60,16 @@ public class CertificadoController {
         certificadoService.findByUsuarioAndCurso(usuario.getId(), cursoId);
 
     if (certificadoExistente.isPresent()) {
-      model.addAttribute("certificado", certificadoExistente.get());
+      Certificado cert = certificadoExistente.get();
+      boolean expirado = certificadoService.estaExpirado(cert);
+      model.addAttribute("certificado", cert);
       model.addAttribute("tieneCertificado", true);
+      model.addAttribute("certificadoExpirado", expirado);
+      if (!expirado) {
+        long diasRestantes =
+            ChronoUnit.DAYS.between(java.time.LocalDateTime.now(), cert.getFechaVigencia());
+        model.addAttribute("diasRestantes", diasRestantes);
+      }
     } else {
       ElegibilidadCertificado elegibilidad =
           certificadoService.verificarElegibilidad(usuario, curso);
@@ -136,6 +145,33 @@ public class CertificadoController {
           e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+  }
+
+  @PostMapping("/curso/{cursoId}/renovar")
+  public String renovarCertificado(
+      @PathVariable("cursoId") Long cursoId, RedirectAttributes redirectAttributes) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    Optional<Usuario> usuarioOpt = usuarioService.findByUsername(auth.getName());
+
+    if (usuarioOpt.isEmpty()) {
+      return "redirect:/cursos";
+    }
+
+    Optional<Certificado> certificadoOpt =
+        certificadoService.findByUsuarioAndCurso(usuarioOpt.get().getId(), cursoId);
+
+    if (certificadoOpt.isEmpty() || !certificadoService.estaExpirado(certificadoOpt.get())) {
+      redirectAttributes.addFlashAttribute(
+          "error", "No puedes renovar este certificado porque aún está vigente.");
+      return "redirect:/certificados/curso/" + cursoId + "/estado";
+    }
+
+    certificadoService.reiniciarProgreso(usuarioOpt.get().getId(), cursoId);
+    redirectAttributes.addFlashAttribute(
+        "mensaje",
+        "Tu progreso ha sido reiniciado. Completa el curso nuevamente para renovar tu"
+            + " certificado.");
+    return "redirect:/cursos/" + cursoId;
   }
 
   @GetMapping("/verificar")

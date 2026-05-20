@@ -360,6 +360,8 @@ public class VideoViewController {
       redirectAttributes.addFlashAttribute("error", e.getMessage());
       return "redirect:/cursos/" + cursoId + "/videos/" + id + "/view?quizId=" + quizId;
     } catch (Exception e) {
+      org.slf4j.LoggerFactory.getLogger(getClass())
+          .error("Error al enviar quiz cursoId={} quizId={}", cursoId, quizId, e);
       redirectAttributes.addFlashAttribute("error", "No se pudo enviar el quiz");
       return "redirect:/cursos/" + cursoId + "/videos/" + id + "/view?quizId=" + quizId;
     }

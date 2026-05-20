@@ -39,4 +39,12 @@ public interface QuizIntentoRepository extends JpaRepository<QuizIntento, Long> 
   java.util.Set<Long> findQuizIdsIntentatosByUsuarioIdAndCursoId(
       @org.springframework.data.repository.query.Param("usuarioId") Long usuarioId,
       @org.springframework.data.repository.query.Param("cursoId") Long cursoId);
+
+  @org.springframework.transaction.annotation.Transactional
+  @org.springframework.data.jpa.repository.Modifying
+  @org.springframework.data.jpa.repository.Query(
+      "DELETE FROM QuizIntento qi WHERE qi.usuario.id = :usuarioId AND qi.quiz.curso.id = :cursoId")
+  void deleteByUsuarioIdAndCursoId(
+      @org.springframework.data.repository.query.Param("usuarioId") Long usuarioId,
+      @org.springframework.data.repository.query.Param("cursoId") Long cursoId);
 }

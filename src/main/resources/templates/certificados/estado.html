@@ -18,12 +18,53 @@
         </div>
     </div>
 
-    <!-- Ya tiene certificado -->
-    <div th:if="${tieneCertificado}" class="card border-success">
+    <!-- Certificado expirado -->
+    <div th:if="${tieneCertificado and certificadoExpirado}" class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Tu certificado ha vencido</h5>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="bi bi-info-circle"></i>
+                Tu certificado venció el
+                <strong th:text="${#temporals.format(certificado.fechaVigencia, 'dd/MM/yyyy')}"></strong>.
+                Para renovarlo debes repetir el curso completo.
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p class="mb-1 text-muted small">Último certificado emitido</p>
+                    <p th:text="${#temporals.format(certificado.fechaEmision, 'dd/MM/yyyy')}"></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-1 text-muted small">Código anterior</p>
+                    <p class="text-muted" th:text="${certificado.codigoVerificacion}"></p>
+                </div>
+            </div>
+            <hr>
+            <p>Al iniciar la renovación se borrará tu progreso actual y deberás completar el curso nuevamente.</p>
+            <div class="d-grid gap-2 d-md-flex">
+                <form th:action="@{/certificados/curso/{id}/renovar(id=${curso.id})}" method="post">
+                    <button type="submit" class="btn btn-danger btn-lg"
+                            onclick="return confirm('¿Estás seguro? Se borrará todo tu progreso y deberás repetir el curso.')">
+                        <i class="bi bi-arrow-repeat"></i> Iniciar renovación
+                    </button>
+                </form>
+                <a th:href="@{/certificados/curso/{id}/descargar(id=${curso.id})}" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-download"></i> Descargar certificado vencido
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificado vigente -->
+    <div th:if="${tieneCertificado and !certificadoExpirado}" class="card border-success">
         <div class="card-header bg-success text-white">
             <h5 class="mb-0"><i class="bi bi-award"></i> ¡Felicitaciones! Ya tienes tu certificado</h5>
         </div>
         <div class="card-body">
+            <div th:if="${diasRestantes <= 30}" class="alert alert-warning mb-3">
+                <i class="bi bi-clock"></i> Tu certificado vence en <strong th:text="${diasRestantes}"></strong> días.
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Código de verificación:</strong></p>
