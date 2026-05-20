@@ -1,0 +1,56 @@
+src/main/java/com/cajica/stream/repositories/QuizRespuestaRepository.java
+  s_c59cb9c2684a00::t_c3617302d97f5e 6-8,10,15-18,21-22
+src/main/java/com/cajica/stream/controllers/VideoViewController.java
+  s_c59cb9c2684a00::t_ec485eebb9bc30 363-364
+src/main/java/com/cajica/stream/services/CursoService.java
+  s_c59cb9c2684a00::t_2e9cb86093bd1f 25,34,40,46-47
+  s_c59cb9c2684a00::t_b7fe4949ab1d91 7
+src/main/java/com/cajica/stream/services/CertificadoService.java
+  s_c59cb9c2684a00::t_f69d9730c0d55b 188
+  s_c59cb9c2684a00::t_948ca30235a6ee 160-163
+  s_c59cb9c2684a00::t_43be2f4c40f44c 174
+  s_c59cb9c2684a00::t_fa5ae8b8b6cc3e 125-126,144-147,149-157,164
+  s_c59cb9c2684a00::t_5d2ad7491ff341 176
+  s_c59cb9c2684a00::t_f30e4e00ced845 7
+  s_c59cb9c2684a00::t_549d3a5bb90c10 26
+  s_c59cb9c2684a00::t_7618c9d9d3a149 115
+src/main/java/com/cajica/stream/entities/Usuario.java
+  s_c59cb9c2684a00::t_b59dfe599bd777 19
+  s_c59cb9c2684a00::t_3b4ef0b2e2db9a 9,13
+src/main/java/com/cajica/stream/controllers/CertificadoController.java
+  s_c59cb9c2684a00::t_a19c2a86504930 160-168
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "6bee33fb62eb96155b05ab7c3fa1350751bece27",
+  "prompts": {
+    "a20b804e50e661ae": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cea1ebf5-3c00-4eb7-8129-a0945f109b52",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "arnmunoz_meli <arnold.munoz@mercadolibre.com.co>",
+      "total_additions": 471,
+      "total_deletions": 0,
+      "accepted_lines": 468,
+      "overriden_lines": 3
+    }
+  },
+  "humans": {
+    "h_08328dffd991d9": {
+      "author": "arnmunoz_meli"
+    }
+  },
+  "sessions": {
+    "s_c59cb9c2684a00": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "40701418-8eee-4830-bc6a-92e6ca524679",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "arnmunoz_meli <arnold.munoz@mercadolibre.com.co>"
+    }
+  }
+}
